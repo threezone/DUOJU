@@ -2,3 +2,4 @@ D:\GIT\DUOJU\DUOJU.WECHAT\Domain\bin\Debug\Domain.dll
 D:\GIT\DUOJU\DUOJU.WECHAT\Domain\bin\Debug\Domain.pdb
 D:\GIT\DUOJU\DUOJU.WECHAT\Domain\obj\Debug\Domain.dll
 D:\GIT\DUOJU\DUOJU.WECHAT\Domain\obj\Debug\Domain.pdb
+D:\GIT\DUOJU\DUOJU.WECHAT\Domain\obj\Debug\Domain.csprojResolveAssemblyReference.cache

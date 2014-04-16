@@ -1,0 +1,4 @@
+D:\GIT\DUOJU\DUOJU.WECHAT\Domain\bin\Release\Domain.dll
+D:\GIT\DUOJU\DUOJU.WECHAT\Domain\bin\Release\Domain.pdb
+D:\GIT\DUOJU\DUOJU.WECHAT\Domain\obj\Release\Domain.dll
+D:\GIT\DUOJU\DUOJU.WECHAT\Domain\obj\Release\Domain.pdb
