@@ -1,0 +1,66 @@
+﻿@{
+    ViewBag.Title = "Detial";
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+}
+<div class="column_middle">
+    <div class="news-latter-artical">
+        <div id='slider' class='swipe'>
+            <div class="swipe-wrap">
+                <div>
+                    <img class="news-latter-artical-pic" src="@Url.Content("~/Content/images/supplier.jpg")" alt="">
+                </div>
+                <div>
+                    <img class="news-latter-artical-pic" src="@Url.Content("~/Content/images/supplier.jpg")" alt="">
+                </div>
+            </div>
+        </div>
+        <a class="artical-date" href="#"><span>14</span><label>Aug</label></a>
+        <div class="top-nav3">
+            <ul class="menu3">
+                <li>
+                    <a href="">
+                        <span>简介</span>
+                        <span class="arrow"></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="">
+                        <span>商家信息</span>
+                        <span class="arrow"></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="">
+                        <span>评论</span>
+                        <span class="arrow"></span>
+                    </a>
+                </li>
+                <div class="clear"></div>
+
+            </ul>
+        </div>
+        <h4><a href="#">屌丝首选-绿茵阁</a></h4>
+        <p>
+            尊宝比萨源于意大利那不勒斯，以其道地的手工现做现烤意大利比萨、意大利面、通心粉及各种美味点心而深受美食者的喜爱。自1998年进入中国，在这块古老而又充满魅力的土地上创建深圳第一家尊宝比萨连锁机构，2001年在人间天堂杭州建立了杭州千尊饮食连锁有限公司，经过十余年的发展，尊宝和千尊品牌充分展示了旺盛的生命力和活力。
+        </p>
+    </div>
+    <div class="articles_list_bottom">
+        <div class="big-buttons">
+            <div class="big-buttons-col1">
+                <ul>
+                    <li>
+                        <input class="btn-party g-btngreen" type="button" value="发起聚会"></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script>
+        window.mySwipe = new Swipe(document.getElementById('slider'), {
+            startSlide: 0,
+            speed: 400,
+            auto: 0,
+            continuous: true,
+            stopPropagation: false,
+            disableScroll: false,
+        });
+    </script>

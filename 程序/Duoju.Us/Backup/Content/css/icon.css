@@ -1,0 +1,64 @@
+.icon-blank{
+	background:url('../images/icons/blank.gif') no-repeat;
+}
+.g-icon-add{
+	background:url('../images/icons/edit_add.png') no-repeat;
+}
+.g-icon-edit{
+	background:url('../images/icons/pencil.png') no-repeat;
+}
+.g-icon-remove{
+	background:url('../images/icons/edit_remove.png') no-repeat;
+}
+.g-icon-save{
+	background:url('../images/icons/filesave.png') no-repeat;
+}
+.g-icon-cut{
+	background:url('../images/icons/cut.png') no-repeat;
+}
+.g-icon-ok{
+	background:url('../images/icons/ok.png') no-repeat;
+}
+.g-icon-no{
+	background:url('../images/icons/no.png') no-repeat;
+}
+.icon-cancel{
+	background:url('../images/icons/cancel.png') no-repeat;
+}
+.icon-reload{
+	background:url('../images/icons/reload.png') no-repeat;
+}
+.icon-search{
+	background:url('../images/icons/search.png') no-repeat;
+}
+.icon-print{
+	background:url('../images/icons/print.png') no-repeat;
+}
+.icon-help{
+	background:url('../images/icons/help.png') no-repeat;
+}
+.icon-undo{
+	background:url('../images/icons/undo.png') no-repeat;
+}
+.icon-redo{
+	background:url('../images/icons/redo.png') no-repeat;
+}
+.icon-back{
+	background:url('../images/icons/back.png') no-repeat;
+}
+.icon-sum{
+	background:url('../images/icons/sum.png') no-repeat;
+}
+.icon-tip{
+	background:url('../images/icons/tip.png') no-repeat;
+}
+
+.icon-mini-add{
+	background:url('../images/icons/mini_add.png') no-repeat 2px 2px;
+}
+.icon-mini-edit{
+	background:url('../images/icons/mini_edit.png') no-repeat 2px 2px;
+}
+.icon-mini-refresh{
+	background:url('../images/icons/mini_refresh.png') no-repeat 3px 2px;
+}

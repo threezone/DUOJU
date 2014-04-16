@@ -1,0 +1,120 @@
+/*用户表*/
+create table UserInfo
+(
+	UserId int identity(1,1),
+	Email nvarchar(255) null,
+	Sex int default 0,
+	OpenId nvarchar(255) null,
+	NickName nvarchar(50) null,
+	HeadImgUrl nvarchar(500) null,
+	Province nvarchar(50) null,
+	City nvarchar(50) null,
+	Country nvarchar(50) null,
+	CreatedDate datetime default getdate()
+);
+
+/*用户信用帐户*/
+create table UserCreditAccount
+(
+	UserAccountId int identity(1,1),
+	UserId int not null,
+	AccountStatus int default 1,
+	CreditAmount float default 1000,
+	CreatedDate datetime default getdate(),
+	LastUpdateTime datetime null
+);
+
+/*商家基础信息表*/
+create table Supplier
+(
+	SupplierId int identity(1,1),
+	Name nvarchar(255) null,
+	Address nvarchar(1000) null,
+	Telphone nvarchar(255) null,
+	Fax nvarchar(255) null,
+	Email nvarchar(50) null,
+	QQ nvarchar(50) null,
+	WebSite nvarchar(100) null,
+	Longitude decimal null,
+	Latitude decimal null,
+	CreatedDate datetime default getdate()
+);
+
+/*商家信息表（文案，标题，浏览量等信息）*/
+create table SupplierInfo
+(
+	SupplierInfoId int identity(1,1),
+	SupplierId int not null,
+	MainTitle nvarchar(500) null,
+	SubTitle nvarchar(500) null,
+	ViewCount int default 0,
+	PartyCount int default 0,
+	FavourCount int default 0,
+	Content nvarchar(max) null,
+	CreatedDate datetime default getdate(),
+	LastUpdateTime datetime null
+);
+
+/*图片表*/
+create table Images
+(
+	ImageId int identity(1,1),
+	SupplierId int not null,
+	ImageCategoryId int not null,
+	Description nvarchar(200) null,
+	Url nvarchar(500) null,
+	CreatedDate datetime default getdate(),
+	SortOrder int default 0
+);
+
+/*图片分类表*/
+create table ImageCategory
+(
+	ImageCategoryId int identity(1,1),
+	Description nvarchar(200) null,
+	CreatedDate datetime default getdate()
+);
+
+/*商家图片表*/
+create table SupplierImages
+(
+	SupplierImageId int identity(1,1),
+	SupplierId int not null,
+	ImageId int not null,
+	CreatedDate datetime default getdate()
+);
+
+/*聚会表*/
+create table Party
+(
+	PartyId int identity(1,1),
+	SupplierId int not null,
+	InitiatorId int not null,
+	PartyName nvarchar(500) not null,
+	StartDate datetime null,
+	EndDate datetime null,
+	InviterCount int default 1,
+	Note nvarchar(500) null
+);
+
+/*聚会参与者表*/
+create table Participator
+(
+	ParticipatorId int identity(1,1),
+	PartyId int not null,
+	UserId int not null,
+	JoinDate datetime default getdate(),
+	JoinStatus int default 1,
+	Note nvarchar(500) null	
+);
+
+/*评论表*/
+create table Comment
+(
+	CommentId int identity(1,1),
+	CommentContent nvarchar(500) null,
+	UserId int not null,
+	PartyId int not null,
+	CreatedDate datetime default getdate()
+);
+

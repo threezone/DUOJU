@@ -1,0 +1,88 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <script type="application/x-javascript"> 
+        addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } 
+    </script>
+    <link href="@Url.Content("~/Content/css/style.css")" rel="stylesheet" type="text/css" media="all" />
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.js")" ></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/login.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/Chart.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.easing.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.ulslide.js")"></script>
+    <link type="text/css" href="@Url.Content("~/Content/css/mmenu.css")" rel="stylesheet" media="all" />
+    <link type="text/css" href="@Url.Content("~/Content/css/swipe.css")" rel="stylesheet" media="all" />
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.mmenu.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/swipe.js")"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('nav#menu').mmenu();
+        });
+	</script>
+</head>
+<body>
+    <div class="wrap">
+        <div class="header">
+            <div class="header_top">
+                <div class="menu-ico"><a href="#menu"></a></div>
+                <div class="profile_details">
+                    <div id="loginContainer">
+                        <a id="loginButton" class=""><span>Me</span></a>
+                        <div id="loginBox">
+                            <form id="loginForm">
+                                <fieldset id="body">
+                                    <div class="user-info">
+                                        <h4>Hello,<a href="#"> Username</a></h4>
+                                        <ul>
+                                            <li class="profile active"><a href="#">Profile </a></li>
+                                            <li class="logout"><a href="#">Logout</a></li>
+                                            <div class="clear"></div>
+                                        </ul>
+                                    </div>
+                                </fieldset>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="profile_img">
+                        <a href="">
+                            <img src="@Url.Content("~/Content/images/profile_img40x40.jpg")" alt="" />
+                        </a>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+    <div class="main">
+        <div class="wrap">
+            @RenderBody()
+        </div>
+    </div>
+    <nav id="menu">
+        <ul>
+            <li><a href="#"><i>
+                <img src="@Url.Content("~/Content/images/user.png")"></i> Profile</a></li>
+            <li><a href="#"><span><i>
+                <img src="@Url.Content("~/Content/images/mail.png")"></i> Messages</span><label class="digits active">5</label><div class="clear"></div>
+            </a></li>
+            <li><a href="#"><span><i>
+                <img src="@Url.Content("~/Content/images/invites.png")"></i> Invites</span><label class="digits">3</label><div class="clear"></div>
+            </a></li>
+            <li><a href="#"><span><i>
+                <img src="@Url.Content("~/Content/images/events.png")"></i> Events</span><label class="digits">5</label><div class="clear"></div>
+            </a></li>
+            <li><a href="#"><i>
+                <img src="@Url.Content("~/Content/images/favourite.png")" alt="" /></i>Favorites</a></li>
+            <li><a href="#"><span><i>
+                <img src="@Url.Content("~/Content/images/statistics.png")"></i>  Statistics</span></a></li>
+            <li><a href="#"><i>
+                <img src="@Url.Content("~/Content/images/settings.png")" alt="" /></i>Settings</a></li>
+        </ul>
+    </nav>
+    @RenderSection("footSection", false)
+</body>
+</html>

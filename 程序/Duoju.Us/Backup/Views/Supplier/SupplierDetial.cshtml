@@ -1,0 +1,438 @@
+﻿@{
+    ViewBag.Title = "客户详情";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using YCF.CRM.Model.Entity
+@using YCF.CRM.DAO.Abstract
+@using YCF.CRM.DAO.Concrete
+@using YCF.CRM.DAO.Utilities
+<div class="row-fluid">
+    <div class="span12">
+        @model YCF.CRM.Model.Entity.SupplierInfo
+        @using (Html.BeginForm("SaveOrUpdateSupplierInfo", "Supplier", FormMethod.Post, new { @novalidate = "novalidate", @class = "form-horizontal", @name = "basic_validate", @id = "basic_validate" }))
+        {     
+            <div class="widget-box">
+                <div class="widget-title">
+                    <span id="btnShowPanel" class="icon" style="cursor:pointer;" title="点击编辑"><i class="icon-pencil"></i>&nbsp;点击编辑</span>
+                    <div class="buttons-left" style="margin-left: 5px;">
+                        <a id="add-event" data-toggle="modal" href="#modal-container-449303" class="btn btn-inverse btn-mini">
+                            <i class="icon-map-marker icon-white"></i>&nbsp;&nbsp;&nbsp;选择省市区</a> <span>&nbsp;&nbsp;
+                        </span>
+                        @{ var provinceName = Model.Province == null ? "未选择省份" : Model.Province.ProvinceName;}
+                        <span id="spanProvinceName">@provinceName</span> <span>，</span>
+                        @{ var cityName = Model.City == null ? "未选择城市" : Model.City.CityName;}
+                        <span id="spanCityName">@cityName</span> <span>，</span>
+                        @{ var districtName = Model.District == null ? "未选择区域" : Model.District.DistrictName;}
+                        <span id="spanDistrictName">@districtName</span>
+                    </div>
+                </div>
+                <div class="widget-content ">
+                    @Html.HiddenFor(m => m.SupplierId, new { @id = "supplierId" })
+                    @Html.HiddenFor(m => m.FollowById, new { @id = "followById" })
+                    @Html.HiddenFor(m => m.CreateDate, new { @id = "createDate" })
+                    @Html.HiddenFor(m => m.CreateBy, new { @id = "createBy" })
+                    <div class="row-fluid">
+                        <div class="span6">
+                            <div class="widget-box">
+                                <div class="widget-title">
+                                    <span class="icon"><i class="icon-align-justify"></i></span>
+                                    <h5>
+                                        客户信息</h5>
+                                </div>
+                                <div class="widget-content nopadding">
+                                    <div class="control-group">
+                                        <label class="control-label">
+                                            客户名称</label>
+                                        <div class="controls">
+                                            @Html.TextBoxFor(m => m.SupplierName, new { type = "text", @class = "required", @id = "txtSupplierName" })
+                                            <div id="tip_supplierName" class="popover fade right in" style="top: 22px; left: 380px;
+                                                z-index: 2;">
+                                                <div class="arrow">
+                                                </div>
+                                                <h3 class="popover-title">
+                                                    提示</h3>
+                                                <div id="popoverContent" class="popover-content">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label">
+                                            联系电话</label>
+                                        <div class="controls">
+                                            @Html.TextBoxFor(m => m.TelePhone, new { type = "text" })
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label">
+                                            座机号码</label>
+                                        <div class="controls">
+                                            @Html.TextBoxFor(m => m.Plane, new { type = "text" })
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label">
+                                            网站地址</label>
+                                        <div class="controls">
+                                            @Html.TextBoxFor(m => m.WebSite, new { type = "text", @class = "url" })
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label">
+                                            联系地址</label>
+                                        <div class="controls">
+                                            @Html.TextBoxFor(m => m.Address, new { type = "text" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="span6">
+                            <div class="widget-box">
+                                <div class="widget-title">
+                                    <span class="icon"><i class="icon-user"></i></span>
+                                    <h5>
+                                        负责人信息</h5>
+                                </div>
+                                <div class="widget-content nopadding">
+                                    <div class="control-group">
+                                        <label class="control-label">
+                                            负责人</label>
+                                        <div class="controls">
+                                            @Html.TextBoxFor(m => m.Contacts, new { type = "text" })
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label">
+                                            职位</label>
+                                        <div class="controls">
+                                            @Html.TextBoxFor(m => m.Position, new { type = "text" })
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label">
+                                            客户传真</label>
+                                        <div class="controls">
+                                            @Html.TextBoxFor(m => m.Fax, new { type = "text" })
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label">
+                                            QQ号码</label>
+                                        <div class="controls">
+                                            @Html.TextBoxFor(m => m.QQ, new { type = "text" })
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label">
+                                            邮箱地址</label>
+                                        <div class="controls">
+                                            @Html.TextBoxFor(m => m.Email, new { type = "text", @class = "email" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row-fluid">
+                        <div class="span12">
+                            <div class="widget-box">
+                                <div class="widget-title">
+                                    <span class="icon"><i class="icon-book"></i></span>
+                                    <h5>
+                                        添加备注信息</h5>
+                                </div>
+                                <div class="widget-content nopadding">
+                                    <div class="control-group">
+                                        <div style="padding: 10px 10px;">
+                                            @Html.TextBoxFor(m => m.Note, new { type = "text", @class = "span12" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="div_EditPanel" class="row-fluid">
+                        <div class="span12">
+                            <input id="btnSave" type="submit" value="保存" class="btn btn-success" />
+                            <span style="margin-left: 20px;"></span>
+                            <input type="button" id="btnCancel" value="取消" class="btn btn-warning" />
+                        </div>
+                    </div>
+                </div>
+                <div id="modal-container-449303" class="modal hide fade" role="dialog" aria-labelledby="editPositionModal"
+                    aria-hidden="true">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                            ×</button>
+                        <h3 id="myModalLabel">
+                            选择客户省市区信息
+                        </h3>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row-fluid" style="height: 120px;">
+                            <div class="span12">
+                                <div class="row-fluid">
+                                    <div class="span4">
+                                        @Html.HiddenFor(m => m.ProvinceId, new { @id="hidPid", @Value = Model.ProvinceId.GetValueOrDefault(0)})
+                                        <select name="provinceId" id="selectProvince">
+                                            <option value="0">请选择省份</option>
+                                        </select>
+                                    </div>
+                                    <div class="span4">
+                                        @Html.HiddenFor(m => m.CityId, new { @id = "hidCid", @Value = Model.CityId.GetValueOrDefault(0) })
+                                        <select name="cityId" id="selectCity">
+                                            <option value="0">请选择城市</option>
+                                        </select>
+                                    </div>
+                                    <div class="span4">
+                                        @Html.HiddenFor(m => m.DistrictId, new { @id = "hidDid", @Value = Model.DistrictId.GetValueOrDefault(0) })
+                                        <select name="disrtictId" id="selectDistict" class="required">
+                                            <option value="0">请选区</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <input id="btnSaveEditPosition" type="button" value="确定" class="btn btn-success" />
+                        <span style="margin-left: 20px;"></span>
+                        <input type="button" class="btn" data-dismiss="modal" value="取消" />
+                    </div>
+                </div>
+            </div>
+        }
+        <div class="widget-box">
+            <div class="widget-title">
+                <span class="icon"><i class="icon-qrcode"></i></span>
+                <h5>
+                    联系人</h5>
+            </div>
+            <div class="widget-content  nopadding">
+                <div class="row-fluid" style="margin-top: 0;">
+                    <div class="span12" style="height: 150px;">
+                        <table id="tb_contacts">
+                        </table>
+                        <div id="div_contacts_msg" style="display: none;">
+                            <div class="alert">
+                                <strong>提示! </strong>请先添加厂家信息，再添加相应的联系人
+                            </div>
+                        </div>
+                        @using (Html.BeginForm("UpdateOrSaveContacts", "Supplier", FormMethod.Post, new { @id = "contactsInfoForm", @novalidate = "novalidate", @class = "form-horizontal" }))
+                        {
+                            <input type="hidden" id="contactsInfo_SupplierId" name="contactsInfo.SupplierId" />
+                            <div id="modal-contacts" class="modal hide" role="dialog" aria-labelledby="modalContactsLabel"
+                                aria-hidden="true" style="position: absolute;">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                        ×</button>
+                                    <h3 id="modalContactsLabel">
+                                        联系人详情</h3>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="widget-box">
+                                        <div class="widget-content nopadding">
+                                            <div class="control-group">
+                                                <label class="control-label">
+                                                    联系人名</label>
+                                                <div class="controls">
+                                                    <input type="text" name="contactsInfo.ContactsName" class="span7" />
+                                                </div>
+                                            </div>
+                                            <div class="control-group">
+                                                <label class="control-label">
+                                                    联系职位</label>
+                                                <div class="controls">
+                                                    <input type="text" name="contactsInfo.Position" class="span7" />
+                                                </div>
+                                            </div>
+                                            <div class="control-group">
+                                                <label class="control-label">
+                                                    联系电话</label>
+                                                <div class="controls">
+                                                    <input type="text" name="contactsInfo.TelePhone" class="span7" />
+                                                </div>
+                                            </div>
+                                            <div class="control-group">
+                                                <label class="control-label">
+                                                    传真号码</label>
+                                                <div class="controls">
+                                                    <input type="text" name="contactsInfo.Fax" class="span7" />
+                                                </div>
+                                            </div>
+                                            <div class="control-group">
+                                                <label class="control-label">
+                                                    办公电话</label>
+                                                <div class="controls">
+                                                    <input type="text" name="contactsInfo.OfficePhone" class="span7" />
+                                                </div>
+                                            </div>
+                                            <div class="control-group">
+                                                <label class="control-label">
+                                                    QQ号码</label>
+                                                <div class="controls">
+                                                    <input type="text" name="contactsInfo.QQ" class="span7" />
+                                                </div>
+                                            </div>
+                                            <div class="control-group">
+                                                <label class="control-label">
+                                                    邮箱地址</label>
+                                                <div class="controls">
+                                                    <input type="text" name="contactsInfo.Email" class="span7 email" />
+                                                </div>
+                                            </div>
+                                            @*<div class="control-group">
+                                                    <label class="control-label">
+                                                        联系地址</label>
+                                                    <div class="controls">
+                                                        <input type="text" name="contactsInfo.Address" class="span7" />
+                                                    </div>
+                                                </div>*@
+                                            <div class="control-group">
+                                                <label class="control-label">
+                                                    备注信息</label>
+                                                <div class="controls">
+                                                    <input type="text" name="contactsInfo.Remark" class="span7" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <input type="submit" value="保存" class="btn btn-success" />
+                                    <input type="button" data-dismiss="modal" aria-hidden="true" value="取消" class="btn" />
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="widget-box">
+            <div class="widget-title">
+                <span class="icon"><i class="icon-calendar"></i></span>
+                <h5>
+                    任务计划</h5>
+                <div class="buttons-left">
+                    <a id="add-event" data-toggle="modal" href="#modal-add-event" class="btn btn-inverse btn-mini">
+                        <i class="icon-plus icon-white"></i>&nbsp;&nbsp;&nbsp;添加新任务</a>
+                </div>
+                <div class="modal hide" id="modal-add-event">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">
+                            ×</button>
+                        <h3>
+                            添加新任务</h3>
+                    </div>
+                    @using (@Html.BeginForm("SaveOrUpdateTask", "Task", FormMethod.Post, new { @class = "form-horizontal", @id = "formTask", @novalidate = "novalidate", @name = "basic_validate" }))
+                    {
+                        <div class="modal-body">
+                            <div class="widget-box">
+                                <div class="widget-content nopadding">
+                                    <div class="control-group">
+                                        <label class="control-label">
+                                            任务标题</label>
+                                        <div class="controls">
+                                            <input type="text" name="model.Title" class="span7 required" />
+                                            <input type="hidden" id="hidSupplierId" name="model.SupplierId" value="" />
+                                            <input type="hidden" name="model.TaskId" value="" />
+                                        </div>
+                                    </div>
+                                    <div class="control-group" style="padding-bottom: 10px;">
+                                        <label class="control-label">
+                                            开始时间</label>
+                                        <div class="controls">
+                                            <div class="input-append date span9" id="startDate" name="start" data-date="">
+                                                <input name="model.StartTime" id="txtStartDate" type="text" class="span8" placeholder="开始时间"
+                                                    value="" readonly="readonly" />
+                                                <span class="add-on"><i class="icon-th"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="control-group" style="padding-bottom: 10px;">
+                                        <label class="control-label">
+                                            结束时间</label>
+                                        <div class="controls">
+                                            <div class="input-append date span9" id="endDate" name="end" data-date="">
+                                                <input name="model.EndTime" id="txtEndDate" type="text" class="span8" value="" placeholder="结束时间"
+                                                    readonly="readonly" />
+                                                <span class="add-on"><i class="icon-th"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="control-group" style="padding-bottom: 10px;">
+                                        <label class="control-label">
+                                            提醒类型</label>
+                                        <div class="controls">
+                                            <select name="model.RemindType" class="span7">
+                                                <option value="1">弹框提醒</option>
+                                                <option value="2">邮件提醒</option>
+                                                <option value="3">弹框+邮件提醒</option>
+                                                <option value="0">不提醒</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label">
+                                            间隔时间</label>
+                                        <div class="controls">
+                                            <input name="model.RemindMins" type="text" class="span7 number" laceholder="提醒间隔的时间数（分钟）" />
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label">
+                                            任务内容</label>
+                                        <div class="controls">
+                                            <textarea class="span7" name="model.Content"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <input type="submit" id="add-event-submit" value="添加" class="btn btn-success" />
+                            <span style="margin-left: 20px;"></span>
+                            <input type="button" class="btn" data-dismiss="modal" value="取消" />
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="widget-content nopadding">
+                <div class="row-fluid" style="margin-top: 0;">
+                    <div class="span12" style="height: 250px;">
+                        <table id="tb_task">
+                        </table>
+                        <div id="div_task_msg" style="display: none;">
+                            <div class="alert">
+                                <strong>提示! </strong>请先添加厂家信息，再添加任务</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="widget-box">
+            <div class="widget-title">
+                <span class="icon"><i class="icon-pencil"></i></span>
+                <h5>
+                    跟进记录</h5>
+            </div>
+            <div class="widget-content nopadding">
+                <div class="row-fluid" style="margin-top: 0;">
+                    <div class="span12" style="height: 250px;">
+                        <table id="tb_followLog">
+                        </table>
+                        <div id="div_followLog_msg" style="display: none;">
+                            <div class="alert">
+                                <strong>提示! </strong>请先添加厂家信息，再添加跟进记录</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section footSection
+{
+    <script type="text/javascript" src="@Url.Content("~/Scripts/supplier/supplierDetial.js")"></script>
+}

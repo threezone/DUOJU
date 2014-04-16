@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<log4net debug="false">
+  <appender name="rolling" type="log4net.Appender.RollingFileAppender, log4net">
+    <file value="logs/"/>
+    <appendToFile value="true"/>
+    <rollingStyle value="Date"/>
+    <datePattern value="yyyy-MM-dd"/>
+    <datePattern value="yyyy-MM-dd&quot;.log&quot;" />
+    <staticLogFileName value="false" />
+    <layout type="log4net.Layout.PatternLayout,log4net">
+      <param name="ConversionPattern" value="%d{ABSOLUTE} %c{1}(%L) [%-5p] - %m%n"/>
+    </layout>
+  </appender>
+  <root>
+    <priority value="INFO"/>
+    <appender-ref ref="rolling"/>
+  </root>
+  <!-- Level: ALL < DEBUG < INFO < WARN < ERROR < FATAL < OFF , 在做调试的时候, NHibernate.SQL 可以设成ALL, 生产环境下, 可以提高Leve, 以减少log文件的大小-->
+  <logger name="NHibernate">
+    <level value="WARN"/>
+  </logger>
+  <logger name="NHibernate.SQL">
+    <level value="ALL"/>
+  </logger>
+</log4net>

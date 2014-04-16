@@ -1,0 +1,140 @@
+﻿@{
+    ViewBag.Title = "多聚";
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+}
+<div class="column_middle">
+    <div id='slider' class='swipe'>
+        <div class='swipe-wrap'>
+            <div class='wrap'>
+                <div class="column_middle_grid1">
+                    <div class="profile_picture">
+                        <a href="/supplier/detial">
+                            <img src="@Url.Content("~/Content/images/supplier2.jpg")" alt="" />
+                        </a>
+                        <div class="profile_picture_name">
+                            <h2>绿茵阁</h2>
+                            <p>一个伪文艺的西餐厅，屌丝泡妞首选之地...</p>
+                        </div>
+                        <span><a href="#">
+                            <img src="@Url.Content("~/Content/images/follow_user.png")" alt="" />
+                        </a></span>
+                    </div>
+                    <div class="articles_list">
+                        <ul>
+                            <li><a href="#" class="red">
+                                <img src="@Url.Content("~/Content/images/comments.png")" alt="" />
+                                23</a></li>
+                            <li><a href="#" class="purple">
+                                <img src="@Url.Content("~/Content/images/views.png")" alt="" />
+                                841</a></li>
+                            <li><a href="#" class="yellow">
+                                <img src="@Url.Content("~/Content/images/likes.png")" alt="" />
+                                49</a></li>
+                            <div class="clear"></div>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class='wrap'>
+                <div class="column_middle_grid1">
+                    <div class="profile_picture">
+                        <a href="/supplier/detial">
+                            <img src="@Url.Content("~/Content/images/supplier.jpg")" alt="" />
+                        </a>
+                        <div class="profile_picture_name">
+                            <h2>绿茵阁</h2>
+                            <p>一个伪文艺的西餐厅，屌丝泡妞首选之地...</p>
+                        </div>
+                        <span><a href="#">
+                            <img src="@Url.Content("~/Content/images/follow_user.png")" alt="" />
+                        </a></span>
+                    </div>
+                    <div class="articles_list">
+                        <ul>
+                            <li><a href="#" class="red">
+                                <img src="@Url.Content("~/Content/images/comments.png")" alt="" />
+                                23</a></li>
+                            <li><a href="#" class="purple">
+                                <img src="@Url.Content("~/Content/images/views.png")" alt="" />
+                                841</a></li>
+                            <li><a href="#" class="yellow">
+                                <img src="@Url.Content("~/Content/images/likes.png")" alt="" />
+                                49</a></li>
+                            <div class="clear"></div>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+ 	    <div class='wrap'>
+                <div class="column_middle_grid1">
+                    <div class="profile_picture">
+                        <a href="/supplier/detial">
+                            <img src="@Url.Content("~/Content/images/supplier4.jpg")" alt="" />
+                        </a>
+                        <div class="profile_picture_name">
+                            <h2>绿茵阁</h2>
+                            <p>一个伪文艺的西餐厅，屌丝泡妞首选之地...</p>
+                        </div>
+                        <span><a href="#">
+                            <img src="@Url.Content("~/Content/images/follow_user.png")" alt="" />
+                        </a></span>
+                    </div>
+                    <div class="articles_list">
+                        <ul>
+                            <li><a href="#" class="red">
+                                <img src="@Url.Content("~/Content/images/comments.png")" alt="" />
+                                23</a></li>
+                            <li><a href="#" class="purple">
+                                <img src="@Url.Content("~/Content/images/views.png")" alt="" />
+                                841</a></li>
+                            <li><a href="#" class="yellow">
+                                <img src="@Url.Content("~/Content/images/likes.png")" alt="" />
+                                49</a></li>
+                            <div class="clear"></div>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class='wrap'>
+                <div class="column_middle_grid1">
+                    <div class="profile_picture">
+                        <a href="/supplier/detial">
+                            <img src="@Url.Content("~/Content/images/supplier3.jpg")" alt="" />
+                        </a>
+                        <div class="profile_picture_name">
+                            <h2>绿茵阁</h2>
+                            <p>一个伪文艺的西餐厅，屌丝泡妞首选之地...</p>
+                        </div>
+                        <span><a href="#">
+                            <img src="@Url.Content("~/Content/images/follow_user.png")" alt="" />
+                        </a></span>
+                    </div>
+                    <div class="articles_list">
+                        <ul>
+                            <li><a href="#" class="red">
+                                <img src="@Url.Content("~/Content/images/comments.png")" alt="" />
+                                23</a></li>
+                            <li><a href="#" class="purple">
+                                <img src="@Url.Content("~/Content/images/views.png")" alt="" />
+                                841</a></li>
+                            <li><a href="#" class="yellow">
+                                <img src="@Url.Content("~/Content/images/likes.png")" alt="" />
+                                49</a></li>
+                            <div class="clear"></div>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    window.mySwipe = new Swipe(document.getElementById('slider'), {
+        startSlide: 0,
+        speed: 400,
+        auto: 0,
+        continuous: true,
+        stopPropagation: false,
+        disableScroll: false
+    });
+</script>

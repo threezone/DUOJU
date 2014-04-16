@@ -1,0 +1,55 @@
+﻿@{
+    Layout = null;
+}
+<!doctype html>
+<head>
+    <!-- Basics -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+    <title>要出发CRM</title>
+    <!-- CSS -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/css/ycf.reset.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/Content/css/ycf.animate.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/Content/css/ycf.login.min.css")" />
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.form.js")"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#loginForm').ajaxForm({
+                dataType: 'text',
+                success: function (data) {
+                    if ('error' === data) {
+                        $('#error_tip').show();
+                        $('#loginName').addClass('error_tip');
+                        $('#password').addClass('error_tip');
+                    } else if ('success' === data) {
+                        document.location.href = '/';
+                    }
+                }
+            });
+        });
+    </script>
+</head>
+<!-- Main HTML -->
+<body>
+    <!-- Begin Page Content -->
+    <div id="container">
+        @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { @id="loginForm"}))
+        {
+            <label for="name">
+                Username:</label>
+            <input id="loginName" name="loginName" type="name" />
+            <label for="username">
+                Password:</label>
+            <p></p>
+            <input id="password" name="password" type="password" />
+            <p></p>
+            <label id="error_tip" style="font-size:11px;color:#b94a48;display:none;">账号或密码错误！请重新输入</label>
+            <div id="lower">
+                <input type="submit" value="Login">
+            </div>
+        }
+    </div>
+    <!-- End Page Content -->
+</body>
+</html> 

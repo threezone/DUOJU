@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<objects xmlns="http://www.springframework.net">
+  <!--释放客户资源任务Job-->
+  <object name="SupplierReleaseTask" type="Spring.Scheduling.Quartz.JobDetailObject, Spring.Scheduling.Quartz20">
+    <property name="JobType" value="YCF.CRM.DAO.Task.SupplierReleaseTask,YCF.CRM.DAO" />
+    <property name="JobDataAsMap">
+      <dictionary>
+        <entry key="SpSupplierInfoRepository" value-ref="supplierInfoRepository" />
+      </dictionary>
+    </property>
+  </object>
+  <!--发送邮件提醒任务Job-->
+  <object name="EmailRemindTask" type="Spring.Scheduling.Quartz.JobDetailObject, Spring.Scheduling.Quartz20">
+    <property name="JobType" value="YCF.CRM.DAO.Task.EmailRemindTask,YCF.CRM.DAO" />
+    <property name="JobDataAsMap">
+      <dictionary>
+        <entry key="SpTaskRepository" value-ref="taskRepository" />
+        <entry key="SpUserAdminRepository" value-ref="userAdminRepository" />
+        <entry key="SpUserRepository" value-ref="userRepository" />
+      </dictionary>
+    </property>
+  </object>
+  <!--自动回收Task任务Job-->
+  <object name="AutoFollowLogTask" type="Spring.Scheduling.Quartz.JobDetailObject, Spring.Scheduling.Quartz20">
+    <property name="JobType" value="YCF.CRM.DAO.Task.AutoFollowLogTask,YCF.CRM.DAO" />
+    <property name="JobDataAsMap">
+      <dictionary>
+        <entry key="SpTaskRepository" value-ref="taskRepository" />
+        <entry key="SpFollowLogRepository" value-ref="followLogRepository" />
+      </dictionary>
+    </property>
+  </object>
+  
+  <!--任务对应的触发器Trigger-->
+  <object id="releaseSupplierTrigger" type="Spring.Scheduling.Quartz.CronTriggerObject, Spring.Scheduling.Quartz20">
+    <property name="jobDetail" ref="SupplierReleaseTask" />
+    <!-- 每天凌晨1点执行一次 -->
+    <property name="cronExpressionString" value="0 */1 * * * ?" />
+  </object>
+  <object id="emailRemindTrigger" type="Spring.Scheduling.Quartz.CronTriggerObject, Spring.Scheduling.Quartz20">
+    <property name="jobDetail" ref="EmailRemindTask" />
+    <!-- 每隔5分钟检查队列是否有需要发送的邮件 -->
+    <property name="cronExpressionString" value="0 0/5 7-23 * * ?" />
+  </object>
+  <object id="autoFollowLogTrigger" type="Spring.Scheduling.Quartz.CronTriggerObject, Spring.Scheduling.Quartz20">
+    <property name="jobDetail" ref="AutoFollowLogTask" />
+    <!-- 每天晚上23:59:59 自动回收过期任务 -->
+    <property name="cronExpressionString" value="59 59 23 ? * *" />
+  </object>
+  
+  <!--触发器队列，每一个触发器都要配置到list中-->
+  <object type="Spring.Scheduling.Quartz.SchedulerFactoryObject, Spring.Scheduling.Quartz20">
+    <!--触发器-->
+    <property name="triggers">
+      <list>
+        <ref object="releaseSupplierTrigger" />
+        <ref object="emailRemindTrigger" />
+      </list>
+    </property>
+  </object>
+</objects>

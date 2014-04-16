@@ -1,0 +1,146 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{DD95A27F-E2B2-4915-AE3A-5A60648ECC8A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Duoju.DAO</RootNamespace>
+    <AssemblyName>Duoju.DAO</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="C5">
+      <HintPath>..\Lib\C5.dll</HintPath>
+    </Reference>
+    <Reference Include="Common.Logging">
+      <HintPath>..\Lib\Common.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Hubble.Core">
+      <HintPath>..\Lib\Hubble.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Hubble.Framework">
+      <HintPath>..\Lib\Hubble.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="Hubble.SQLClient">
+      <HintPath>..\Lib\Hubble.SQLClient.dll</HintPath>
+    </Reference>
+    <Reference Include="Iesi.Collections">
+      <HintPath>..\Lib\Iesi.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\Lib\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\Lib\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate">
+      <HintPath>..\Lib\NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate.Caches.SysCache, Version=3.3.3.4000, Culture=neutral, PublicKeyToken=6876f2ea66c9f443, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\NHibernate.Caches.SysCache.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate.Mapping.Attributes">
+      <HintPath>..\Lib\NHibernate.Mapping.Attributes.dll</HintPath>
+    </Reference>
+    <Reference Include="Quartz">
+      <HintPath>..\Lib\Quartz.dll</HintPath>
+    </Reference>
+    <Reference Include="Spring.Aop">
+      <HintPath>..\Lib\Spring.Aop.dll</HintPath>
+    </Reference>
+    <Reference Include="Spring.Core">
+      <HintPath>..\Lib\Spring.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Spring.Data">
+      <HintPath>..\Lib\Spring.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Spring.Data.NHibernate33">
+      <HintPath>..\Lib\Spring.Data.NHibernate33.dll</HintPath>
+    </Reference>
+    <Reference Include="Spring.Scheduling.Quartz20">
+      <HintPath>..\Lib\Spring.Scheduling.Quartz20.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Abstract\IActionInfoRepository.cs" />
+    <Compile Include="Abstract\IAuthorityInfoRepository.cs" />
+    <Compile Include="Abstract\IPositionRepository.cs" />
+    <Compile Include="Abstract\ISupplierRepository.cs" />
+    <Compile Include="Abstract\IUserRepository.cs" />
+    <Compile Include="Concrete\ActionInfoRepository.cs" />
+    <Compile Include="Concrete\AuthorityInfoRepository.cs" />
+    <Compile Include="Concrete\PositionRepository.cs" />
+    <Compile Include="Concrete\SupplierRepository.cs" />
+    <Compile Include="Concrete\UserRepository.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SpringNhibernate\ExtendedSessionFactoryObject.cs" />
+    <Compile Include="Utilities\EncryptUtility.cs" />
+    <Compile Include="Utilities\EntityReader.cs" />
+    <Compile Include="Utilities\GeoUtility.cs" />
+    <Compile Include="Utilities\HttpWebResponseUtility.cs" />
+    <Compile Include="Utilities\HubbleFactory.cs" />
+    <Compile Include="Utilities\HubbleUtility.cs" />
+    <Compile Include="Utilities\ImageUtility.cs" />
+    <Compile Include="Utilities\JSONUtility.cs" />
+    <Compile Include="Utilities\MailUtility.cs" />
+    <Compile Include="Utilities\ResourceUtility.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Config\Spring.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Duoju.Model\Duoju.Model.csproj">
+      <Project>{7851996c-99cf-4c20-b41c-d150ce54d033}</Project>
+      <Name>Duoju.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Task\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

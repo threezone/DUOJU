@@ -1,0 +1,10 @@
+D:\TFSCode\yaochufaweb\Trunk\YCF.CRM\YCF.CRM.Model\bin\Debug\YCF.CRM.Model.dll
+D:\TFSCode\yaochufaweb\Trunk\YCF.CRM\YCF.CRM.Model\bin\Debug\YCF.CRM.Model.pdb
+D:\TFSCode\yaochufaweb\Trunk\YCF.CRM\YCF.CRM.Model\bin\Debug\Iesi.Collections.dll
+D:\TFSCode\yaochufaweb\Trunk\YCF.CRM\YCF.CRM.Model\bin\Debug\NHibernate.Caches.SysCache.dll
+D:\TFSCode\yaochufaweb\Trunk\YCF.CRM\YCF.CRM.Model\bin\Debug\NHibernate.dll
+D:\TFSCode\yaochufaweb\Trunk\YCF.CRM\YCF.CRM.Model\bin\Debug\NHibernate.Mapping.Attributes.dll
+D:\TFSCode\yaochufaweb\Trunk\YCF.CRM\YCF.CRM.Model\obj\Debug\YCF.CRM.Model.Resource.ErrorInfo.resources
+D:\TFSCode\yaochufaweb\Trunk\YCF.CRM\YCF.CRM.Model\obj\Debug\YCF.CRM.Model.dll
+D:\TFSCode\yaochufaweb\Trunk\YCF.CRM\YCF.CRM.Model\obj\Debug\YCF.CRM.Model.pdb
+D:\TFSCode\yaochufaweb\Trunk\YCF.CRM\YCF.CRM.Model\obj\Debug\YCF.CRM.Model.csproj.GenerateResource.Cache

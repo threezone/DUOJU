@@ -1,0 +1,36 @@
+﻿@{
+    ViewBag.Title = "客户池";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="alert fade in"  style="margin-bottom:0;">
+                <button type="button" class="close" data-dismiss="alert">×</button>
+                <strong>提示!</strong> 如果申请的客户在7天内没有跟进或跟进无进展，将回收回客户池
+            </div>
+        </div>
+    </div>
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="widget-box">
+                <div class="widget-title">
+                    <span class="icon"><i class="icon-user"></i></span>
+                    <h5>客户池</h5>
+                    <div class="div_search">
+                      <input id="txtSearch" type="text" placeholder="客户名 或 负责人" />
+                      <button type="input" id="btnSearch" class="tip-bottom" title="Search"><i class="icon-search icon-white"></i></button>
+                    </div>
+                </div>
+                <div id="divTable" class="widget-content nopadding">
+                    <table style="width: 100%; height: 100%;" id="tb_publish_supplier">
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section footSection
+{
+    <script type="text/javascript" src="@Url.Content("~/Scripts/supplier/publishSupplierList.js")"></script>
+}
