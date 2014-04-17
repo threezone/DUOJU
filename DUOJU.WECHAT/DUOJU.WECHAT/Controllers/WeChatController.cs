@@ -1,21 +1,26 @@
-﻿using System;
+﻿using Domain;
+using Domain.Enums;
+using Domain.Helpers;
+using Domain.Models;
+using log4net;
+using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
 using System.Web.Mvc;
 using System.Xml.Linq;
-using Domain;
-using Domain.Enums;
-using Domain.Helpers;
-using Domain.Models;
-using log4net;
 
 namespace DUOJU.WECHAT.Controllers
 {
     public class WeChatController : Controller
     {
         private ILog logger = LogManager.GetLogger(typeof(WeChatController));
+
+        private static WeChatAccessTokenInfo _accessTokenInfo = null;
+
+        private static object _lockObj = new object();
 
 
         /// <summary>
@@ -65,16 +70,43 @@ namespace DUOJU.WECHAT.Controllers
                         case "?":
                         case "？":
                             sendModel.MsgType = MsgTypes.TEXT;
-                            sendModel.Content = "1、重设菜单\n2、获取用户信息\n3、获取access_token";
+                            sendModel.Content = "1、读取菜单\n2、重设菜单\n3、删除菜单\n4、获取用户列表\n5、当前用户信息\n6、获取access_token";
                             break;
 
                         case "1":
+                            var menuInfoStr = GetMenu();
+                            sendModel.MsgType = MsgTypes.TEXT;
+                            sendModel.Content = menuInfoStr;
                             break;
 
                         case "2":
+                            var menuInfo = CreateMenu();
+                            sendModel.MsgType = MsgTypes.TEXT;
+                            sendModel.Content = JsonHelper.GetJsonWithModel(menuInfo);
                             break;
 
                         case "3":
+                            var errorInfo = DeleteMenu();
+                            sendModel.MsgType = MsgTypes.TEXT;
+                            sendModel.Content = JsonHelper.GetJsonWithModel(errorInfo);
+                            break;
+
+                        case "4":
+                            var userListInfo = GetWeChatUserListInfo();
+                            sendModel.MsgType = MsgTypes.TEXT;
+                            sendModel.Content = JsonHelper.GetJsonWithModel(userListInfo);
+                            break;
+
+                        case "5":
+                            var userInfo = GetWeChatUserInfo(receiveModel.FromUserName);
+                            sendModel.MsgType = MsgTypes.TEXT;
+                            sendModel.Content = JsonHelper.GetJsonWithModel(userInfo);
+                            break;
+
+                        case "6":
+                            var accessTokenInfo = GetWeChatAccessTokenInfo();
+                            sendModel.MsgType = MsgTypes.TEXT;
+                            sendModel.Content = JsonHelper.GetJsonWithModel(accessTokenInfo);
                             break;
                     }
                     break;
@@ -90,6 +122,16 @@ namespace DUOJU.WECHAT.Controllers
                         case Events.SCAN:
                             sendModel.MsgType = MsgTypes.TEXT;
                             sendModel.Content = "有什么我可以帮到您？";
+                            break;
+
+                        case Events.CLICK:
+                            sendModel.MsgType = MsgTypes.TEXT;
+                            sendModel.Content = "用户点击:" + receiveModel.EventKey;
+                            break;
+
+                        case Events.VIEW:
+                            sendModel.MsgType = MsgTypes.TEXT;
+                            sendModel.Content = "用户点击:" + receiveModel.EventKey;
                             break;
                     }
                     break;
@@ -288,63 +330,139 @@ namespace DUOJU.WECHAT.Controllers
         }
 
         /// <summary>
-        /// GET调用接口
+        /// 调用远程接口
         /// </summary>
-        private string Get(string url, int time = 60000)
+        private T CallRemoteInterface<T>(RequestTypes requestType, RequestContentTypes requestContentType, string url, string parameters = null) where T : class
         {
-            var address = new Uri(url);
-            var request = WebRequest.Create(address) as HttpWebRequest;
-            request.Method = "GET";
-            request.ContentType = "application/json;charset=utf-8"; // "application/x-www-form-urlencoded";
-            request.Timeout = time;
-            string result = "";
-            using (HttpWebResponse response = request.GetResponse() as HttpWebResponse)
-            {
-                StreamReader reader = new StreamReader(response.GetResponseStream());
-                result = reader.ReadToEnd();
-            }
-            return (result);
-        }
+            var uri = new Uri(url);
+            var request = WebRequest.Create(uri);
 
-        /// <summary>
-        /// POST调用接口
-        /// </summary>
-        private string Post(string url, string param, int time = 60000)
-        {
-            Uri address = new Uri(url);
-            HttpWebRequest request = WebRequest.Create(address) as HttpWebRequest;
-            request.Method = "POST";
-            request.ContentType = "application/json;charset=utf-8"; // "application/x-www-form-urlencoded";
-            request.Timeout = time;
-            byte[] byteData = UTF8Encoding.UTF8.GetBytes(param == null ? "" : param);
-            request.ContentLength = byteData.Length;
-            using (Stream postStream = request.GetRequestStream())
+            request.Method = requestType.ToString();
+            request.ContentType = requestContentType == RequestContentTypes.FORM ? CommonSettings.REQUEST_CONTENTTYPE_FORM : CommonSettings.REQUEST_CONTENTTYPE_JSON;
+            request.Timeout = CommonSettings.REQUEST_TIMEOUT;
+
+            if (requestType == RequestTypes.POST && !string.IsNullOrEmpty(parameters))
             {
-                postStream.Write(byteData, 0, byteData.Length);
+                var bytes = UTF8Encoding.UTF8.GetBytes(parameters);
+                request.ContentLength = bytes.Length;
+                using (var stream = request.GetRequestStream())
+                {
+                    stream.Write(bytes, 0, bytes.Length);
+                }
             }
-            string result = "";
-            using (HttpWebResponse response = request.GetResponse() as HttpWebResponse)
+
+            using (var response = request.GetResponse())
+            using (var streamReader = new StreamReader(response.GetResponseStream()))
             {
-                StreamReader reader = new StreamReader(response.GetResponseStream());
-                result = reader.ReadToEnd();
+                if (typeof(T) == typeof(string))
+                    return streamReader.ReadToEnd() as T;
+                else
+                    return JsonHelper.GetModelWithJson<T>(streamReader.ReadToEnd());
             }
-            return (result);
         }
 
 
-        private JsonResult GetWxCredential()
+        private WeChatAccessTokenInfo GetWeChatAccessTokenInfo()
         {
-            // http://www.cnblogs.com/qidian10/p/3492751.html
-            var url = string.Format(CommonSettings.WECHATURL_GETACCESSTOKEN_FORMAT, CommonSettings.DUOJU_APPID, CommonSettings.DUOJU_APPSECRET);
-            string rst = Get(url);
-            if (rst.Contains("access_token"))
+            if (_accessTokenInfo != null)
+                if (DateTime.Now.AddSeconds(10) >= _accessTokenInfo.ExpiresTime)
+                    _accessTokenInfo = null;
+
+            if (_accessTokenInfo == null)
             {
-                string tokenId=rst.Replace("{\"access_token\":\"", "").Replace("\",\"expires_in\":7200}", "");
-                //CacheHelper.CacheInsertAddMinutes("access_token",tokenId,120);
-                return Json(tokenId, JsonRequestBehavior.AllowGet);
+                lock (_lockObj)
+                {
+                    if (_accessTokenInfo == null)
+                    {
+                        var url = string.Format(CommonSettings.WECHATURL_GETACCESSTOKEN_FORMAT, CommonSettings.DUOJU_APPID, CommonSettings.DUOJU_APPSECRET);
+
+                        var accessTokenInfo = CallRemoteInterface<WeChatAccessTokenInfo>(RequestTypes.GET, RequestContentTypes.JSON, url);
+                        accessTokenInfo.ExpiresTime = DateTime.Now.AddSeconds(accessTokenInfo.expires_in);
+
+                        _accessTokenInfo = accessTokenInfo;
+                    }
+                }
             }
-            else
-                return Json(rst, JsonRequestBehavior.AllowGet);
+
+            return _accessTokenInfo;
+        }
+
+        private string GetMenu()
+        {
+            var accessTokenInfo = GetWeChatAccessTokenInfo();
+            var url = string.Format(CommonSettings.WECHATURL_GETMENU_FORMAT, accessTokenInfo.access_token);
+
+            return CallRemoteInterface<string>(RequestTypes.GET, RequestContentTypes.JSON, url);
+        }
+
+        private WeChatErrorInfo CreateMenu()
+        {
+            var accessTokenInfo = GetWeChatAccessTokenInfo();
+            var url = string.Format(CommonSettings.WECHATURL_CREATEMENU_FORMAT, accessTokenInfo.access_token);
+
+            var menuInfo = new WeChatMenuInfo
+            {
+                button = new List<WeChatMenuItemInfo>
+                {
+                    new WeChatMenuItemInfo
+                    {
+                        name = "菜单",
+                        sub_button = new List<WeChatMenuItemInfo>
+                        {
+                            new WeChatMenuItemInfo
+                            {
+                                name = "发布聚会",
+                                type = MenuItemTypes.CLICK.ToString().ToLower(),
+                                key = "key1"
+                            },
+                            new WeChatMenuItemInfo
+                            {
+                                name = "周围的聚会",
+                                type = MenuItemTypes.CLICK.ToString().ToLower(),
+                                key = "key2"
+                            },
+                            new WeChatMenuItemInfo
+                            {
+                                name = "百度一下",
+                                type = MenuItemTypes.VIEW.ToString().ToLower(),
+                                url = "http://www.baidu.com"
+                            }
+                        }
+                    },
+                    new WeChatMenuItemInfo
+                    {
+                        name = "点个赞",
+                        type = MenuItemTypes.CLICK.ToString().ToLower(),
+                        key = "key3"
+                    }
+                }
+            };
+
+            return CallRemoteInterface<WeChatErrorInfo>(RequestTypes.POST, RequestContentTypes.JSON, url, JsonHelper.GetJsonWithModel(menuInfo));
+        }
+
+        private WeChatErrorInfo DeleteMenu()
+        {
+            var accessTokenInfo = GetWeChatAccessTokenInfo();
+            var url = string.Format(CommonSettings.WECHATURL_DELETEMENU_FORMAT, accessTokenInfo.access_token);
+
+            return CallRemoteInterface<WeChatErrorInfo>(RequestTypes.GET, RequestContentTypes.JSON, url);
+        }
+
+        private WeChatUserListInfo GetWeChatUserListInfo(string nextOpenid = "")
+        {
+            var accessTokenInfo = GetWeChatAccessTokenInfo();
+            var url = string.Format(CommonSettings.WECHATURL_GETUSERLISTINFO_FORMAT, accessTokenInfo.access_token, nextOpenid);
+
+            return CallRemoteInterface<WeChatUserListInfo>(RequestTypes.GET, RequestContentTypes.JSON, url);
+        }
+
+        private WeChatUserInfo GetWeChatUserInfo(string openid, string language = CommonSettings.WECHATLANGUAGE_ZHCN)
+        {
+            var accessTokenInfo = GetWeChatAccessTokenInfo();
+            var url = string.Format(CommonSettings.WECHATURL_GETUSERINFO_FORMAT, accessTokenInfo.access_token, openid, language);
+
+            return CallRemoteInterface<WeChatUserInfo>(RequestTypes.GET, RequestContentTypes.JSON, url);
         }
     }
 }

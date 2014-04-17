@@ -43,12 +43,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommonSettings.cs" />
+    <Compile Include="Enums\ErrCodes.cs" />
     <Compile Include="Enums\Events.cs" />
+    <Compile Include="Enums\MenuItemTypes.cs" />
     <Compile Include="Enums\MsgTypes.cs" />
+    <Compile Include="Enums\RequestContentTypes.cs" />
+    <Compile Include="Enums\RequestTypes.cs" />
     <Compile Include="Helpers\JsonHelper.cs" />
     <Compile Include="Helpers\SecurityHelper.cs" />
+    <Compile Include="Models\WeChatAccessTokenInfo.cs" />
+    <Compile Include="Models\WeChatErrorInfo.cs" />
+    <Compile Include="Models\WeChatMenuInfo.cs" />
     <Compile Include="Models\WeChatSendMessageModel.cs" />
     <Compile Include="Models\WeChatReceiveMessageModel.cs" />
+    <Compile Include="Models\WeChatUserInfo.cs" />
+    <Compile Include="Models\WeChatUserListInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

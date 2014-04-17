@@ -2,14 +2,38 @@
 {
     public class CommonSettings
     {
+        public const int REQUEST_TIMEOUT = 6000;
+
+        public const string REQUEST_CONTENTTYPE_FORM = "application/x-www-form-urlencoded";
+
+        public const string REQUEST_CONTENTTYPE_JSON = "application/json;charset=utf-8";
+
+
         public const string DUOJU_TOKEN = "suibianxiexie";
 
-        public const string DUOJU_APPID = "wx78e2cae548e749c5";
+        public const string DUOJU_APPID = "wx2b8e67341ef40666";
 
-        public const string DUOJU_APPSECRET = "d5033d374aef931cd1de51fd11ab216b";
+        public const string DUOJU_APPSECRET = "5e1c314ef6d160d2fbfa4d8bc0beef2d";
+
+
+        public const string WECHATLANGUAGE_ZHCN = "zh_CN";
+
+        public const string WECHATLANGUAGE_ZHTW = "zh_TW";
+
+        public const string WECHATLANGUAGE_EN = "en";
 
 
         public const string WECHATURL_GETACCESSTOKEN_FORMAT = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid={0}&secret={1}";
+
+        public const string WECHATURL_GETMENU_FORMAT = "https://api.weixin.qq.com/cgi-bin/menu/get?access_token={0}";
+
+        public const string WECHATURL_CREATEMENU_FORMAT = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token={0}";
+
+        public const string WECHATURL_DELETEMENU_FORMAT = "https://api.weixin.qq.com/cgi-bin/menu/delete?access_token={0}";
+
+        public const string WECHATURL_GETUSERLISTINFO_FORMAT = "https://api.weixin.qq.com/cgi-bin/user/get?access_token={0}&next_openid={1}";
+
+        public const string WECHATURL_GETUSERINFO_FORMAT = "https://api.weixin.qq.com/cgi-bin/user/info?access_token={0}&openid={1}&lang={2}";
 
 
         public const string WECHATXML_ROOT_NAME = "xml";
