@@ -1,6 +1,0 @@
-F:\VS_Projects\Duoju.Us\Duoju.Model\obj\Debug\Duoju.Model.csproj.GenerateResource.Cache
-F:\VS_Projects\Duoju.Us\Duoju.Model\bin\Debug\Duoju.Model.dll
-F:\VS_Projects\Duoju.Us\Duoju.Model\bin\Debug\Duoju.Model.pdb
-F:\VS_Projects\Duoju.Us\Duoju.Model\obj\Debug\Duoju.Model.Resource.ErrorInfo.resources
-F:\VS_Projects\Duoju.Us\Duoju.Model\obj\Debug\Duoju.Model.dll
-F:\VS_Projects\Duoju.Us\Duoju.Model\obj\Debug\Duoju.Model.pdb

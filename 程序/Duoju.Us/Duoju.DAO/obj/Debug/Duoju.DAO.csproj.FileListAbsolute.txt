@@ -1,7 +1,0 @@
-F:\VS_Projects\Duoju.Us\Duoju.DAO\obj\Debug\Duoju.DAO.csprojResolveAssemblyReference.cache
-F:\VS_Projects\Duoju.Us\Duoju.DAO\bin\Debug\Duoju.DAO.dll
-F:\VS_Projects\Duoju.Us\Duoju.DAO\bin\Debug\Duoju.DAO.pdb
-F:\VS_Projects\Duoju.Us\Duoju.DAO\bin\Debug\Duoju.Model.dll
-F:\VS_Projects\Duoju.Us\Duoju.DAO\bin\Debug\Duoju.Model.pdb
-F:\VS_Projects\Duoju.Us\Duoju.DAO\obj\Debug\Duoju.DAO.dll
-F:\VS_Projects\Duoju.Us\Duoju.DAO\obj\Debug\Duoju.DAO.pdb

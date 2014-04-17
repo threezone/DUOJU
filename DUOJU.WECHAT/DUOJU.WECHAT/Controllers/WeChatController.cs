@@ -340,7 +340,7 @@ namespace DUOJU.WECHAT.Controllers
             if (rst.Contains("access_token"))
             {
                 string tokenId=rst.Replace("{\"access_token\":\"", "").Replace("\",\"expires_in\":7200}", "");
-                CacheHelper.CacheInsertAddMinutes("access_token",tokenId,120);
+                //CacheHelper.CacheInsertAddMinutes("access_token",tokenId,120);
                 return Json(tokenId, JsonRequestBehavior.AllowGet);
             }
             else

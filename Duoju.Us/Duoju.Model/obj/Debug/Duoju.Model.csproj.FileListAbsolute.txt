@@ -1,0 +1,12 @@
+F:\VS_Projects\Duoju.Us\Duoju.Model\obj\Debug\Duoju.Model.csproj.GenerateResource.Cache
+F:\VS_Projects\Duoju.Us\Duoju.Model\bin\Debug\Duoju.Model.dll
+F:\VS_Projects\Duoju.Us\Duoju.Model\bin\Debug\Duoju.Model.pdb
+F:\VS_Projects\Duoju.Us\Duoju.Model\obj\Debug\Duoju.Model.Resource.ErrorInfo.resources
+F:\VS_Projects\Duoju.Us\Duoju.Model\obj\Debug\Duoju.Model.dll
+F:\VS_Projects\Duoju.Us\Duoju.Model\obj\Debug\Duoju.Model.pdb
+D:\GIT\DUOJU\程序\Duoju.Us\Duoju.Model\bin\Debug\Duoju.Model.dll
+D:\GIT\DUOJU\程序\Duoju.Us\Duoju.Model\bin\Debug\Duoju.Model.pdb
+D:\GIT\DUOJU\程序\Duoju.Us\Duoju.Model\obj\Debug\Duoju.Model.Resource.ErrorInfo.resources
+D:\GIT\DUOJU\程序\Duoju.Us\Duoju.Model\obj\Debug\Duoju.Model.csproj.GenerateResource.Cache
+D:\GIT\DUOJU\程序\Duoju.Us\Duoju.Model\obj\Debug\Duoju.Model.dll
+D:\GIT\DUOJU\程序\Duoju.Us\Duoju.Model\obj\Debug\Duoju.Model.pdb
