@@ -1,8 +1,10 @@
 ﻿using Domain;
-using Domain.Enums;
+using Domain.Enums.WeChat;
 using Domain.Helpers;
-using Domain.Models;
+using Domain.Models.WeChat;
 using log4net;
+using Service.Abstract;
+using Service.Concrete;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -18,9 +20,17 @@ namespace DUOJU.WECHAT.Controllers
     {
         private ILog logger = LogManager.GetLogger(typeof(WeChatController));
 
+        private IUserService UserService { get; set; }
+
         private static WeChatAccessTokenInfo _accessTokenInfo = null;
 
         private static object _lockObj = new object();
+
+
+        public WeChatController()
+        {
+            UserService = new UserService();
+        }
 
 
         /// <summary>
@@ -57,71 +67,38 @@ namespace DUOJU.WECHAT.Controllers
             {
                 ToUserName = receiveModel.FromUserName,
                 FromUserName = receiveModel.ToUserName,
-                CreateTime = DateTime.Now.Ticks / 1000
+                CreateTime = DateTimeHelper.ConvertTimeStamp(DateTime.Now)
             };
             switch (receiveModel.MsgType)
             {
                 case MsgTypes.TEXT:
-                    switch (receiveModel.Content)
-                    {
-                        case "help":
-                        case "HELP":
-                        case "Help":
-                        case "?":
-                        case "？":
-                            sendModel.MsgType = MsgTypes.TEXT;
-                            sendModel.Content = "1、读取菜单\n2、重设菜单\n3、删除菜单\n4、获取用户列表\n5、当前用户信息\n6、获取access_token";
-                            break;
-
-                        case "1":
-                            var menuInfoStr = GetMenu();
-                            sendModel.MsgType = MsgTypes.TEXT;
-                            sendModel.Content = menuInfoStr;
-                            break;
-
-                        case "2":
-                            var menuInfo = CreateMenu();
-                            sendModel.MsgType = MsgTypes.TEXT;
-                            sendModel.Content = JsonHelper.GetJsonWithModel(menuInfo);
-                            break;
-
-                        case "3":
-                            var errorInfo = DeleteMenu();
-                            sendModel.MsgType = MsgTypes.TEXT;
-                            sendModel.Content = JsonHelper.GetJsonWithModel(errorInfo);
-                            break;
-
-                        case "4":
-                            var userListInfo = GetWeChatUserListInfo();
-                            sendModel.MsgType = MsgTypes.TEXT;
-                            sendModel.Content = JsonHelper.GetJsonWithModel(userListInfo);
-                            break;
-
-                        case "5":
-                            var userInfo = GetWeChatUserInfo(receiveModel.FromUserName);
-                            sendModel.MsgType = MsgTypes.TEXT;
-                            sendModel.Content = JsonHelper.GetJsonWithModel(userInfo);
-                            break;
-
-                        case "6":
-                            var accessTokenInfo = GetWeChatAccessTokenInfo();
-                            sendModel.MsgType = MsgTypes.TEXT;
-                            sendModel.Content = JsonHelper.GetJsonWithModel(accessTokenInfo);
-                            break;
-                    }
                     break;
 
                 case MsgTypes.EVENT:
                     switch (receiveModel.Event.Value)
                     {
                         case Events.SUBSCRIBE:
+                            logger.WarnFormat("user ({0}) subscribe{1}.",
+                                receiveModel.FromUserName,
+                                string.IsNullOrEmpty(receiveModel.Ticket) ? null : string.Format(" with ticket ({0})", receiveModel.Ticket)
+                            );
+
+                            var subscribeUser = GetWeChatUserInfo(receiveModel.FromUserName, CommonSettings.WECHATLANGUAGE_EN);
+                            UserService.AddWeChatUser(subscribeUser);
+
                             sendModel.MsgType = MsgTypes.TEXT;
                             sendModel.Content = "欢迎关注！";
                             break;
 
                         case Events.SCAN:
-                            sendModel.MsgType = MsgTypes.TEXT;
-                            sendModel.Content = "有什么我可以帮到您？";
+                            logger.WarnFormat("user ({0}) scan, ticket: {1}.",
+                                receiveModel.FromUserName,
+                                receiveModel.Ticket
+                            );
+                            break;
+
+                        case Events.UNSUBSCRIBE:
+                            logger.WarnFormat("user ({0}) unsubscribe.", receiveModel.FromUserName);
                             break;
 
                         case Events.CLICK:
@@ -137,9 +114,33 @@ namespace DUOJU.WECHAT.Controllers
                     break;
             }
 
-            logger.Info(ConvertSendXML(sendModel));
             return Content(ConvertSendXML(sendModel));
         }
+
+
+        public ActionResult TEST(int suplierId, string openId)
+        {
+            var user = new WeChatUserInfo
+            {
+                subscribe = (int)Domain.Enums.Common.YesNo.Y,
+                openid = "o2x6et8pNFA3QTAqkgCEjE2oslf8",
+                nickname = "sugar.lin",
+                sex = (int)Domain.Enums.Common.UserSexes.M,
+                language = "zh",
+                city = "Guangzhou",
+                province = "Guangdong",
+                country = "China",
+                headimgurl = "http://d.hiphotos.baidu.com/image/w%3D2048/sign=20aa6ccadfc451daf6f60beb82c55366/b219ebc4b74543a9b9590e581c178a82b80114e7.jpg",
+                subscribe_time = 1397896767
+            };
+
+            UserService.AddWeChatUser(user);
+
+            return Content(null);
+        }
+
+
+        #region Helper
 
         /// <summary>
         /// 转换接收到的XML STREAM
@@ -212,8 +213,12 @@ namespace DUOJU.WECHAT.Controllers
                     switch (receiveModel.Event.Value)
                     {
                         case Events.SUBSCRIBE:
-                            receiveModel.EventKey = rootElement.Descendants(CommonSettings.WECHATXML_EVENTKEY_NAME).FirstOrDefault().Value;
-                            receiveModel.Ticket = rootElement.Descendants(CommonSettings.WECHATXML_TICKET_NAME).FirstOrDefault().Value;
+                            var eventKey = rootElement.Descendants(CommonSettings.WECHATXML_EVENTKEY_NAME).FirstOrDefault();
+                            if (eventKey != null)
+                                receiveModel.EventKey = eventKey.Value;
+                            var ticket = rootElement.Descendants(CommonSettings.WECHATXML_TICKET_NAME).FirstOrDefault();
+                            if (ticket != null)
+                                receiveModel.Ticket = ticket.Value;
                             break;
 
                         case Events.UNSUBSCRIBE:
@@ -361,6 +366,10 @@ namespace DUOJU.WECHAT.Controllers
             }
         }
 
+        #endregion
+
+
+        #region Remote
 
         private WeChatAccessTokenInfo GetWeChatAccessTokenInfo()
         {
@@ -464,5 +473,7 @@ namespace DUOJU.WECHAT.Controllers
 
             return CallRemoteInterface<WeChatUserInfo>(RequestTypes.GET, RequestContentTypes.JSON, url);
         }
+
+        #endregion
     }
 }

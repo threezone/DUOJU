@@ -2,6 +2,11 @@
 {
     public class CommonSettings
     {
+        public const int OPERATOR_SYSTEM_ID = 0;
+
+        public const double DEFAULT_USER_CREDIT_AMOUNT = 1000;
+
+
         public const int REQUEST_TIMEOUT = 6000;
 
         public const string REQUEST_CONTENTTYPE_FORM = "application/x-www-form-urlencoded";
@@ -14,6 +19,9 @@
         public const string DUOJU_APPID = "wx2b8e67341ef40666";
 
         public const string DUOJU_APPSECRET = "5e1c314ef6d160d2fbfa4d8bc0beef2d";
+
+
+        public const string WECHATUSER_ACCOUNT_FORMAT = "wechat_{0}";
 
 
         public const string WECHATLANGUAGE_ZHCN = "zh_CN";

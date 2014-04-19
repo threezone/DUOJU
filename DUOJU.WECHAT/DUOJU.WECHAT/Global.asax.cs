@@ -1,4 +1,5 @@
-﻿using log4net.Config;
+﻿using log4net;
+using log4net.Config;
 using System.IO;
 using System.Web.Mvc;
 using System.Web.Optimization;
@@ -11,6 +12,9 @@ namespace DUOJU.WECHAT
 
     public class MvcApplication : System.Web.HttpApplication
     {
+        private ILog logger = LogManager.GetLogger(typeof(MvcApplication));
+
+
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
@@ -21,6 +25,13 @@ namespace DUOJU.WECHAT
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
             XmlConfigurator.Configure(new FileInfo(Server.MapPath("~/Config/log4net.config.xml")));
+        }
+
+        protected void Application_Error()
+        {
+            var exception = Server.GetLastError();
+            if (exception != null)
+                logger.Error(exception);
         }
     }
 }

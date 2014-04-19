@@ -1,0 +1,373 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DUOJUModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="DUOJU_CITIES">
+    <Key>
+      <PropertyRef Name="CITY_ID" />
+    </Key>
+    <Property Name="CITY_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="COUNTRY_ID" Type="Int32" />
+    <Property Name="PROVINCE_ID" Type="Int32" />
+    <Property Name="CITY_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CITY_NAME_CN" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="CREATE_TIME" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="LAST_UPDATE_TIME" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="DUOJU_COUNTRIES" Relationship="Self.FK__DUOJU_CIT__COUNT__0DAF0CB0" FromRole="DUOJU_CITIES" ToRole="DUOJU_COUNTRIES" />
+    <NavigationProperty Name="DUOJU_PROVINCES" Relationship="Self.FK__DUOJU_CIT__PROVI__0EA330E9" FromRole="DUOJU_CITIES" ToRole="DUOJU_PROVINCES" />
+    <NavigationProperty Name="DUOJU_USERS" Relationship="Self.FK__DUOJU_USE__CITY___21B6055D" FromRole="DUOJU_CITIES" ToRole="DUOJU_USERS" />
+  </EntityType>
+  <EntityType Name="DUOJU_COUNTRIES">
+    <Key>
+      <PropertyRef Name="COUNTRY_ID" />
+    </Key>
+    <Property Name="COUNTRY_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="COUNTRY_CODE" Type="String" Nullable="false" Unicode="false" FixedLength="false" MaxLength="5" />
+    <Property Name="COUNTRY_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="COUNTRY_NAME_CN" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="CREATE_TIME" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="LAST_UPDATE_TIME" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="DUOJU_CITIES" Relationship="Self.FK__DUOJU_CIT__COUNT__0DAF0CB0" FromRole="DUOJU_COUNTRIES" ToRole="DUOJU_CITIES" />
+    <NavigationProperty Name="DUOJU_PROVINCES" Relationship="Self.FK__DUOJU_PRO__COUNT__07020F21" FromRole="DUOJU_COUNTRIES" ToRole="DUOJU_PROVINCES" />
+    <NavigationProperty Name="DUOJU_USERS" Relationship="Self.FK__DUOJU_USE__COUNT__1FCDBCEB" FromRole="DUOJU_COUNTRIES" ToRole="DUOJU_USERS" />
+  </EntityType>
+  <EntityType Name="DUOJU_PROVINCES">
+    <Key>
+      <PropertyRef Name="PROVINCE_ID" />
+    </Key>
+    <Property Name="PROVINCE_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="COUNTRY_ID" Type="Int32" Nullable="false" />
+    <Property Name="PROVINCE_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="PROVINCE_NAME_CN" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="CREATE_TIME" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="LAST_UPDATE_TIME" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="DUOJU_CITIES" Relationship="Self.FK__DUOJU_CIT__PROVI__0EA330E9" FromRole="DUOJU_PROVINCES" ToRole="DUOJU_CITIES" />
+    <NavigationProperty Name="DUOJU_COUNTRIES" Relationship="Self.FK__DUOJU_PRO__COUNT__07020F21" FromRole="DUOJU_PROVINCES" ToRole="DUOJU_COUNTRIES" />
+    <NavigationProperty Name="DUOJU_USERS" Relationship="Self.FK__DUOJU_USE__PROVI__20C1E124" FromRole="DUOJU_PROVINCES" ToRole="DUOJU_USERS" />
+  </EntityType>
+  <EntityType Name="DUOJU_ROLE_PRIVILEGES">
+    <Key>
+      <PropertyRef Name="ROLE" />
+    </Key>
+    <Property Name="ROLE" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="PRIVILEGES" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CREATE_TIME" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="LAST_UPDATE_TIME" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="DUOJU_USERS" Relationship="Self.FK__DUOJU_USER__ROLE__1CF15040" FromRole="DUOJU_ROLE_PRIVILEGES" ToRole="DUOJU_USERS" />
+  </EntityType>
+  <EntityType Name="DUOJU_USER_CREDITS">
+    <Key>
+      <PropertyRef Name="USER_CREDIT_ID" />
+    </Key>
+    <Property Name="USER_CREDIT_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="USER_ID" Type="Int32" Nullable="false" />
+    <Property Name="CREDIT_AMOUNT" Type="Double" Nullable="false" />
+    <Property Name="CREATE_BY" Type="Int32" Nullable="false" />
+    <Property Name="CREATE_TIME" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="DUOJU_USERS" Relationship="Self.FK__DUOJU_USE__USER___2B3F6F97" FromRole="DUOJU_USER_CREDITS" ToRole="DUOJU_USERS" />
+    <Property Name="LAST_UPDATE_BY" Type="Int32" Nullable="false" />
+    <Property Name="LAST_UPDATE_TIME" Type="DateTime" Nullable="false" Precision="3" />
+  </EntityType>
+  <EntityType Name="DUOJU_USERS">
+    <Key>
+      <PropertyRef Name="USER_ID" />
+    </Key>
+    <Property Name="USER_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ACCOUNT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="PASSWORD" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="COME_FROM" Type="Int32" Nullable="false" />
+    <Property Name="ROLE" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="PRIVILEGES" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="SUBSCRIBED" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="SUBSCRIBE_TIME" Type="DateTime" Precision="3" />
+    <Property Name="OPEN_ID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="NICK_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="SEX" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="HEAD_IMG_URL" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="COUNTRY_ID" Type="Int32" />
+    <Property Name="PROVINCE_ID" Type="Int32" />
+    <Property Name="CITY_ID" Type="Int32" />
+    <Property Name="ENABLED" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="CREATE_BY" Type="Int32" Nullable="false" />
+    <Property Name="CREATE_TIME" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="LAST_UPDATE_BY" Type="Int32" Nullable="false" />
+    <Property Name="LAST_UPDATE_TIME" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="DUOJU_CITIES" Relationship="Self.FK__DUOJU_USE__CITY___21B6055D" FromRole="DUOJU_USERS" ToRole="DUOJU_CITIES" />
+    <NavigationProperty Name="DUOJU_COUNTRIES" Relationship="Self.FK__DUOJU_USE__COUNT__1FCDBCEB" FromRole="DUOJU_USERS" ToRole="DUOJU_COUNTRIES" />
+    <NavigationProperty Name="DUOJU_PROVINCES" Relationship="Self.FK__DUOJU_USE__PROVI__20C1E124" FromRole="DUOJU_USERS" ToRole="DUOJU_PROVINCES" />
+    <NavigationProperty Name="DUOJU_ROLE_PRIVILEGES" Relationship="Self.FK__DUOJU_USER__ROLE__1CF15040" FromRole="DUOJU_USERS" ToRole="DUOJU_ROLE_PRIVILEGES" />
+    <NavigationProperty Name="DUOJU_USER_CREDITS" Relationship="Self.FK__DUOJU_USE__USER___2B3F6F97" FromRole="DUOJU_USERS" ToRole="DUOJU_USER_CREDITS" />
+    <NavigationProperty Name="DUOJU_PARTIES" Relationship="DUOJUModel.FK__DUOJU_PAR__INITI__66603565" FromRole="DUOJU_USERS" ToRole="DUOJU_PARTIES" />
+    <NavigationProperty Name="DUOJU_PARTY_COMMENTS" Relationship="DUOJUModel.FK__DUOJU_PAR__USER___7E37BEF6" FromRole="DUOJU_USERS" ToRole="DUOJU_PARTY_COMMENTS" />
+    <NavigationProperty Name="DUOJU_PARTY_PARTICIPANTS" Relationship="DUOJUModel.FK__DUOJU_PAR__PARTI__73BA3083" FromRole="DUOJU_USERS" ToRole="DUOJU_PARTY_PARTICIPANTS" />
+  </EntityType>
+  <Association Name="FK__DUOJU_CIT__COUNT__0DAF0CB0">
+    <End Role="DUOJU_COUNTRIES" Type="Self.DUOJU_COUNTRIES" Multiplicity="0..1" />
+    <End Role="DUOJU_CITIES" Type="Self.DUOJU_CITIES" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DUOJU_COUNTRIES">
+        <PropertyRef Name="COUNTRY_ID" />
+      </Principal>
+      <Dependent Role="DUOJU_CITIES">
+        <PropertyRef Name="COUNTRY_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__DUOJU_CIT__PROVI__0EA330E9">
+    <End Role="DUOJU_PROVINCES" Type="Self.DUOJU_PROVINCES" Multiplicity="0..1" />
+    <End Role="DUOJU_CITIES" Type="Self.DUOJU_CITIES" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DUOJU_PROVINCES">
+        <PropertyRef Name="PROVINCE_ID" />
+      </Principal>
+      <Dependent Role="DUOJU_CITIES">
+        <PropertyRef Name="PROVINCE_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__DUOJU_USE__CITY___21B6055D">
+    <End Role="DUOJU_CITIES" Type="Self.DUOJU_CITIES" Multiplicity="0..1" />
+    <End Role="DUOJU_USERS" Type="Self.DUOJU_USERS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DUOJU_CITIES">
+        <PropertyRef Name="CITY_ID" />
+      </Principal>
+      <Dependent Role="DUOJU_USERS">
+        <PropertyRef Name="CITY_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__DUOJU_PRO__COUNT__07020F21">
+    <End Role="DUOJU_COUNTRIES" Type="Self.DUOJU_COUNTRIES" Multiplicity="1" />
+    <End Role="DUOJU_PROVINCES" Type="Self.DUOJU_PROVINCES" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DUOJU_COUNTRIES">
+        <PropertyRef Name="COUNTRY_ID" />
+      </Principal>
+      <Dependent Role="DUOJU_PROVINCES">
+        <PropertyRef Name="COUNTRY_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__DUOJU_USE__COUNT__1FCDBCEB">
+    <End Role="DUOJU_COUNTRIES" Type="Self.DUOJU_COUNTRIES" Multiplicity="0..1" />
+    <End Role="DUOJU_USERS" Type="Self.DUOJU_USERS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DUOJU_COUNTRIES">
+        <PropertyRef Name="COUNTRY_ID" />
+      </Principal>
+      <Dependent Role="DUOJU_USERS">
+        <PropertyRef Name="COUNTRY_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__DUOJU_USE__PROVI__20C1E124">
+    <End Role="DUOJU_PROVINCES" Type="Self.DUOJU_PROVINCES" Multiplicity="0..1" />
+    <End Role="DUOJU_USERS" Type="Self.DUOJU_USERS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DUOJU_PROVINCES">
+        <PropertyRef Name="PROVINCE_ID" />
+      </Principal>
+      <Dependent Role="DUOJU_USERS">
+        <PropertyRef Name="PROVINCE_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__DUOJU_USER__ROLE__1CF15040">
+    <End Role="DUOJU_ROLE_PRIVILEGES" Type="Self.DUOJU_ROLE_PRIVILEGES" Multiplicity="1" />
+    <End Role="DUOJU_USERS" Type="Self.DUOJU_USERS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DUOJU_ROLE_PRIVILEGES">
+        <PropertyRef Name="ROLE" />
+      </Principal>
+      <Dependent Role="DUOJU_USERS">
+        <PropertyRef Name="ROLE" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__DUOJU_USE__USER___2B3F6F97">
+    <End Role="DUOJU_USERS" Type="Self.DUOJU_USERS" Multiplicity="1" />
+    <End Role="DUOJU_USER_CREDITS" Type="Self.DUOJU_USER_CREDITS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DUOJU_USERS">
+        <PropertyRef Name="USER_ID" />
+      </Principal>
+      <Dependent Role="DUOJU_USER_CREDITS">
+        <PropertyRef Name="USER_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DUOJUEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="DUOJU_CITIES" EntityType="Self.DUOJU_CITIES" />
+    <EntitySet Name="DUOJU_COUNTRIES" EntityType="Self.DUOJU_COUNTRIES" />
+    <EntitySet Name="DUOJU_PROVINCES" EntityType="Self.DUOJU_PROVINCES" />
+    <EntitySet Name="DUOJU_ROLE_PRIVILEGES" EntityType="Self.DUOJU_ROLE_PRIVILEGES" />
+    <EntitySet Name="DUOJU_USER_CREDITS" EntityType="Self.DUOJU_USER_CREDITS" />
+    <EntitySet Name="DUOJU_USERS" EntityType="Self.DUOJU_USERS" />
+    <AssociationSet Name="FK__DUOJU_CIT__COUNT__0DAF0CB0" Association="Self.FK__DUOJU_CIT__COUNT__0DAF0CB0">
+      <End Role="DUOJU_COUNTRIES" EntitySet="DUOJU_COUNTRIES" />
+      <End Role="DUOJU_CITIES" EntitySet="DUOJU_CITIES" />
+    </AssociationSet>
+    <AssociationSet Name="FK__DUOJU_CIT__PROVI__0EA330E9" Association="Self.FK__DUOJU_CIT__PROVI__0EA330E9">
+      <End Role="DUOJU_PROVINCES" EntitySet="DUOJU_PROVINCES" />
+      <End Role="DUOJU_CITIES" EntitySet="DUOJU_CITIES" />
+    </AssociationSet>
+    <AssociationSet Name="FK__DUOJU_USE__CITY___21B6055D" Association="Self.FK__DUOJU_USE__CITY___21B6055D">
+      <End Role="DUOJU_CITIES" EntitySet="DUOJU_CITIES" />
+      <End Role="DUOJU_USERS" EntitySet="DUOJU_USERS" />
+    </AssociationSet>
+    <AssociationSet Name="FK__DUOJU_PRO__COUNT__07020F21" Association="Self.FK__DUOJU_PRO__COUNT__07020F21">
+      <End Role="DUOJU_COUNTRIES" EntitySet="DUOJU_COUNTRIES" />
+      <End Role="DUOJU_PROVINCES" EntitySet="DUOJU_PROVINCES" />
+    </AssociationSet>
+    <AssociationSet Name="FK__DUOJU_USE__COUNT__1FCDBCEB" Association="Self.FK__DUOJU_USE__COUNT__1FCDBCEB">
+      <End Role="DUOJU_COUNTRIES" EntitySet="DUOJU_COUNTRIES" />
+      <End Role="DUOJU_USERS" EntitySet="DUOJU_USERS" />
+    </AssociationSet>
+    <AssociationSet Name="FK__DUOJU_USE__PROVI__20C1E124" Association="Self.FK__DUOJU_USE__PROVI__20C1E124">
+      <End Role="DUOJU_PROVINCES" EntitySet="DUOJU_PROVINCES" />
+      <End Role="DUOJU_USERS" EntitySet="DUOJU_USERS" />
+    </AssociationSet>
+    <AssociationSet Name="FK__DUOJU_USER__ROLE__1CF15040" Association="Self.FK__DUOJU_USER__ROLE__1CF15040">
+      <End Role="DUOJU_ROLE_PRIVILEGES" EntitySet="DUOJU_ROLE_PRIVILEGES" />
+      <End Role="DUOJU_USERS" EntitySet="DUOJU_USERS" />
+    </AssociationSet>
+    <AssociationSet Name="FK__DUOJU_USE__USER___2B3F6F97" Association="Self.FK__DUOJU_USE__USER___2B3F6F97">
+      <End Role="DUOJU_USERS" EntitySet="DUOJU_USERS" />
+      <End Role="DUOJU_USER_CREDITS" EntitySet="DUOJU_USER_CREDITS" />
+    </AssociationSet>
+    <EntitySet Name="DUOJU_PARTIES" EntityType="DUOJUModel.DUOJU_PARTIES" />
+    <EntitySet Name="DUOJU_PARTY_COMMENTS" EntityType="DUOJUModel.DUOJU_PARTY_COMMENTS" />
+    <EntitySet Name="DUOJU_PARTY_PARTICIPANTS" EntityType="DUOJUModel.DUOJU_PARTY_PARTICIPANTS" />
+    <AssociationSet Name="FK__DUOJU_PAR__INITI__66603565" Association="DUOJUModel.FK__DUOJU_PAR__INITI__66603565">
+      <End Role="DUOJU_USERS" EntitySet="DUOJU_USERS" />
+      <End Role="DUOJU_PARTIES" EntitySet="DUOJU_PARTIES" />
+    </AssociationSet>
+    <AssociationSet Name="FK__DUOJU_PAR__PARTY__72C60C4A" Association="DUOJUModel.FK__DUOJU_PAR__PARTY__72C60C4A">
+      <End Role="DUOJU_PARTIES" EntitySet="DUOJU_PARTIES" />
+      <End Role="DUOJU_PARTY_PARTICIPANTS" EntitySet="DUOJU_PARTY_PARTICIPANTS" />
+    </AssociationSet>
+    <AssociationSet Name="FK__DUOJU_PAR__PARTY__7D439ABD" Association="DUOJUModel.FK__DUOJU_PAR__PARTY__7D439ABD">
+      <End Role="DUOJU_PARTIES" EntitySet="DUOJU_PARTIES" />
+      <End Role="DUOJU_PARTY_COMMENTS" EntitySet="DUOJU_PARTY_COMMENTS" />
+    </AssociationSet>
+    <AssociationSet Name="FK__DUOJU_PAR__USER___7E37BEF6" Association="DUOJUModel.FK__DUOJU_PAR__USER___7E37BEF6">
+      <End Role="DUOJU_USERS" EntitySet="DUOJU_USERS" />
+      <End Role="DUOJU_PARTY_COMMENTS" EntitySet="DUOJU_PARTY_COMMENTS" />
+    </AssociationSet>
+    <AssociationSet Name="FK__DUOJU_PAR__PARTI__73BA3083" Association="DUOJUModel.FK__DUOJU_PAR__PARTI__73BA3083">
+      <End Role="DUOJU_USERS" EntitySet="DUOJU_USERS" />
+      <End Role="DUOJU_PARTY_PARTICIPANTS" EntitySet="DUOJU_PARTY_PARTICIPANTS" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="DUOJU_PARTIES">
+    <Key>
+      <PropertyRef Name="PARTY_ID" />
+    </Key>
+    <Property Name="PARTY_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="INITIATOR_ID" Type="Int32" Nullable="false" />
+    <Property Name="HOLD_DATE" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="HOLD_TIME" Type="Int32" Nullable="false" />
+    <Property Name="DESCRIPTION" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="MIN_INTO_FORCE" Type="Int32" Nullable="false" />
+    <Property Name="MAX_INTO_FORCE" Type="Int32" />
+    <Property Name="STATUS" Type="Int32" Nullable="false" />
+    <Property Name="CREATE_BY" Type="Int32" Nullable="false" />
+    <Property Name="CREATE_TIME" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="LAST_UPDATE_BY" Type="Int32" Nullable="false" />
+    <Property Name="LAST_UPDATE_TIME" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="DUOJU_USERS" Relationship="DUOJUModel.FK__DUOJU_PAR__INITI__66603565" FromRole="DUOJU_PARTIES" ToRole="DUOJU_USERS" />
+    <NavigationProperty Name="DUOJU_PARTY_PARTICIPANTS" Relationship="DUOJUModel.FK__DUOJU_PAR__PARTY__72C60C4A" FromRole="DUOJU_PARTIES" ToRole="DUOJU_PARTY_PARTICIPANTS" />
+    <NavigationProperty Name="DUOJU_PARTY_COMMENTS" Relationship="DUOJUModel.FK__DUOJU_PAR__PARTY__7D439ABD" FromRole="DUOJU_PARTIES" ToRole="DUOJU_PARTY_COMMENTS" />
+  </EntityType>
+  <EntityType Name="DUOJU_PARTY_COMMENTS">
+    <Key>
+      <PropertyRef Name="PARTY_COMMENT_ID" />
+    </Key>
+    <Property Name="PARTY_COMMENT_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PARTY_ID" Type="Int32" Nullable="false" />
+    <Property Name="USER_ID" Type="Int32" Nullable="false" />
+    <Property Name="CONTENT" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="STATUS" Type="Int32" Nullable="false" />
+    <Property Name="CREATE_BY" Type="Int32" Nullable="false" />
+    <Property Name="CREATE_TIME" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="LAST_UPDATE_BY" Type="Int32" Nullable="false" />
+    <Property Name="LAST_UPDATE_TIME" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="DUOJU_PARTIES" Relationship="DUOJUModel.FK__DUOJU_PAR__PARTY__7D439ABD" FromRole="DUOJU_PARTY_COMMENTS" ToRole="DUOJU_PARTIES" />
+    <NavigationProperty Name="DUOJU_USERS" Relationship="DUOJUModel.FK__DUOJU_PAR__USER___7E37BEF6" FromRole="DUOJU_PARTY_COMMENTS" ToRole="DUOJU_USERS" />
+  </EntityType>
+  <EntityType Name="DUOJU_PARTY_PARTICIPANTS">
+    <Key>
+      <PropertyRef Name="PARTY_PARTICIPANT_ID" />
+    </Key>
+    <Property Name="PARTY_PARTICIPANT_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PARTY_ID" Type="Int32" Nullable="false" />
+    <Property Name="PARTICIPANT_ID" Type="Int32" Nullable="false" />
+    <Property Name="PARTICIPATE_TIME" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="STATUS" Type="Int32" Nullable="false" />
+    <Property Name="CREATE_BY" Type="Int32" Nullable="false" />
+    <Property Name="CREATE_TIME" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="LAST_UPDATE_BY" Type="Int32" Nullable="false" />
+    <Property Name="LAST_UPDATE_TIME" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="DUOJU_PARTIES" Relationship="DUOJUModel.FK__DUOJU_PAR__PARTY__72C60C4A" FromRole="DUOJU_PARTY_PARTICIPANTS" ToRole="DUOJU_PARTIES" />
+    <NavigationProperty Name="DUOJU_USERS" Relationship="DUOJUModel.FK__DUOJU_PAR__PARTI__73BA3083" FromRole="DUOJU_PARTY_PARTICIPANTS" ToRole="DUOJU_USERS" />
+  </EntityType>
+  <Association Name="FK__DUOJU_PAR__INITI__66603565">
+    <End Type="DUOJUModel.DUOJU_USERS" Role="DUOJU_USERS" Multiplicity="1" />
+    <End Type="DUOJUModel.DUOJU_PARTIES" Role="DUOJU_PARTIES" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DUOJU_USERS">
+        <PropertyRef Name="USER_ID" />
+      </Principal>
+      <Dependent Role="DUOJU_PARTIES">
+        <PropertyRef Name="INITIATOR_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__DUOJU_PAR__PARTY__72C60C4A">
+    <End Type="DUOJUModel.DUOJU_PARTIES" Role="DUOJU_PARTIES" Multiplicity="1" />
+    <End Type="DUOJUModel.DUOJU_PARTY_PARTICIPANTS" Role="DUOJU_PARTY_PARTICIPANTS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DUOJU_PARTIES">
+        <PropertyRef Name="PARTY_ID" />
+      </Principal>
+      <Dependent Role="DUOJU_PARTY_PARTICIPANTS">
+        <PropertyRef Name="PARTY_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__DUOJU_PAR__PARTY__7D439ABD">
+    <End Type="DUOJUModel.DUOJU_PARTIES" Role="DUOJU_PARTIES" Multiplicity="1" />
+    <End Type="DUOJUModel.DUOJU_PARTY_COMMENTS" Role="DUOJU_PARTY_COMMENTS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DUOJU_PARTIES">
+        <PropertyRef Name="PARTY_ID" />
+      </Principal>
+      <Dependent Role="DUOJU_PARTY_COMMENTS">
+        <PropertyRef Name="PARTY_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__DUOJU_PAR__USER___7E37BEF6">
+    <End Type="DUOJUModel.DUOJU_USERS" Role="DUOJU_USERS" Multiplicity="1" />
+    <End Type="DUOJUModel.DUOJU_PARTY_COMMENTS" Role="DUOJU_PARTY_COMMENTS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DUOJU_USERS">
+        <PropertyRef Name="USER_ID" />
+      </Principal>
+      <Dependent Role="DUOJU_PARTY_COMMENTS">
+        <PropertyRef Name="USER_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__DUOJU_PAR__PARTI__73BA3083">
+    <End Type="DUOJUModel.DUOJU_USERS" Role="DUOJU_USERS" Multiplicity="1" />
+    <End Type="DUOJUModel.DUOJU_PARTY_PARTICIPANTS" Role="DUOJU_PARTY_PARTICIPANTS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DUOJU_USERS">
+        <PropertyRef Name="USER_ID" />
+      </Principal>
+      <Dependent Role="DUOJU_PARTY_PARTICIPANTS">
+        <PropertyRef Name="PARTICIPANT_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

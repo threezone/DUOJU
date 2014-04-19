@@ -30,11 +30,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.6.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -43,25 +50,101 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommonSettings.cs" />
-    <Compile Include="Enums\ErrCodes.cs" />
-    <Compile Include="Enums\Events.cs" />
-    <Compile Include="Enums\MenuItemTypes.cs" />
-    <Compile Include="Enums\MsgTypes.cs" />
-    <Compile Include="Enums\RequestContentTypes.cs" />
-    <Compile Include="Enums\RequestTypes.cs" />
+    <Compile Include="Entities\DUOJUEntities.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DUOJUEntities.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\DUOJUEntities.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DUOJUEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\DUOJUEntities.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DUOJUEntities.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\DUOJU_CITIES.cs">
+      <DependentUpon>DUOJUEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\DUOJU_COUNTRIES.cs">
+      <DependentUpon>DUOJUEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\DUOJU_PARTIES.cs">
+      <DependentUpon>DUOJUEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\DUOJU_PARTY_COMMENTS.cs">
+      <DependentUpon>DUOJUEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\DUOJU_PARTY_PARTICIPANTS.cs">
+      <DependentUpon>DUOJUEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\DUOJU_PROVINCES.cs">
+      <DependentUpon>DUOJUEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\DUOJU_ROLE_PRIVILEGES.cs">
+      <DependentUpon>DUOJUEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\DUOJU_USERS.cs">
+      <DependentUpon>DUOJUEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\DUOJU_USER_CREDITS.cs">
+      <DependentUpon>DUOJUEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Enums\Common\UserComeFroms.cs" />
+    <Compile Include="Enums\Common\UserRoles.cs" />
+    <Compile Include="Enums\Common\UserSexes.cs" />
+    <Compile Include="Enums\Common\YesNo.cs" />
+    <Compile Include="Enums\WeChat\ErrCodes.cs" />
+    <Compile Include="Enums\WeChat\Events.cs" />
+    <Compile Include="Enums\WeChat\MenuItemTypes.cs" />
+    <Compile Include="Enums\WeChat\MsgTypes.cs" />
+    <Compile Include="Enums\WeChat\RequestContentTypes.cs" />
+    <Compile Include="Enums\WeChat\RequestTypes.cs" />
+    <Compile Include="Helpers\DateTimeHelper.cs" />
     <Compile Include="Helpers\JsonHelper.cs" />
     <Compile Include="Helpers\SecurityHelper.cs" />
-    <Compile Include="Models\WeChatAccessTokenInfo.cs" />
-    <Compile Include="Models\WeChatErrorInfo.cs" />
-    <Compile Include="Models\WeChatMenuInfo.cs" />
-    <Compile Include="Models\WeChatSendMessageModel.cs" />
-    <Compile Include="Models\WeChatReceiveMessageModel.cs" />
-    <Compile Include="Models\WeChatUserInfo.cs" />
-    <Compile Include="Models\WeChatUserListInfo.cs" />
+    <Compile Include="Models\Area\AreaInfo.cs" />
+    <Compile Include="Models\Common\KeyValue.cs" />
+    <Compile Include="Models\WeChat\WeChatAccessTokenInfo.cs" />
+    <Compile Include="Models\WeChat\WeChatErrorInfo.cs" />
+    <Compile Include="Models\WeChat\WeChatMenuInfo.cs" />
+    <Compile Include="Models\WeChat\WeChatSendMessageModel.cs" />
+    <Compile Include="Models\WeChat\WeChatReceiveMessageModel.cs" />
+    <Compile Include="Models\WeChat\WeChatUserInfo.cs" />
+    <Compile Include="Models\WeChat\WeChatUserListInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EntityDeploy Include="Entities\DUOJUEntities.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>DUOJUEntities.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="App.Config" />
+    <None Include="Entities\DUOJUEntities.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DUOJUEntities.edmx</DependentUpon>
+      <LastGenOutput>DUOJUEntities.Context.cs</LastGenOutput>
+    </None>
+    <None Include="Entities\DUOJUEntities.edmx.diagram">
+      <DependentUpon>DUOJUEntities.edmx</DependentUpon>
+    </None>
+    <None Include="Entities\DUOJUEntities.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DUOJUEntities.edmx</DependentUpon>
+      <LastGenOutput>DUOJUEntities.cs</LastGenOutput>
+    </None>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="SQL\cities.china.sql" />
+    <Content Include="SQL\countries.sql" />
+    <Content Include="SQL\DUOJU.sql" />
+    <Content Include="SQL\provinces.china.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -19,7 +19,7 @@ use DUOJU
 create table DUOJU$COUNTRIES
 (
 	COUNTRY_ID int primary key identity (1,1) not null,
-	COUNTRY_CODE int not null,
+	COUNTRY_CODE varchar(5) not null,
 	COUNTRY_NAME varchar(50) not null,
 	COUNTRY_NAME_CN nvarchar(25) not null,
 	CREATE_TIME datetime default getdate() not null,
@@ -82,19 +82,19 @@ create table DUOJU$USERS
 	USER_ID int primary key identity (1,1) not null,
 	ACCOUNT varchar(50) not null,
 	PASSWORD varchar(50) null,
-	FROM_TYPE int check (FROM_TYPE in (0, 1)) not null,
+	COME_FROM int check (COME_FROM in (0, 1)) not null,
 	ROLE varchar(20) references DUOJU$ROLE_PRIVILEGES(ROLE) not null,
 	PRIVILEGES varchar(500) not null,
 	SUBSCRIBED char(1) check (SUBSCRIBED in ('Y', 'N')) null,
 	SUBSCRIBE_TIME datetime null,
 	OPEN_ID varchar(50) null,
-	NICK_NAME nvarchar(50) not null,
-	SEX char(1) check (SEX in ('M', 'F')) null,
-	HEAD_IMG_URL varchar(100) null,
+	NICK_NAME nvarchar(50) null,
+	SEX char(1) check (SEX in ('U', 'M', 'F')) null,
+	HEAD_IMG_URL varchar(200) null,
 	COUNTRY_ID int references DUOJU$COUNTRIES(COUNTRY_ID) null,
 	PROVINCE_ID int references DUOJU$PROVINCES(PROVINCE_ID) null,
 	CITY_ID int references DUOJU$CITIES(CITY_ID) null,
-	STATUS int check (STATUS in (-1, 0, 1)) not null,
+	ENABLED char(1) check (ENABLED in ('Y', 'N')) not null,
 	CREATE_BY int default 0 not null,
 	CREATE_TIME datetime default getdate() not null,
 	LAST_UPDATE_BY int default 0 not null,
@@ -102,7 +102,9 @@ create table DUOJU$USERS
 )
 go
 create unique index UX_DUOJU$USER_ACCOUNT on DUOJU$USERS(ACCOUNT)
+create unique index UX_DUOJU$USER_OPENID on DUOJU$USERS(OPEN_ID)
 create index IX_DUOJU$USER_ROLE on DUOJU$USERS(ROLE)
+go
 
 create table DUOJU$USER_CREDITS
 (
@@ -110,10 +112,76 @@ create table DUOJU$USER_CREDITS
 	USER_ID int references DUOJU$USERS(USER_ID) not null,
 	CREDIT_AMOUNT float not null,
 	CREATE_BY int default 0 not null,
-	CREATE_TIME datetime default getdate() not null
+	CREATE_TIME datetime default getdate() not null,
+	LAST_UPDATE_BY int default 0 not null,
+	LAST_UPDATE_TIME datetime default getdate() not null
 )
 go
 create index IX_DUOJU$USER_CREDIT_USERID on DUOJU$USER_CREDITS(USER_ID)
+go
+
+
+
+create table DUOJU$PARTIES
+(
+	PARTY_ID int primary key identity (1,1) not null,
+	--SUPPLIER_ID int references DUOJU$SUPPLIERS(SUPPLIER_ID) not null,
+	INITIATOR_ID int references DUOJU$USERS(USER_ID) not null,
+	HOLD_DATE datetime not null,
+	HOLD_TIME int check (HOLD_TIME in (0, 1, 2, 3, 4)) not null,
+	DESCRIPTION nvarchar(100) null,
+	MIN_INTO_FORCE int check (MIN_INTO_FORCE >= 2) not null,
+	MAX_INTO_FORCE int null,
+	STATUS int check (STATUS in (-1, 0, 7)) not null,
+	CREATE_BY int default 0 not null,
+	CREATE_TIME datetime default getdate() not null,
+	LAST_UPDATE_BY int default 0 not null,
+	LAST_UPDATE_TIME datetime default getdate() not null
+)
+go
+--create index IX_DUOJU$PARTY_SUPPID on DUOJU$PARTIES(SUPPLIER_ID)
+create index IX_DUOJU$PARTY_INITID on DUOJU$PARTIES(INITIATOR_ID)
+alter table DUOJU$PARTIES add constraint CK_DUOJU$PARTY_INTOFORCE check (MAX_INTO_FORCE >= MIN_INTO_FORCE)
+go
+
+create table DUOJU$PARTY_PARTICIPANTS
+(
+	PARTY_PARTICIPANT_ID int primary key identity (1,1) not null,
+	PARTY_ID int references DUOJU$PARTIES(PARTY_ID) not null,
+	PARTICIPANT_ID int references DUOJU$USERS(USER_ID) not null,
+	PARTICIPATE_TIME datetime not null,
+	STATUS int check (STATUS in (-1, 0, 7)) not null,
+	CREATE_BY int default 0 not null,
+	CREATE_TIME datetime default getdate() not null,
+	LAST_UPDATE_BY int default 0 not null,
+	LAST_UPDATE_TIME datetime default getdate() not null
+);
+go
+create index IX_DUOJU$PARTY_PARTICIPANT_PARTYID on DUOJU$PARTY_PARTICIPANTS(PARTY_ID)
+create index IX_DUOJU$PARTY_PARTICIPANT_PTCPTID on DUOJU$PARTY_PARTICIPANTS(PARTICIPANT_ID)
+create index IX_DUOJU$PARTY_PARTICIPANT_STATUS on DUOJU$PARTY_PARTICIPANTS(STATUS)
+go
+
+create table DUOJU$PARTY_COMMENTS
+(
+	PARTY_COMMENT_ID int primary key identity (1,1) not null,
+	PARTY_ID int references DUOJU$PARTIES(PARTY_ID) not null,
+	USER_ID int references DUOJU$USERS(USER_ID) not null,
+	CONTENT nvarchar(100) not null,
+	STATUS int check (STATUS in (-1, 0, 7)) not null,
+	CREATE_BY int default 0 not null,
+	CREATE_TIME datetime default getdate() not null,
+	LAST_UPDATE_BY int default 0 not null,
+	LAST_UPDATE_TIME datetime default getdate() not null
+);
+go
+create index IX_DUOJU$PARTY_COMMENT_PARTYID on DUOJU$PARTY_COMMENTS(PARTY_ID)
+create index IX_DUOJU$PARTY_COMMENT_PTCPTID on DUOJU$PARTY_COMMENTS(USER_ID)
+create index IX_DUOJU$PARTY_COMMENT_STATUS on DUOJU$PARTY_COMMENTS(STATUS)
+go
+
+
+
 
 
 
@@ -175,39 +243,5 @@ create table SupplierImages
 	SupplierImageId int identity(1,1),
 	SupplierId int not null,
 	ImageId int not null,
-	CreatedDate datetime default getdate()
-);
-
-/*聚会表*/
-create table Party
-(
-	PartyId int identity(1,1),
-	SupplierId int not null,
-	InitiatorId int not null,
-	PartyName nvarchar(500) not null,
-	StartDate datetime null,
-	EndDate datetime null,
-	InviterCount int default 1,
-	Note nvarchar(500) null
-);
-
-/*聚会参与者表*/
-create table Participator
-(
-	ParticipatorId int identity(1,1),
-	PartyId int not null,
-	UserId int not null,
-	JoinDate datetime default getdate(),
-	JoinStatus int default 1,
-	Note nvarchar(500) null	
-);
-
-/*评论表*/
-create table Comment
-(
-	CommentId int identity(1,1),
-	CommentContent nvarchar(500) null,
-	UserId int not null,
-	PartyId int not null,
 	CreatedDate datetime default getdate()
 );

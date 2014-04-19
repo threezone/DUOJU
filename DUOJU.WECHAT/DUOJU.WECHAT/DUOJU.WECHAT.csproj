@@ -143,6 +143,10 @@
       <Project>{7805aeb0-24ea-4b8f-841c-81b9c20dbd70}</Project>
       <Name>Domain</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Service\Service.csproj">
+      <Project>{a569185c-aa56-4b9e-81b0-75902c0cbda1}</Project>
+      <Name>Service</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

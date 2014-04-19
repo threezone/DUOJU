@@ -1,0 +1,139 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DUOJUModelStoreContainer" CdmEntityContainer="DUOJUEntities">
+    <EntitySetMapping Name="DUOJU_CITIES">
+      <EntityTypeMapping TypeName="DUOJUModel.DUOJU_CITIES">
+        <MappingFragment StoreEntitySet="DUOJU$CITIES">
+          <ScalarProperty Name="CITY_ID" ColumnName="CITY_ID" />
+          <ScalarProperty Name="COUNTRY_ID" ColumnName="COUNTRY_ID" />
+          <ScalarProperty Name="PROVINCE_ID" ColumnName="PROVINCE_ID" />
+          <ScalarProperty Name="CITY_NAME" ColumnName="CITY_NAME" />
+          <ScalarProperty Name="CITY_NAME_CN" ColumnName="CITY_NAME_CN" />
+          <ScalarProperty Name="CREATE_TIME" ColumnName="CREATE_TIME" />
+          <ScalarProperty Name="LAST_UPDATE_TIME" ColumnName="LAST_UPDATE_TIME" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DUOJU_COUNTRIES">
+      <EntityTypeMapping TypeName="DUOJUModel.DUOJU_COUNTRIES">
+        <MappingFragment StoreEntitySet="DUOJU$COUNTRIES">
+          <ScalarProperty Name="COUNTRY_ID" ColumnName="COUNTRY_ID" />
+          <ScalarProperty Name="COUNTRY_CODE" ColumnName="COUNTRY_CODE" />
+          <ScalarProperty Name="COUNTRY_NAME" ColumnName="COUNTRY_NAME" />
+          <ScalarProperty Name="COUNTRY_NAME_CN" ColumnName="COUNTRY_NAME_CN" />
+          <ScalarProperty Name="CREATE_TIME" ColumnName="CREATE_TIME" />
+          <ScalarProperty Name="LAST_UPDATE_TIME" ColumnName="LAST_UPDATE_TIME" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DUOJU_PROVINCES">
+      <EntityTypeMapping TypeName="DUOJUModel.DUOJU_PROVINCES">
+        <MappingFragment StoreEntitySet="DUOJU$PROVINCES">
+          <ScalarProperty Name="PROVINCE_ID" ColumnName="PROVINCE_ID" />
+          <ScalarProperty Name="COUNTRY_ID" ColumnName="COUNTRY_ID" />
+          <ScalarProperty Name="PROVINCE_NAME" ColumnName="PROVINCE_NAME" />
+          <ScalarProperty Name="PROVINCE_NAME_CN" ColumnName="PROVINCE_NAME_CN" />
+          <ScalarProperty Name="CREATE_TIME" ColumnName="CREATE_TIME" />
+          <ScalarProperty Name="LAST_UPDATE_TIME" ColumnName="LAST_UPDATE_TIME" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DUOJU_ROLE_PRIVILEGES">
+      <EntityTypeMapping TypeName="DUOJUModel.DUOJU_ROLE_PRIVILEGES">
+        <MappingFragment StoreEntitySet="DUOJU$ROLE_PRIVILEGES">
+          <ScalarProperty Name="ROLE" ColumnName="ROLE" />
+          <ScalarProperty Name="PRIVILEGES" ColumnName="PRIVILEGES" />
+          <ScalarProperty Name="CREATE_TIME" ColumnName="CREATE_TIME" />
+          <ScalarProperty Name="LAST_UPDATE_TIME" ColumnName="LAST_UPDATE_TIME" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DUOJU_USER_CREDITS">
+      <EntityTypeMapping TypeName="DUOJUModel.DUOJU_USER_CREDITS">
+        <MappingFragment StoreEntitySet="DUOJU$USER_CREDITS">
+          <ScalarProperty Name="LAST_UPDATE_TIME" ColumnName="LAST_UPDATE_TIME" />
+          <ScalarProperty Name="LAST_UPDATE_BY" ColumnName="LAST_UPDATE_BY" />
+          <ScalarProperty Name="USER_CREDIT_ID" ColumnName="USER_CREDIT_ID" />
+          <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
+          <ScalarProperty Name="CREDIT_AMOUNT" ColumnName="CREDIT_AMOUNT" />
+          <ScalarProperty Name="CREATE_BY" ColumnName="CREATE_BY" />
+          <ScalarProperty Name="CREATE_TIME" ColumnName="CREATE_TIME" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DUOJU_USERS">
+      <EntityTypeMapping TypeName="DUOJUModel.DUOJU_USERS">
+        <MappingFragment StoreEntitySet="DUOJU$USERS">
+          <ScalarProperty Name="ENABLED" ColumnName="ENABLED" />
+          <ScalarProperty Name="COME_FROM" ColumnName="COME_FROM" />
+          <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
+          <ScalarProperty Name="ACCOUNT" ColumnName="ACCOUNT" />
+          <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
+          <ScalarProperty Name="ROLE" ColumnName="ROLE" />
+          <ScalarProperty Name="PRIVILEGES" ColumnName="PRIVILEGES" />
+          <ScalarProperty Name="SUBSCRIBED" ColumnName="SUBSCRIBED" />
+          <ScalarProperty Name="SUBSCRIBE_TIME" ColumnName="SUBSCRIBE_TIME" />
+          <ScalarProperty Name="OPEN_ID" ColumnName="OPEN_ID" />
+          <ScalarProperty Name="NICK_NAME" ColumnName="NICK_NAME" />
+          <ScalarProperty Name="SEX" ColumnName="SEX" />
+          <ScalarProperty Name="HEAD_IMG_URL" ColumnName="HEAD_IMG_URL" />
+          <ScalarProperty Name="COUNTRY_ID" ColumnName="COUNTRY_ID" />
+          <ScalarProperty Name="PROVINCE_ID" ColumnName="PROVINCE_ID" />
+          <ScalarProperty Name="CITY_ID" ColumnName="CITY_ID" />
+          <ScalarProperty Name="CREATE_BY" ColumnName="CREATE_BY" />
+          <ScalarProperty Name="CREATE_TIME" ColumnName="CREATE_TIME" />
+          <ScalarProperty Name="LAST_UPDATE_BY" ColumnName="LAST_UPDATE_BY" />
+          <ScalarProperty Name="LAST_UPDATE_TIME" ColumnName="LAST_UPDATE_TIME" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DUOJU_PARTIES">
+      <EntityTypeMapping TypeName="DUOJUModel.DUOJU_PARTIES">
+        <MappingFragment StoreEntitySet="DUOJU$PARTIES">
+          <ScalarProperty Name="LAST_UPDATE_TIME" ColumnName="LAST_UPDATE_TIME" />
+          <ScalarProperty Name="LAST_UPDATE_BY" ColumnName="LAST_UPDATE_BY" />
+          <ScalarProperty Name="CREATE_TIME" ColumnName="CREATE_TIME" />
+          <ScalarProperty Name="CREATE_BY" ColumnName="CREATE_BY" />
+          <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+          <ScalarProperty Name="MAX_INTO_FORCE" ColumnName="MAX_INTO_FORCE" />
+          <ScalarProperty Name="MIN_INTO_FORCE" ColumnName="MIN_INTO_FORCE" />
+          <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+          <ScalarProperty Name="HOLD_TIME" ColumnName="HOLD_TIME" />
+          <ScalarProperty Name="HOLD_DATE" ColumnName="HOLD_DATE" />
+          <ScalarProperty Name="INITIATOR_ID" ColumnName="INITIATOR_ID" />
+          <ScalarProperty Name="PARTY_ID" ColumnName="PARTY_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DUOJU_PARTY_COMMENTS">
+      <EntityTypeMapping TypeName="DUOJUModel.DUOJU_PARTY_COMMENTS">
+        <MappingFragment StoreEntitySet="DUOJU$PARTY_COMMENTS">
+          <ScalarProperty Name="LAST_UPDATE_TIME" ColumnName="LAST_UPDATE_TIME" />
+          <ScalarProperty Name="LAST_UPDATE_BY" ColumnName="LAST_UPDATE_BY" />
+          <ScalarProperty Name="CREATE_TIME" ColumnName="CREATE_TIME" />
+          <ScalarProperty Name="CREATE_BY" ColumnName="CREATE_BY" />
+          <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+          <ScalarProperty Name="CONTENT" ColumnName="CONTENT" />
+          <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
+          <ScalarProperty Name="PARTY_ID" ColumnName="PARTY_ID" />
+          <ScalarProperty Name="PARTY_COMMENT_ID" ColumnName="PARTY_COMMENT_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DUOJU_PARTY_PARTICIPANTS">
+      <EntityTypeMapping TypeName="DUOJUModel.DUOJU_PARTY_PARTICIPANTS">
+        <MappingFragment StoreEntitySet="DUOJU$PARTY_PARTICIPANTS">
+          <ScalarProperty Name="LAST_UPDATE_TIME" ColumnName="LAST_UPDATE_TIME" />
+          <ScalarProperty Name="LAST_UPDATE_BY" ColumnName="LAST_UPDATE_BY" />
+          <ScalarProperty Name="CREATE_TIME" ColumnName="CREATE_TIME" />
+          <ScalarProperty Name="CREATE_BY" ColumnName="CREATE_BY" />
+          <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+          <ScalarProperty Name="PARTICIPATE_TIME" ColumnName="PARTICIPATE_TIME" />
+          <ScalarProperty Name="PARTICIPANT_ID" ColumnName="PARTICIPANT_ID" />
+          <ScalarProperty Name="PARTY_ID" ColumnName="PARTY_ID" />
+          <ScalarProperty Name="PARTY_PARTICIPANT_ID" ColumnName="PARTY_PARTICIPANT_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

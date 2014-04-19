@@ -1,3 +1,0 @@
-23:44:17,308 DUOJU.WECHAT.Controllers.WeChatController [INFO] - signature:;timestamp:;nonce:;echostr:
-23:44:57,329 DUOJU.WECHAT.Controllers.WeChatController [INFO] - signature:;timestamp:;nonce:;echostr:
-23:45:47,913 DUOJU.WECHAT.Controllers.WeChatController [INFO] - signature:1;timestamp:2;nonce:3;echostr:4
