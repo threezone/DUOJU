@@ -5,14 +5,14 @@
         /// <summary>
         /// 删除
         /// </summary>
-        DELETED,
+        DELETED = -1,
         /// <summary>
         /// 新建
         /// </summary>
-        NEW,
+        NEW = 0,
         /// <summary>
         /// 已发布
         /// </summary>
-        PUBLISHED
+        PUBLISHED = 7
     }
 }

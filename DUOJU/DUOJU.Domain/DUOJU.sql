@@ -128,7 +128,7 @@ create table DUOJU$PARTIES
 	--SUPPLIER_ID int references DUOJU$SUPPLIERS(SUPPLIER_ID) not null,
 	INITIATOR_ID int references DUOJU$USERS(USER_ID) not null,
 	HOLD_DATE datetime not null,
-	HOLD_TIME int check (HOLD_TIME in (0, 1, 2, 3, 4)) not null,
+	HOLD_TIME int check (HOLD_TIME in (0, 1, 2, 3, 4, 5)) not null,
 	DESCRIPTION nvarchar(100) null,
 	MIN_INTO_FORCE int check (MIN_INTO_FORCE >= 2) not null,
 	MAX_INTO_FORCE int null,
@@ -165,6 +165,7 @@ go
 create table DUOJU$PARTY_COMMENTS
 (
 	PARTY_COMMENT_ID int primary key identity (1,1) not null,
+	--SUPPLIER_ID int references DUOJU$SUPPLIERS(SUPPLIER_ID) not null,
 	PARTY_ID int references DUOJU$PARTIES(PARTY_ID) not null,
 	USER_ID int references DUOJU$USERS(USER_ID) not null,
 	CONTENT nvarchar(100) not null,
@@ -175,6 +176,7 @@ create table DUOJU$PARTY_COMMENTS
 	LAST_UPDATE_TIME datetime default getdate() not null
 );
 go
+--create index IX_DUOJU$PARTY_COMMENT_SUPPID on DUOJU$PARTY_COMMENTS(SUPPLIER_ID)
 create index IX_DUOJU$PARTY_COMMENT_PARTYID on DUOJU$PARTY_COMMENTS(PARTY_ID)
 create index IX_DUOJU$PARTY_COMMENT_PTCPTID on DUOJU$PARTY_COMMENTS(USER_ID)
 create index IX_DUOJU$PARTY_COMMENT_STATUS on DUOJU$PARTY_COMMENTS(STATUS)

@@ -3,6 +3,10 @@
     public enum PartyHoldTimes
     {
         /// <summary>
+        /// 早餐
+        /// </summary>
+        BREAKFAST,
+        /// <summary>
         /// 早上
         /// </summary>
         MORNING,

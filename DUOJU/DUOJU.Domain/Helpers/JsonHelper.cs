@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace DUOJU.FRAMEWORK
+namespace DUOJU.Domain.Helpers
 {
     public static class JsonHelper
     {
@@ -42,6 +42,36 @@ namespace DUOJU.FRAMEWORK
         public static string GetJsonWithModel(object model, bool IgnoreNull = true)
         {
             return SerializeObject(model, IgnoreNull);
+        }
+
+        /// <summary>
+        /// 获取成功的Json字符串
+        /// </summary>
+        /// <param name="message">提示信息（默认返回 Resources.Messages.Tips_Success）</param>
+        /// <param name="IgnoreNull">是否忽略Null值的字段</param>
+        /// <returns></returns>
+        public static string GetJsonForSuccess(string message = null, bool IgnoreNull = true)
+        {
+            return SerializeObject(new
+            {
+                Result = CommonSettings.OPERATE_SUCCESS,
+                Message = message ?? CommonSettings.TIPS_SUCCESS
+            }, IgnoreNull);
+        }
+
+        /// <summary>
+        /// 获取失败的Json字符串
+        /// </summary>
+        /// <param name="message">提示信息（默认返回 Resources.Messages.Tips_Fail）</param>
+        /// <param name="IgnoreNull">是否忽略Null值的字段</param>
+        /// <returns></returns>
+        public static string GetJsonForFail(string message = null, bool IgnoreNull = true)
+        {
+            return SerializeObject(new
+            {
+                Result = CommonSettings.OPERATE_FAIL,
+                Message = message ?? CommonSettings.TIPS_FAIL
+            }, IgnoreNull);
         }
 
         #endregion

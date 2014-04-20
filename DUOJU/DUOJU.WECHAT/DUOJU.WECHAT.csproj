@@ -110,11 +110,13 @@
     <Compile Include="App_Start\ModelMetadataConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\PartyController.cs" />
     <Compile Include="Controllers\WeChatController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\WeChat\PublishPartyViewModel.cs" />
+    <Compile Include="Models\Party\PublishPartyViewModel.cs" />
+    <Compile Include="Models\Party\ViewPartyViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sys\Attributes\MetadataConventionsAttribute.cs" />
     <Compile Include="Sys\Helpers\AttributeHelper.cs" />
@@ -160,7 +162,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\WeChat\PublishParty.cshtml" />
+    <Content Include="Views\Party\PublishParty.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Party\ViewParty.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

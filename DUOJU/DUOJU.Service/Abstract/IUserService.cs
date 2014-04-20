@@ -4,7 +4,7 @@ namespace DUOJU.Service.Abstract
 {
     public interface IUserService
     {
-        int? AddWeChatUser(WeChatUserInfo info);
+        int AddWeChatUser(WeChatUserInfo info);
 
         void WeChatUserUnsubscribe(string openId);
     }

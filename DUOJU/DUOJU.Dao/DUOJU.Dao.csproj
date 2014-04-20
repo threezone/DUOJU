@@ -45,9 +45,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abstract\IAreaRepository.cs" />
+    <Compile Include="Abstract\IPartyRepository.cs" />
     <Compile Include="Abstract\ISupplierRepository.cs" />
     <Compile Include="Abstract\IUserRepository.cs" />
     <Compile Include="Concrete\AreaRepository.cs" />
+    <Compile Include="Concrete\PartyRepository.cs" />
     <Compile Include="Concrete\Repository.cs" />
     <Compile Include="Concrete\SupplierRepository.cs" />
     <Compile Include="Concrete\UserRepository.cs" />

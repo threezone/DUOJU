@@ -59,5 +59,59 @@ namespace DUOJU.Domain.Resources {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   查找类似 下午 的本地化字符串。
+        /// </summary>
+        public static string PartyHoldTimes_AFTERNOON {
+            get {
+                return ResourceManager.GetString("PartyHoldTimes_AFTERNOON", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 早餐 的本地化字符串。
+        /// </summary>
+        public static string PartyHoldTimes_BREAKFAST {
+            get {
+                return ResourceManager.GetString("PartyHoldTimes_BREAKFAST", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 晚餐 的本地化字符串。
+        /// </summary>
+        public static string PartyHoldTimes_DINNER {
+            get {
+                return ResourceManager.GetString("PartyHoldTimes_DINNER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 晚上 的本地化字符串。
+        /// </summary>
+        public static string PartyHoldTimes_EVENING {
+            get {
+                return ResourceManager.GetString("PartyHoldTimes_EVENING", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 午餐 的本地化字符串。
+        /// </summary>
+        public static string PartyHoldTimes_LUNCH {
+            get {
+                return ResourceManager.GetString("PartyHoldTimes_LUNCH", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 早上 的本地化字符串。
+        /// </summary>
+        public static string PartyHoldTimes_MORNING {
+            get {
+                return ResourceManager.GetString("PartyHoldTimes_MORNING", resourceCulture);
+            }
+        }
     }
 }
