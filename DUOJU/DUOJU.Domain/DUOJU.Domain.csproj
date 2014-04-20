@@ -89,14 +89,35 @@
     <Compile Include="Entities\DUOJU_USER_CREDITS.cs">
       <DependentUpon>DUOJUEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Enums\PartyHoldTimes.cs" />
+    <Compile Include="Enums\PartyStatuses.cs" />
     <Compile Include="Enums\UserComeFroms.cs" />
     <Compile Include="Enums\UserRoles.cs" />
     <Compile Include="Enums\UserSexes.cs" />
     <Compile Include="Enums\YesNo.cs" />
+    <Compile Include="Exceptions\BasicSystemException.cs" />
+    <Compile Include="Extensions\LocalizedExtension.cs" />
     <Compile Include="Helpers\DateTimeHelper.cs" />
     <Compile Include="Helpers\SecurityHelper.cs" />
     <Compile Include="Models\Common\KeyValue.cs" />
+    <Compile Include="Models\Party\PublishPartyModel.cs" />
+    <Compile Include="Models\Supplier\SupplierInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\EnumResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EnumResource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\ExceptionResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ExceptionResource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\ModelResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelResource.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EntityDeploy Include="Entities\DUOJUEntities.edmx">
@@ -118,6 +139,9 @@
       <LastGenOutput>DUOJUEntities.cs</LastGenOutput>
     </None>
     <None Include="packages.config" />
+    <None Include="SQL\cities.xls" />
+    <None Include="SQL\countries.xls" />
+    <None Include="SQL\provinces.xls" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
@@ -127,6 +151,20 @@
     <Content Include="SQL\countries.sql" />
     <Content Include="SQL\DUOJU.sql" />
     <Content Include="SQL\provinces.china.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\EnumResource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>EnumResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\ExceptionResource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ExceptionResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\ModelResource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ModelResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

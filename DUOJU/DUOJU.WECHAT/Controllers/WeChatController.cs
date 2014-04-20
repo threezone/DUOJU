@@ -1,9 +1,11 @@
 ﻿using DUOJU.Domain;
 using DUOJU.Domain.Helpers;
-using DUOJU.FRAMEWORK.Helper;
+using DUOJU.Domain.Models.Party;
+using DUOJU.FRAMEWORK;
 using DUOJU.FRAMEWORK.WeChat;
 using DUOJU.Service.Abstract;
 using DUOJU.Service.Concrete;
+using DUOJU.WECHAT.Models.WeChat;
 using log4net;
 using System;
 using System.Linq;
@@ -17,13 +19,16 @@ namespace DUOJU.WECHAT.Controllers
 
         private IUserService UserService { get; set; }
 
+        private ISupplierService SupplierService { get; set; }
+
         private WeChat WeChat { get; set; }
 
 
         public WeChatController()
         {
             UserService = new UserService();
-            WeChat = new WeChat(CommonSettings.DUOJU_TOKEN, CommonSettings.DUOJU_APPID, CommonSettings.DUOJU_APPSECRET);
+            SupplierService = new SupplierService();
+            WeChat = new WeChat(CommonSettings.DUOJUWECHAT_TOKEN, CommonSettings.DUOJUWECHAT_APPID, CommonSettings.DUOJUWECHAT_APPSECRET);
         }
 
 
@@ -36,9 +41,9 @@ namespace DUOJU.WECHAT.Controllers
             {
                 // 微信验证
                 // http://mp.weixin.qq.com/wiki/index.php?title=%E6%8E%A5%E5%85%A5%E6%8C%87%E5%8D%97
-                var key = SecurityHelper.SHA1Encrypt(string.Join("", new string[] { CommonSettings.DUOJU_TOKEN, timestamp, nonce }.OrderBy(i => i)));
+                var key = SecurityHelper.SHA1Encrypt(string.Join("", new string[] { CommonSettings.DUOJUWECHAT_TOKEN, timestamp, nonce }.OrderBy(i => i)));
 
-                logger.InfoFormat("wechat - signature:{0}; timestamp:{1}; nonce:{2}; echostr:{3}; token:{4}; key:{5};", signature, timestamp, nonce, echostr, CommonSettings.DUOJU_TOKEN, key);
+                logger.InfoFormat("wechat - signature:{0}; timestamp:{1}; nonce:{2}; echostr:{3}; token:{4}; key:{5};", signature, timestamp, nonce, echostr, CommonSettings.DUOJUWECHAT_TOKEN, key);
                 if (key == signature)
                     return Content(echostr);
                 else
@@ -65,9 +70,6 @@ namespace DUOJU.WECHAT.Controllers
             };
             switch (receiveModel.MsgType)
             {
-                case MsgTypes.TEXT:
-                    break;
-
                 case MsgTypes.EVENT:
                     switch (receiveModel.Event.Value)
                     {
@@ -93,6 +95,8 @@ namespace DUOJU.WECHAT.Controllers
 
                         case Events.UNSUBSCRIBE:
                             logger.WarnFormat("user ({0}) unsubscribe.", receiveModel.FromUserName);
+
+                            UserService.WeChatUserUnsubscribe(receiveModel.FromUserName);
                             break;
 
                         case Events.CLICK:
@@ -112,7 +116,25 @@ namespace DUOJU.WECHAT.Controllers
         }
 
 
-        public ActionResult TEST(int suplierId, string openId)
+        public ActionResult PublishParty(string openId, int supplierId)
+        {
+            var model = new PublishPartyViewModel
+            {
+                SupplierInfo = SupplierService.GetSupplierInfoById(supplierId),
+                PartyModel = new PublishPartyModel
+                {
+                    OpenId = openId
+                }
+            };
+
+            return View(model);
+        }
+
+
+
+
+
+        public ActionResult TEST()
         {
             var user = new WeChatUserInfo
             {

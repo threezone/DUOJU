@@ -9,10 +9,10 @@
         public const string USERACCOUNT_WECHAT_FORMAT = "wechat_{0}";
 
 
-        public const string DUOJU_TOKEN = "suibianxiexie";
+        public const string DUOJUWECHAT_TOKEN = "suibianxiexie";
 
-        public const string DUOJU_APPID = "wx2b8e67341ef40666";
+        public const string DUOJUWECHAT_APPID = "wx2b8e67341ef40666";
 
-        public const string DUOJU_APPSECRET = "5e1c314ef6d160d2fbfa4d8bc0beef2d";
+        public const string DUOJUWECHAT_APPSECRET = "5e1c314ef6d160d2fbfa4d8bc0beef2d";
     }
 }

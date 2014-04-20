@@ -40,8 +40,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abstract\IAreaService.cs" />
+    <Compile Include="Abstract\ISupplierService.cs" />
     <Compile Include="Abstract\IUserService.cs" />
     <Compile Include="Concrete\AreaService.cs" />
+    <Compile Include="Concrete\SupplierService.cs" />
     <Compile Include="Concrete\UserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

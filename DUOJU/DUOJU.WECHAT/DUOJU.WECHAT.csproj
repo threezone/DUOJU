@@ -107,13 +107,21 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\ModelMetadataConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\WeChatController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\WeChat\PublishPartyViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Sys\Attributes\MetadataConventionsAttribute.cs" />
+    <Compile Include="Sys\Helpers\AttributeHelper.cs" />
+    <Compile Include="Sys\Helpers\EnumerableHelper.cs" />
+    <Compile Include="Sys\Helpers\ModelValidationHelper.cs" />
+    <Compile Include="Sys\Helpers\ReflectionHelper.cs" />
+    <Compile Include="Sys\Helpers\StringHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Config\log4net.config.xml" />
@@ -132,7 +140,6 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Models\" />
     <Folder Include="Scripts\" />
   </ItemGroup>
   <ItemGroup>
@@ -151,6 +158,9 @@
       <Project>{a569185c-aa56-4b9e-81b0-75902c0cbda1}</Project>
       <Name>DUOJU.Service</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\WeChat\PublishParty.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

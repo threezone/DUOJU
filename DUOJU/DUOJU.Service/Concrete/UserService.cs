@@ -102,5 +102,18 @@ namespace DUOJU.Service.Concrete
 
             return null;
         }
+
+        public void WeChatUserUnsubscribe(string openId)
+        {
+            var user = UserRepository.GetUserByOpenId(openId);
+            if (user != null)
+            {
+                user.SUBSCRIBED = YesNo.N.ToString();
+                user.LAST_UPDATE_BY = CommonSettings.OPERATOR_SYSTEM_ID;
+                user.LAST_UPDATE_TIME = DateTime.Now;
+
+                UserRepository.SaveChanges();
+            }
+        }
     }
 }

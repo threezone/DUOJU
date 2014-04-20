@@ -10,7 +10,6 @@
         LOCATION,
         LINK,
         EVENT,
-
         MUSIC,
         NEWS
     }

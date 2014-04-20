@@ -45,9 +45,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abstract\IAreaRepository.cs" />
+    <Compile Include="Abstract\ISupplierRepository.cs" />
     <Compile Include="Abstract\IUserRepository.cs" />
     <Compile Include="Concrete\AreaRepository.cs" />
     <Compile Include="Concrete\Repository.cs" />
+    <Compile Include="Concrete\SupplierRepository.cs" />
     <Compile Include="Concrete\UserRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -59,7 +61,6 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

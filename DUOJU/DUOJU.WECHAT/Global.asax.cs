@@ -1,4 +1,6 @@
-﻿using log4net;
+﻿using DUOJU.Domain.Resources;
+using DUOJU.WECHAT.App_Start;
+using log4net;
 using log4net.Config;
 using System.IO;
 using System.Web.Mvc;
@@ -25,6 +27,7 @@ namespace DUOJU.WECHAT
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
             XmlConfigurator.Configure(new FileInfo(Server.MapPath("~/Config/log4net.config.xml")));
+            ModelMetadataProviders.Current = new CustomModelMetadataProvider(typeof(ModelResource), false);
         }
 
         protected void Application_Error()

@@ -26,3 +26,7 @@ D:\GIT\DUOJU\DUOJU\DUOJU.Domain\bin\Debug\EntityFramework.xml
 D:\GIT\DUOJU\DUOJU\DUOJU.Domain\bin\Debug\zh-Hans\EntityFramework.resources.dll
 D:\GIT\DUOJU\DUOJU\DUOJU.Domain\obj\Debug\DUOJU.Domain.dll
 D:\GIT\DUOJU\DUOJU\DUOJU.Domain\obj\Debug\DUOJU.Domain.pdb
+D:\GIT\DUOJU\DUOJU\DUOJU.Domain\obj\Debug\DUOJU.Domain.Resources.EnumResource.resources
+D:\GIT\DUOJU\DUOJU\DUOJU.Domain\obj\Debug\DUOJU.Domain.Resources.ExceptionResource.resources
+D:\GIT\DUOJU\DUOJU\DUOJU.Domain\obj\Debug\DUOJU.Domain.Resources.ModelResource.resources
+D:\GIT\DUOJU\DUOJU\DUOJU.Domain\obj\Debug\DUOJU.Domain.csproj.GenerateResource.Cache

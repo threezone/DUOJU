@@ -24,7 +24,6 @@ D:\GIT\DUOJU\DUOJU.WECHAT\DUOJU.Dao\bin\Debug\zh-Hans\EntityFramework.resources.
 D:\GIT\DUOJU\DUOJU.WECHAT\DUOJU.Dao\obj\Debug\DUOJU.Dao.csprojResolveAssemblyReference.cache
 D:\GIT\DUOJU\DUOJU.WECHAT\DUOJU.Dao\obj\Debug\DUOJU.Dao.dll
 D:\GIT\DUOJU\DUOJU.WECHAT\DUOJU.Dao\obj\Debug\DUOJU.Dao.pdb
-D:\GIT\DUOJU\DUOJU\DUOJU.Dao\bin\Debug\DUOJU.Dao.dll.config
 D:\GIT\DUOJU\DUOJU\DUOJU.Dao\bin\Debug\DUOJU.Dao.dll
 D:\GIT\DUOJU\DUOJU\DUOJU.Dao\bin\Debug\DUOJU.Dao.pdb
 D:\GIT\DUOJU\DUOJU\DUOJU.Dao\bin\Debug\DUOJU.Domain.dll
