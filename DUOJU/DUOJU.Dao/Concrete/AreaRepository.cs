@@ -1,6 +1,5 @@
 ﻿using DUOJU.Dao.Abstract;
 using DUOJU.Domain.Entities;
-using DUOJU.Domain.Models.Area;
 using System.Linq;
 
 namespace DUOJU.Dao.Concrete

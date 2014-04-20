@@ -1,4 +1,4 @@
-﻿namespace DUOJU.Domain.Enums.WeChat
+﻿namespace DUOJU.FRAMEWORK.WeChat
 {
     public enum Events
     {

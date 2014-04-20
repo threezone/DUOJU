@@ -1,5 +1,4 @@
 ﻿using DUOJU.Domain.Entities;
-using DUOJU.Domain.Models.Area;
 
 namespace DUOJU.Dao.Abstract
 {

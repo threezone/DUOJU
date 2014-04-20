@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace DUOJU.Domain.Models.WeChat
+namespace DUOJU.FRAMEWORK.WeChat
 {
     public class WeChatUserListInfo : WeChatErrorInfo
     {

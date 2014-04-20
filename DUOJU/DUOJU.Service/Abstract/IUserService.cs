@@ -1,4 +1,4 @@
-﻿using DUOJU.Domain.Models.WeChat;
+﻿using DUOJU.FRAMEWORK.WeChat;
 
 namespace DUOJU.Service.Abstract
 {

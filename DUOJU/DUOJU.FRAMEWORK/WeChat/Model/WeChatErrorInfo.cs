@@ -1,6 +1,4 @@
-﻿using DUOJU.Domain.Enums.WeChat;
-
-namespace DUOJU.Domain.Models.WeChat
+﻿namespace DUOJU.FRAMEWORK.WeChat
 {
     public class WeChatErrorInfo
     {

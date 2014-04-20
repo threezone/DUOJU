@@ -1,7 +1,6 @@
-﻿using DUOJU.Domain.Enums.WeChat;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-namespace DUOJU.Domain.Models.WeChat
+namespace DUOJU.FRAMEWORK.WeChat
 {
     public class WeChatSendMessageModel
     {

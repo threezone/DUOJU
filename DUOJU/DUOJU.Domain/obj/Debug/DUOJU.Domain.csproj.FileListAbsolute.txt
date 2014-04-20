@@ -18,3 +18,11 @@ D:\GIT\DUOJU\DUOJU.WECHAT\DUOJU.Domain\bin\Debug\Newtonsoft.Json.xml
 D:\GIT\DUOJU\DUOJU.WECHAT\DUOJU.Domain\bin\Debug\zh-Hans\EntityFramework.resources.dll
 D:\GIT\DUOJU\DUOJU.WECHAT\DUOJU.Domain\obj\Debug\DUOJU.Domain.dll
 D:\GIT\DUOJU\DUOJU.WECHAT\DUOJU.Domain\obj\Debug\DUOJU.Domain.pdb
+D:\GIT\DUOJU\DUOJU\DUOJU.Domain\bin\Debug\DUOJU.Domain.dll.config
+D:\GIT\DUOJU\DUOJU\DUOJU.Domain\bin\Debug\DUOJU.Domain.dll
+D:\GIT\DUOJU\DUOJU\DUOJU.Domain\bin\Debug\DUOJU.Domain.pdb
+D:\GIT\DUOJU\DUOJU\DUOJU.Domain\bin\Debug\EntityFramework.dll
+D:\GIT\DUOJU\DUOJU\DUOJU.Domain\bin\Debug\EntityFramework.xml
+D:\GIT\DUOJU\DUOJU\DUOJU.Domain\bin\Debug\zh-Hans\EntityFramework.resources.dll
+D:\GIT\DUOJU\DUOJU\DUOJU.Domain\obj\Debug\DUOJU.Domain.dll
+D:\GIT\DUOJU\DUOJU\DUOJU.Domain\obj\Debug\DUOJU.Domain.pdb

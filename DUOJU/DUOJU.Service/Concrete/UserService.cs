@@ -2,9 +2,9 @@
 using DUOJU.Dao.Concrete;
 using DUOJU.Domain;
 using DUOJU.Domain.Entities;
-using DUOJU.Domain.Enums.Common;
+using DUOJU.Domain.Enums;
 using DUOJU.Domain.Helpers;
-using DUOJU.Domain.Models.WeChat;
+using DUOJU.FRAMEWORK.WeChat;
 using DUOJU.Service.Abstract;
 using System;
 
@@ -39,7 +39,7 @@ namespace DUOJU.Service.Concrete
 
                     user = new DUOJU_USERS
                     {
-                        ACCOUNT = string.Format(CommonSettings.WECHATUSER_ACCOUNT_FORMAT, info.openid),
+                        ACCOUNT = string.Format(CommonSettings.USERACCOUNT_WECHAT_FORMAT, info.openid),
                         COME_FROM = (int)UserComeFroms.WECHAT,
                         //ROLE = UserRoles.USER.ToString(),
                         DUOJU_ROLE_PRIVILEGES = rolePrivilege,

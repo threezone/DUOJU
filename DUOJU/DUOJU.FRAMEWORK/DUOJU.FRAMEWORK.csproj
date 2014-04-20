@@ -30,6 +30,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -39,7 +43,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helper\JsonHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WeChat\Enum\ErrCodes.cs" />
+    <Compile Include="WeChat\Enum\Events.cs" />
+    <Compile Include="WeChat\Enum\MenuItemTypes.cs" />
+    <Compile Include="WeChat\Enum\MsgTypes.cs" />
+    <Compile Include="WeChat\Enum\RequestContentTypes.cs" />
+    <Compile Include="WeChat\Enum\RequestTypes.cs" />
+    <Compile Include="WeChat\Model\WeChatAccessTokenInfo.cs" />
+    <Compile Include="WeChat\Model\WeChatErrorInfo.cs" />
+    <Compile Include="WeChat\Model\WeChatMenuInfo.cs" />
+    <Compile Include="WeChat\Model\WeChatReceiveMessageModel.cs" />
+    <Compile Include="WeChat\Model\WeChatSendMessageModel.cs" />
+    <Compile Include="WeChat\Model\WeChatUserInfo.cs" />
+    <Compile Include="WeChat\Model\WeChatUserListInfo.cs" />
+    <Compile Include="WeChat\WeChat.cs" />
+    <Compile Include="WeChat\WeChatSettings.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

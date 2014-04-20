@@ -1,6 +1,6 @@
-﻿
-using System;
-namespace DUOJU.Domain.Models.WeChat
+﻿using System;
+
+namespace DUOJU.FRAMEWORK.WeChat
 {
     public class WeChatAccessTokenInfo : WeChatErrorInfo
     {

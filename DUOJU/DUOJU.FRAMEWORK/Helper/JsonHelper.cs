@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace DUOJU.Domain.Helpers
+namespace DUOJU.FRAMEWORK.Helper
 {
     public static class JsonHelper
     {

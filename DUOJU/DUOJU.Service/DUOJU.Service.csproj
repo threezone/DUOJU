@@ -54,6 +54,10 @@
       <Project>{7805aeb0-24ea-4b8f-841c-81b9c20dbd70}</Project>
       <Name>DUOJU.Domain</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DUOJU.FRAMEWORK\DUOJU.FRAMEWORK.csproj">
+      <Project>{7f1c6c00-b42d-47e8-823c-2f27394cde9e}</Project>
+      <Name>DUOJU.FRAMEWORK</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

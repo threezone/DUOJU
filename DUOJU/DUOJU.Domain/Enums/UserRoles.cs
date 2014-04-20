@@ -1,4 +1,4 @@
-﻿namespace DUOJU.Domain.Enums.Common
+﻿namespace DUOJU.Domain.Enums
 {
     public enum UserRoles
     {

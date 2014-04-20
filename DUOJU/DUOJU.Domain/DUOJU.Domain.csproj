@@ -33,9 +33,6 @@
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.6.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -92,28 +89,13 @@
     <Compile Include="Entities\DUOJU_USER_CREDITS.cs">
       <DependentUpon>DUOJUEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Enums\Common\UserComeFroms.cs" />
-    <Compile Include="Enums\Common\UserRoles.cs" />
-    <Compile Include="Enums\Common\UserSexes.cs" />
-    <Compile Include="Enums\Common\YesNo.cs" />
-    <Compile Include="Enums\WeChat\ErrCodes.cs" />
-    <Compile Include="Enums\WeChat\Events.cs" />
-    <Compile Include="Enums\WeChat\MenuItemTypes.cs" />
-    <Compile Include="Enums\WeChat\MsgTypes.cs" />
-    <Compile Include="Enums\WeChat\RequestContentTypes.cs" />
-    <Compile Include="Enums\WeChat\RequestTypes.cs" />
+    <Compile Include="Enums\UserComeFroms.cs" />
+    <Compile Include="Enums\UserRoles.cs" />
+    <Compile Include="Enums\UserSexes.cs" />
+    <Compile Include="Enums\YesNo.cs" />
     <Compile Include="Helpers\DateTimeHelper.cs" />
-    <Compile Include="Helpers\JsonHelper.cs" />
     <Compile Include="Helpers\SecurityHelper.cs" />
-    <Compile Include="Models\Area\AreaInfo.cs" />
     <Compile Include="Models\Common\KeyValue.cs" />
-    <Compile Include="Models\WeChat\WeChatAccessTokenInfo.cs" />
-    <Compile Include="Models\WeChat\WeChatErrorInfo.cs" />
-    <Compile Include="Models\WeChat\WeChatMenuInfo.cs" />
-    <Compile Include="Models\WeChat\WeChatSendMessageModel.cs" />
-    <Compile Include="Models\WeChat\WeChatReceiveMessageModel.cs" />
-    <Compile Include="Models\WeChat\WeChatUserInfo.cs" />
-    <Compile Include="Models\WeChat\WeChatUserListInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
