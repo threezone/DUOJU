@@ -7,12 +7,20 @@
         /// </summary>
         DELETED = -1,
         /// <summary>
-        /// 新建
-        /// </summary>
-        NEW = 0,
-        /// <summary>
         /// 已发布
         /// </summary>
-        PUBLISHED = 7
+        PUBLISHED = 1,
+        /// <summary>
+        /// 已满额
+        /// </summary>
+        FULLED = 2,
+        /// <summary>
+        /// 已确定
+        /// </summary>
+        CONFIRMED = 3,
+        /// <summary>
+        /// 已消费
+        /// </summary>
+        CONSUMED = 4
     }
 }

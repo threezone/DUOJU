@@ -9,7 +9,6 @@
         <EntityTypeShape EntityType="DUOJUModel.DUOJU_COUNTRIES" Width="1.5" PointX="0.75" PointY="4.5" IsExpanded="true" />
         <EntityTypeShape EntityType="DUOJUModel.DUOJU_PROVINCES" Width="1.5" PointX="3" PointY="8.25" IsExpanded="true" />
         <EntityTypeShape EntityType="DUOJUModel.DUOJU_ROLE_PRIVILEGES" Width="1.5" PointX="5.25" PointY="2.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DUOJUModel.DUOJU_USER_CREDITS" Width="1.5" PointX="9.75" PointY="6.625" IsExpanded="true" />
         <EntityTypeShape EntityType="DUOJUModel.DUOJU_USERS" Width="1.5" PointX="7.5" PointY="4.875" IsExpanded="true" />
         <AssociationConnector Association="DUOJUModel.FK__DUOJU_CIT__COUNT__0DAF0CB0" ManuallyRouted="false" />
         <AssociationConnector Association="DUOJUModel.FK__DUOJU_CIT__PROVI__0EA330E9" ManuallyRouted="false" />
@@ -18,7 +17,6 @@
         <AssociationConnector Association="DUOJUModel.FK__DUOJU_USE__COUNT__1FCDBCEB" ManuallyRouted="false" />
         <AssociationConnector Association="DUOJUModel.FK__DUOJU_USE__PROVI__20C1E124" ManuallyRouted="false" />
         <AssociationConnector Association="DUOJUModel.FK__DUOJU_USER__ROLE__1CF15040" ManuallyRouted="false" />
-        <AssociationConnector Association="DUOJUModel.FK__DUOJU_USE__USER___2B3F6F97" ManuallyRouted="false" />
         <EntityTypeShape EntityType="DUOJUModel.DUOJU_PARTIES" Width="1.5" PointX="9.75" PointY="10.125" />
         <EntityTypeShape EntityType="DUOJUModel.DUOJU_PARTY_COMMENTS" Width="1.5" PointX="15" PointY="7.875" />
         <EntityTypeShape EntityType="DUOJUModel.DUOJU_PARTY_PARTICIPANTS" Width="1.5" PointX="12" PointY="7.875" />

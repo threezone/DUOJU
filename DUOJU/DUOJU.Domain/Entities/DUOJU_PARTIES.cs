@@ -21,12 +21,14 @@ namespace DUOJU.Domain.Entities
         }
     
         public int PARTY_ID { get; set; }
+        public int SUPPLIER_ID { get; set; }
         public int INITIATOR_ID { get; set; }
         public System.DateTime HOLD_DATE { get; set; }
         public int HOLD_TIME { get; set; }
         public string DESCRIPTION { get; set; }
         public int MIN_INTO_FORCE { get; set; }
         public Nullable<int> MAX_INTO_FORCE { get; set; }
+        public string CONSUMPTION_VOUCHER_NO { get; set; }
         public int STATUS { get; set; }
         public int CREATE_BY { get; set; }
         public System.DateTime CREATE_TIME { get; set; }

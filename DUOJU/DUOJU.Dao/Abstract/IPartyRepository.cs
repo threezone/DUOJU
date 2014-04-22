@@ -1,4 +1,6 @@
 ﻿using DUOJU.Domain.Entities;
+using DUOJU.Domain.Models.Party;
+using System.Collections.Generic;
 
 namespace DUOJU.Dao.Abstract
 {
@@ -7,5 +9,9 @@ namespace DUOJU.Dao.Abstract
         int SaveChanges();
 
         void AddParty(DUOJU_PARTIES party);
+
+        DUOJU_PARTIES GetParty(int partyId);
+
+        IList<PartyParticipantInfo> GetPartyParticipantInfos(int partyId);
     }
 }

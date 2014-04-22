@@ -79,20 +79,7 @@ namespace DUOJU.Service.Concrete
             user.LAST_UPDATE_TIME = DateTime.Now;
 
             if (isAdd)
-            {
-                user.DUOJU_USER_CREDITS.Add(new DUOJU_USER_CREDITS
-                {
-                    //USER_CREDIT_ID = user.USER_ID,
-                    //DUOJU_USERS = user,
-                    CREDIT_AMOUNT = CommonSettings.DEFAULT_USER_CREDIT_AMOUNT,
-                    CREATE_BY = CommonSettings.OPERATOR_SYSTEM_ID,
-                    CREATE_TIME = DateTime.Now,
-                    LAST_UPDATE_BY = CommonSettings.OPERATOR_SYSTEM_ID,
-                    LAST_UPDATE_TIME = DateTime.Now
-                });
-
                 UserRepository.AddUser(user);
-            }
             UserRepository.SaveChanges();
 
             return user.USER_ID;

@@ -4,11 +4,12 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DUOJU.Domain.Models.Party
 {
-    public class PublishPartyModel
+    public class PublishPartyInfo
     {
         /// <summary>
         /// 微信用户Open Id
         /// </summary>
+        [Required]
         public string OpenId { get; set; }
 
         /// <summary>
@@ -21,12 +22,6 @@ namespace DUOJU.Domain.Models.Party
         /// </summary>
         [Required]
         public int? SupplierId { get; set; }
-
-        /// <summary>
-        /// 发起者Id
-        /// </summary>
-        //[Required]
-        //public int? InitiatorId { get; set; }
 
         /// <summary>
         /// 聚会日期
@@ -57,10 +52,5 @@ namespace DUOJU.Domain.Models.Party
         /// 最多人数
         /// </summary>
         public int? MaxIntoForce { get; set; }
-
-        /// <summary>
-        /// 状态
-        /// </summary>
-        //public PartyStatuses? Status { get; set; }
     }
 }

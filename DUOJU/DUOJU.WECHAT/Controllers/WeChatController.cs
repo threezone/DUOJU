@@ -65,6 +65,15 @@ namespace DUOJU.WECHAT.Controllers
             };
             switch (receiveModel.MsgType)
             {
+                case MsgTypes.TEXT:
+                    if (receiveModel.Content == "test1")
+                    {
+                        var url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx2b8e67341ef40666&redirect_uri=http%3A%2F%2Fwechat.duoju.us%2Fparty%2Ftest&response_type=code&scope=snsapi_base&state=test1#wechat_redirect";
+                        sendModel.MsgType = MsgTypes.TEXT;
+                        sendModel.Content = "<a href=\"" + url + "\">go</a>";
+                    }
+                    break;
+
                 case MsgTypes.EVENT:
                     switch (receiveModel.Event.Value)
                     {
@@ -75,7 +84,7 @@ namespace DUOJU.WECHAT.Controllers
                             );
 
                             var subscribeUser = WeChat.GetWeChatUserInfo(receiveModel.FromUserName, WeChatSettings.WECHATLANGUAGE_EN);
-                            UserService.AddWeChatUser(subscribeUser);
+                            //UserService.AddWeChatUser(subscribeUser);
 
                             sendModel.MsgType = MsgTypes.TEXT;
                             sendModel.Content = "欢迎关注！";

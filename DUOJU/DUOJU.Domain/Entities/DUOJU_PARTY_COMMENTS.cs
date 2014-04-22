@@ -15,6 +15,7 @@ namespace DUOJU.Domain.Entities
     public partial class DUOJU_PARTY_COMMENTS
     {
         public int PARTY_COMMENT_ID { get; set; }
+        public int SUPPLIER_ID { get; set; }
         public int PARTY_ID { get; set; }
         public int USER_ID { get; set; }
         public string CONTENT { get; set; }

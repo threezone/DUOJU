@@ -24,6 +24,6 @@ namespace DUOJU.WECHAT.Models.Party
 
         public SupplierInfo SupplierInfo { get; set; }
 
-        public PublishPartyModel PartyModel { get; set; }
+        public PublishPartyInfo PartyInfo { get; set; }
     }
 }

@@ -113,5 +113,77 @@ namespace DUOJU.Domain.Resources {
                 return ResourceManager.GetString("PartyHoldTimes_MORNING", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   查找类似 已取消 的本地化字符串。
+        /// </summary>
+        public static string PartyParticipantStatuses_CANCELED {
+            get {
+                return ResourceManager.GetString("PartyParticipantStatuses_CANCELED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 已删除 的本地化字符串。
+        /// </summary>
+        public static string PartyParticipantStatuses_DELETED {
+            get {
+                return ResourceManager.GetString("PartyParticipantStatuses_DELETED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 已参加 的本地化字符串。
+        /// </summary>
+        public static string PartyParticipantStatuses_PARTICIPATED {
+            get {
+                return ResourceManager.GetString("PartyParticipantStatuses_PARTICIPATED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 已确定 的本地化字符串。
+        /// </summary>
+        public static string PartyStatuses_CONFIRMED {
+            get {
+                return ResourceManager.GetString("PartyStatuses_CONFIRMED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 已消费 的本地化字符串。
+        /// </summary>
+        public static string PartyStatuses_CONSUMED {
+            get {
+                return ResourceManager.GetString("PartyStatuses_CONSUMED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 删除 的本地化字符串。
+        /// </summary>
+        public static string PartyStatuses_DELETED {
+            get {
+                return ResourceManager.GetString("PartyStatuses_DELETED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 已满额 的本地化字符串。
+        /// </summary>
+        public static string PartyStatuses_FULLED {
+            get {
+                return ResourceManager.GetString("PartyStatuses_FULLED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 已发布 的本地化字符串。
+        /// </summary>
+        public static string PartyStatuses_PUBLISHED {
+            get {
+                return ResourceManager.GetString("PartyStatuses_PUBLISHED", resourceCulture);
+            }
+        }
     }
 }

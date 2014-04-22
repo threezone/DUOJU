@@ -18,19 +18,19 @@
     {
         <dl>
             <dt>OpenId 无需显示</dt>
-            <dd>@Html.TextBoxFor(i => i.PartyModel.OpenId)</dd>
+            <dd>@Html.TextBoxFor(i => i.PartyInfo.OpenId)</dd>
             <dt>SupplierId 无需显示</dt>
-            <dd>@Html.TextBoxFor(i => i.PartyModel.SupplierId)</dd>
+            <dd>@Html.TextBoxFor(i => i.PartyInfo.SupplierId)</dd>
             <dt>HoldDate 具体日期</dt>
-            <dd><input type="date" name="PartyModel.HoldDate" /></dd>
+            <dd><input type="date" name="PartyInfo.HoldDate" /></dd>
             <dt>HoldTime 具体时间段</dt>
-            <dd>@Html.DropDownListFor(i => i.PartyModel.HoldTime, new SelectList(Model.PartyHoldTimes, "Key", "Value"))</dd>
+            <dd>@Html.DropDownListFor(i => i.PartyInfo.HoldTime, new SelectList(Model.PartyHoldTimes, "Key", "Value"))</dd>
             <dt>Description 说明，100字以内</dt>
-            <dd>@Html.TextAreaFor(i => i.PartyModel.Description)</dd>
+            <dd>@Html.TextAreaFor(i => i.PartyInfo.Description)</dd>
             <dt>MinIntoForce 最少人数（最少2人）</dt>
-            <dd><input type="number" min="2" name="PartyModel.MinIntoForce" /></dd>
+            <dd><input type="number" min="2" name="PartyInfo.MinIntoForce" /></dd>
             <dt>MaxIntoForce 最多人数（不少于最少人数，不填表示无限制）</dt>
-            <dd><input type="number" min="2" name="PartyModel.MaxIntoForce" /></dd>
+            <dd><input type="number" min="2" name="PartyInfo.MaxIntoForce" /></dd>
         </dl>
         
         <button type="submit">提交</button>

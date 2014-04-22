@@ -16,7 +16,6 @@ namespace DUOJU.Domain.Entities
     {
         public DUOJU_USERS()
         {
-            this.DUOJU_USER_CREDITS = new HashSet<DUOJU_USER_CREDITS>();
             this.DUOJU_PARTIES = new HashSet<DUOJU_PARTIES>();
             this.DUOJU_PARTY_COMMENTS = new HashSet<DUOJU_PARTY_COMMENTS>();
             this.DUOJU_PARTY_PARTICIPANTS = new HashSet<DUOJU_PARTY_PARTICIPANTS>();
@@ -47,7 +46,6 @@ namespace DUOJU.Domain.Entities
         public virtual DUOJU_COUNTRIES DUOJU_COUNTRIES { get; set; }
         public virtual DUOJU_PROVINCES DUOJU_PROVINCES { get; set; }
         public virtual DUOJU_ROLE_PRIVILEGES DUOJU_ROLE_PRIVILEGES { get; set; }
-        public virtual ICollection<DUOJU_USER_CREDITS> DUOJU_USER_CREDITS { get; set; }
         public virtual ICollection<DUOJU_PARTIES> DUOJU_PARTIES { get; set; }
         public virtual ICollection<DUOJU_PARTY_COMMENTS> DUOJU_PARTY_COMMENTS { get; set; }
         public virtual ICollection<DUOJU_PARTY_PARTICIPANTS> DUOJU_PARTY_PARTICIPANTS { get; set; }

@@ -18,7 +18,7 @@ namespace DUOJU.Service.Concrete
 
         public SupplierInfo GetSupplierInfoById(int supplierId)
         {
-            return null;
+            return SupplierRepository.GetSupplierInfoById(supplierId);
         }
     }
 }

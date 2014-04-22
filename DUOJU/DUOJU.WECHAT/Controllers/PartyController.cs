@@ -33,7 +33,7 @@ namespace DUOJU.WECHAT.Controllers
             var model = new PublishPartyViewModel
             {
                 SupplierInfo = SupplierService.GetSupplierInfoById(supplierId),
-                PartyModel = new PublishPartyModel
+                PartyInfo = new PublishPartyInfo
                 {
                     OpenId = openId,
                     SupplierId = supplierId
@@ -47,20 +47,19 @@ namespace DUOJU.WECHAT.Controllers
         /// 发布聚会
         /// </summary>
         [HttpPost]
-        public ActionResult PublishParty(PublishPartyModel partyModel)
+        public ActionResult PublishParty(PublishPartyInfo partyInfo)
         {
             string json;
             if (ModelState.IsValid)
             {
                 try
                 {
-                    var partyId = PartyService.AddParty(partyModel);
-
+                    var partyId = PartyService.AddParty(partyInfo);
                     json = JsonHelper.GetJsonWithModel(new
                     {
                         Result = CommonSettings.OPERATE_SUCCESS,
                         Message = CommonSettings.TIPS_SUCCESS,
-                        Url = "localhost:1002/Party/ViewParty/" + partyId
+                        Url = "/Party/ViewParty/" + partyId + "/" + partyInfo.OpenId
                     });
                 }
                 catch (BasicSystemException ex)
@@ -74,13 +73,23 @@ namespace DUOJU.WECHAT.Controllers
             return Content(json);
         }
 
+        /// <summary>
+        /// 查看聚会
+        /// </summary>
         public ActionResult ViewParty(int partyId)
         {
             var model = new ViewPartyViewModel
             {
+                PartyInfo = PartyService.GetPartyInfo(partyId)
             };
 
             return View(model);
+        }
+
+
+        public ActionResult TEST(string code, string state)
+        {
+            return Content(code + " & " + state);
         }
     }
 }

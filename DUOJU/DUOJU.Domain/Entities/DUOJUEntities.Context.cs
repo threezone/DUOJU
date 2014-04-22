@@ -29,7 +29,6 @@ namespace DUOJU.Domain.Entities
         public DbSet<DUOJU_COUNTRIES> DUOJU_COUNTRIES { get; set; }
         public DbSet<DUOJU_PROVINCES> DUOJU_PROVINCES { get; set; }
         public DbSet<DUOJU_ROLE_PRIVILEGES> DUOJU_ROLE_PRIVILEGES { get; set; }
-        public DbSet<DUOJU_USER_CREDITS> DUOJU_USER_CREDITS { get; set; }
         public DbSet<DUOJU_USERS> DUOJU_USERS { get; set; }
         public DbSet<DUOJU_PARTIES> DUOJU_PARTIES { get; set; }
         public DbSet<DUOJU_PARTY_COMMENTS> DUOJU_PARTY_COMMENTS { get; set; }
