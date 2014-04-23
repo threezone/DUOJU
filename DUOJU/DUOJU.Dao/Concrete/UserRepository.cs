@@ -16,6 +16,11 @@ namespace DUOJU.Dao.Concrete
             return DBEntities.DUOJU_ROLE_PRIVILEGES.SingleOrDefault(rp => rp.ROLE == role);
         }
 
+        public DUOJU_USERS GetUserById(int id)
+        {
+            return DBEntities.DUOJU_USERS.SingleOrDefault(u => u.USER_ID == id);
+        }
+
         public DUOJU_USERS GetUserByOpenId(string openId)
         {
             return DBEntities.DUOJU_USERS.SingleOrDefault(u => u.OPEN_ID == openId);

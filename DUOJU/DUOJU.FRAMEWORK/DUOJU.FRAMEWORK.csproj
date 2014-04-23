@@ -50,6 +50,8 @@
     <Compile Include="WeChat\Enum\MsgTypes.cs" />
     <Compile Include="WeChat\Enum\RequestContentTypes.cs" />
     <Compile Include="WeChat\Enum\RequestTypes.cs" />
+    <Compile Include="WeChat\Model\WeChatAccessTokenInfo_OAuth.cs" />
+    <Compile Include="WeChat\Model\WeChatUserInfo_OAuth.cs" />
     <Compile Include="WeChat\Model\WeChatAccessTokenInfo.cs" />
     <Compile Include="WeChat\Model\WeChatErrorInfo.cs" />
     <Compile Include="WeChat\Model\WeChatMenuInfo.cs" />

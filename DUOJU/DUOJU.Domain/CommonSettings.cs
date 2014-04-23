@@ -13,6 +13,8 @@
 
         public const int OPERATOR_SYSTEM_ID = 0;
 
+        public const double USERREGISTER_DEFAULT_COIN_COUNT = 5;
+
         public const string USERACCOUNT_WECHAT_FORMAT = "wechat_{0}";
 
 

@@ -72,6 +72,9 @@
     <Compile Include="Entities\DUOJU_COUNTRIES.cs">
       <DependentUpon>DUOJUEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entities\DUOJU_IDENTIFIERS.cs">
+      <DependentUpon>DUOJUEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Entities\DUOJU_PARTIES.cs">
       <DependentUpon>DUOJUEntities.tt</DependentUpon>
     </Compile>
@@ -90,20 +93,25 @@
     <Compile Include="Entities\DUOJU_USERS.cs">
       <DependentUpon>DUOJUEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entities\DUOJU_USER_FINANCES.cs">
+      <DependentUpon>DUOJUEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Enums\PartyHoldTimes.cs" />
     <Compile Include="Enums\PartyParticipantStatuses.cs" />
     <Compile Include="Enums\PartyStatuses.cs" />
-    <Compile Include="Enums\UserComeFroms.cs" />
+    <Compile Include="Enums\UserSources.cs" />
     <Compile Include="Enums\UserRoles.cs" />
     <Compile Include="Enums\UserSexes.cs" />
     <Compile Include="Enums\YesNo.cs" />
     <Compile Include="Exceptions\BasicSystemException.cs" />
+    <Compile Include="Exceptions\CanNotFindPartyException.cs" />
+    <Compile Include="Exceptions\PartyWasClosedException.cs" />
     <Compile Include="Extensions\LocalizedExtension.cs" />
-    <Compile Include="Helpers\DateTimeHelper.cs" />
     <Compile Include="Helpers\JsonHelper.cs" />
     <Compile Include="Helpers\SecurityHelper.cs" />
     <Compile Include="Models\Common\KeyValue.cs" />
     <Compile Include="Models\Party\PartyInfo.cs" />
+    <Compile Include="Models\Party\PartyParticipateCountInfo.cs" />
     <Compile Include="Models\Party\PartyParticipantInfo.cs" />
     <Compile Include="Models\Party\PublishPartyInfo.cs" />
     <Compile Include="Models\Supplier\SupplierInfo.cs" />
@@ -170,6 +178,9 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ModelResource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models\User\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

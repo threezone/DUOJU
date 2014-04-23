@@ -5,6 +5,8 @@ namespace DUOJU.Domain.Models.Party
 {
     public class PartyParticipantInfo
     {
+        public int ParticipantId { get; set; }
+
         public string ParticipantName { get; set; }
 
         public DateTime ParticipateTime { get; set; }

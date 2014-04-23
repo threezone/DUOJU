@@ -6,3 +6,4 @@ FULLED			2		已满额
 CONFIRMED		3		已确定
 CONSUMED		4		已消费
 PARTICIPATED	5		已参加
+USED			6		已使用

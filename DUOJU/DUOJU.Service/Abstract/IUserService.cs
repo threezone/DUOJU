@@ -6,6 +6,8 @@ namespace DUOJU.Service.Abstract
     {
         int AddWeChatUser(WeChatUserInfo info);
 
+        int AddWeChatUser(WeChatUserInfo_OAuth info);
+
         void WeChatUserUnsubscribe(string openId);
     }
 }

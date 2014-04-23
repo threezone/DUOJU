@@ -3,6 +3,7 @@
     public enum RequestContentTypes
     {
         FORM,
-        JSON
+        JSON,
+        XML
     }
 }

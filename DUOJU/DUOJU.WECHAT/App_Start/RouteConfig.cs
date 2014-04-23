@@ -17,8 +17,14 @@ namespace DUOJU.WECHAT
 
             routes.MapRoute(
                 name: "Party_ViewParty",
-                url: "Party/ViewParty/{partyId}",
-                defaults: new { controller = "Party", action = "ViewParty", partyId = UrlParameter.Optional }
+                url: "Party/ViewParty/{partyId}/{isReturn}/{participantId}",
+                defaults: new { controller = "Party", action = "ViewParty", partyId = UrlParameter.Optional, isReturn = UrlParameter.Optional, participantId = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
+                name: "Party_ParticipateParty",
+                url: "Party/ParticipateParty/{partyId}",
+                defaults: new { controller = "Party", action = "ParticipateParty", partyId = UrlParameter.Optional }
             );
 
             routes.MapRoute(

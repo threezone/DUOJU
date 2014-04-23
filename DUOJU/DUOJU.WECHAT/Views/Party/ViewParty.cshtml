@@ -36,20 +36,35 @@
         </dl>
 
         <hr />
-        <h4>已报名：@(Model.PartyInfo.PartyParticipantInfos.Count(i => i.EStatus == PartyParticipantStatuses.PARTICIPATED))人</h4>
+        @{ var isFulled = Model.PartyInfo.Status == PartyStatuses.FULLED; }
+        <h4>已报名：@(Model.PartyInfo.PartyParticipantInfos.Count(i => i.EStatus == PartyParticipantStatuses.PARTICIPATED))人@(isFulled ? "，已满额！" : string.Empty)</h4>
 
         @foreach (var info in Model.PartyInfo.PartyParticipantInfos)
         {
-            <p>@info.ParticipantName</p>
+            <p>@info.ParticipantId - @info.ParticipantName</p>
         }
 
-        <p>
-            <button type="button" onclick="Registrat()">报名</button>
-            <script>
-                var Registrat = function () {
-                    location.href = "";
-                }
-            </script>
-        </p>
+        @if (isFulled)
+        {
+                <p>已满额！</p>
+        }
+        else
+        {
+            if (Model.IsReturn && Model.ParticipantId.HasValue)
+            {
+                <p>您已成功报名！</p>
+            }
+            else
+            {
+                <p>
+                    <button type="button" onclick="Registrat()">报名</button>
+                    <script>
+                        var Registrat = function () {
+                            location.href = "";
+                        }
+                    </script>
+                </p>
+            }
+        }
     </fieldset>
 }

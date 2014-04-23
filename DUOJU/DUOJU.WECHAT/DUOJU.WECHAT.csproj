@@ -124,6 +124,7 @@
     <Compile Include="Sys\Helpers\ModelValidationHelper.cs" />
     <Compile Include="Sys\Helpers\ReflectionHelper.cs" />
     <Compile Include="Sys\Helpers\StringHelper.cs" />
+    <Compile Include="Sys\Helpers\WeChatHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Config\log4net.config.xml" />

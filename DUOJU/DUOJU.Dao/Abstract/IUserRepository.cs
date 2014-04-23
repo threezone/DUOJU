@@ -8,6 +8,8 @@ namespace DUOJU.Dao.Abstract
 
         DUOJU_ROLE_PRIVILEGES GetRolePrivilege(string role);
 
+        DUOJU_USERS GetUserById(int id);
+
         DUOJU_USERS GetUserByOpenId(string openId);
 
         void AddUser(DUOJU_USERS user);

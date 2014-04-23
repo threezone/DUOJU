@@ -12,19 +12,16 @@ namespace DUOJU.Domain.Entities
     using System;
     using System.Collections.Generic;
     
-    public partial class DUOJU_PARTY_PARTICIPANTS
+    public partial class DUOJU_USER_FINANCES
     {
-        public int PARTY_PARTICIPANT_ID { get; set; }
-        public int PARTY_ID { get; set; }
-        public int PARTICIPANT_ID { get; set; }
-        public System.DateTime PARTICIPATE_TIME { get; set; }
-        public int STATUS { get; set; }
+        public int USER_FINANCE_ID { get; set; }
+        public int USER_ID { get; set; }
+        public double COIN_COUNT { get; set; }
         public int CREATE_BY { get; set; }
         public System.DateTime CREATE_TIME { get; set; }
         public int LAST_UPDATE_BY { get; set; }
         public System.DateTime LAST_UPDATE_TIME { get; set; }
     
-        public virtual DUOJU_PARTIES DUOJU_PARTIES { get; set; }
         public virtual DUOJU_USERS DUOJU_USERS { get; set; }
     }
 }

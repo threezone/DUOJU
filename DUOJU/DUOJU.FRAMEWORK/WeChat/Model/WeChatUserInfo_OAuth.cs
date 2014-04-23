@@ -1,16 +1,14 @@
-﻿namespace DUOJU.FRAMEWORK.WeChat
-{
-    public class WeChatUserInfo : WeChatErrorInfo
-    {
-        public int? subscribe { get; set; }
+﻿using System.Collections.Generic;
 
+namespace DUOJU.FRAMEWORK.WeChat
+{
+    public class WeChatUserInfo_OAuth : WeChatErrorInfo
+    {
         public string openid { get; set; }
 
         public string nickname { get; set; }
 
         public int? sex { get; set; }
-
-        public string language { get; set; }
 
         public string city { get; set; }
 
@@ -20,6 +18,6 @@
 
         public string headimgurl { get; set; }
 
-        public int? subscribe_time { get; set; }
+        public IList<string> privilege { get; set; }
     }
 }

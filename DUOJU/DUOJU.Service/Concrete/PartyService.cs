@@ -7,6 +7,7 @@ using DUOJU.Domain.Models.Party;
 using DUOJU.Service.Abstract;
 using System;
 using System.Collections.Generic;
+using DUOJU.Domain.Exceptions;
 
 namespace DUOJU.Service.Concrete
 {
@@ -33,7 +34,6 @@ namespace DUOJU.Service.Concrete
             var party = new DUOJU_PARTIES
             {
                 SUPPLIER_ID = partyInfo.SupplierId.Value,
-                //INITIATOR_ID = user.USER_ID,
                 DUOJU_USERS = user,
                 HOLD_DATE = partyInfo.HoldDate.Value,
                 HOLD_TIME = (int)partyInfo.HoldTime.Value,
@@ -49,9 +49,6 @@ namespace DUOJU.Service.Concrete
 
             party.DUOJU_PARTY_PARTICIPANTS.Add(new DUOJU_PARTY_PARTICIPANTS
             {
-                //PARTY_ID = party.PARTY_ID,
-                //DUOJU_PARTIES = party,
-                //PARTICIPANT_ID = user.USER_ID,
                 DUOJU_USERS = user,
                 PARTICIPATE_TIME = DateTime.Now,
                 STATUS = (int)PartyParticipantStatuses.PARTICIPATED,
@@ -69,7 +66,7 @@ namespace DUOJU.Service.Concrete
 
         public PartyInfo GetPartyInfo(int partyId)
         {
-            var party = PartyRepository.GetParty(partyId);
+            var party = PartyRepository.GetPartyById(partyId);
             if (party != null)
             {
                 return new PartyInfo
@@ -100,6 +97,49 @@ namespace DUOJU.Service.Concrete
                 });
 
             return infos;
+        }
+
+        public PartyParticipateCountInfo ParticipateParty(int partyId, int userId)
+        {
+            var party = PartyRepository.GetPartyById(partyId);
+            if (party == null)
+                throw new CanNotFindPartyException();
+            else
+            {
+                if (party.STATUS == (int)PartyStatuses.PUBLISHED)
+                {
+                    if (party.MAX_INTO_FORCE.HasValue && party.DUOJU_PARTY_PARTICIPANTS.Count + 1 >= party.MAX_INTO_FORCE.Value)
+                    {
+                        party.STATUS = (int)PartyStatuses.FULLED;
+                        party.LAST_UPDATE_BY = userId;
+                        party.LAST_UPDATE_TIME = DateTime.Now;
+                    }
+
+                    var user = UserRepository.GetUserById(userId);
+                    party.DUOJU_PARTY_PARTICIPANTS.Add(new DUOJU_PARTY_PARTICIPANTS
+                    {
+                        DUOJU_USERS = user,
+                        PARTICIPATE_TIME = DateTime.Now,
+                        STATUS = (int)PartyParticipantStatuses.PARTICIPATED,
+                        CREATE_BY = userId,
+                        CREATE_TIME = DateTime.Now,
+                        LAST_UPDATE_BY = userId,
+                        LAST_UPDATE_TIME = DateTime.Now
+                    });
+
+                    PartyRepository.SaveChanges();
+                    return new PartyParticipateCountInfo
+                    {
+                        MinIntoForce = party.MIN_INTO_FORCE,
+                        MaxIntoForce = party.MAX_INTO_FORCE,
+                        ParticipateCount = party.DUOJU_PARTY_PARTICIPANTS.Count
+                    };
+                }
+                else if (party.STATUS == (int)PartyStatuses.DELETED)
+                    throw new CanNotFindPartyException();
+                else
+                    throw new PartyWasClosedException();
+            }
         }
     }
 }

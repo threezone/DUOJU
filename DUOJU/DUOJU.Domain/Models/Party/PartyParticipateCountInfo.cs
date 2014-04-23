@@ -1,0 +1,11 @@
+﻿namespace DUOJU.Domain.Models.Party
+{
+    public class PartyParticipateCountInfo
+    {
+        public int MinIntoForce { get; set; }
+
+        public int? MaxIntoForce { get; set; }
+
+        public int ParticipateCount { get; set; }
+    }
+}

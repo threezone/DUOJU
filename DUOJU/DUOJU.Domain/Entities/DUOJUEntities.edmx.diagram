@@ -25,6 +25,10 @@
         <AssociationConnector Association="DUOJUModel.FK__DUOJU_PAR__PARTY__7D439ABD" />
         <AssociationConnector Association="DUOJUModel.FK__DUOJU_PAR__USER___7E37BEF6" />
         <AssociationConnector Association="DUOJUModel.FK__DUOJU_PAR__PARTI__73BA3083" />
+        <EntityTypeShape EntityType="DUOJUModel.DUOJU_IDENTIFIERS" Width="1.5" PointX="7.5" PointY="12.25" />
+        <EntityTypeShape EntityType="DUOJUModel.DUOJU_USER_FINANCES" Width="1.5" PointX="9.75" PointY="5.875" />
+        <AssociationConnector Association="DUOJUModel.FK__DUOJU_PAR__CONSU__5DCAEF64" />
+        <AssociationConnector Association="DUOJUModel.FK__DUOJU_USE__USER___32E0915F" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -1,6 +1,6 @@
 ﻿namespace DUOJU.Domain.Enums
 {
-    public enum UserComeFroms
+    public enum UserSources
     {
         /// <summary>
         /// 系统

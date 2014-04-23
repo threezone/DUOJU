@@ -77,24 +77,39 @@ insert into DUOJU$ROLE_PRIVILEGES (ROLE, PRIVILEGES) values ('SUPPLIER', '')
 insert into DUOJU$ROLE_PRIVILEGES (ROLE, PRIVILEGES) values ('USER', '')
 go
 
+create table DUOJU$IDENTIFIERS
+(
+	IDENTIFIER_ID int primary key identity (1,1) not null,
+	IDENTIFIER_TYPE int not null,
+	IDENTIFIER_NO varchar(50) not null,
+	STATUS int not null,
+	CREATE_TIME datetime default getdate() not null,
+	LAST_UPDATE_TIME datetime default getdate() not null
+)
+go
+create unique index UX_DUOJU$IDENTIFIER_NO on DUOJU$IDENTIFIERS(IDENTIFIER_NO)
+alter table DUOJU$IDENTIFIERS add constraint CK_DUOJU$IDENTIFIER_TYPE check (IDENTIFIER_TYPE in (0, 1))
+alter table DUOJU$IDENTIFIERS add constraint CK_DUOJU$IDENTIFIER_STATUS check (STATUS in (0, 6))
+go
+
 create table DUOJU$USERS
 (
 	USER_ID int primary key identity (1,1) not null,
 	ACCOUNT varchar(50) not null,
 	PASSWORD varchar(50) null,
-	COME_FROM int check (COME_FROM in (0, 1)) not null,
+	SOURCE int not null,
 	ROLE varchar(20) references DUOJU$ROLE_PRIVILEGES(ROLE) not null,
 	PRIVILEGES varchar(500) not null,
-	SUBSCRIBED char(1) check (SUBSCRIBED in ('Y', 'N')) null,
+	SUBSCRIBED char(1) null,
 	SUBSCRIBE_TIME datetime null,
 	OPEN_ID varchar(50) null,
 	NICK_NAME nvarchar(50) null,
-	SEX char(1) check (SEX in ('U', 'M', 'F')) null,
+	SEX char(1) null,
 	HEAD_IMG_URL varchar(100) null,
 	COUNTRY_ID int references DUOJU$COUNTRIES(COUNTRY_ID) null,
 	PROVINCE_ID int references DUOJU$PROVINCES(PROVINCE_ID) null,
 	CITY_ID int references DUOJU$CITIES(CITY_ID) null,
-	ENABLED char(1) check (ENABLED in ('Y', 'N')) not null,
+	ENABLED char(1) not null,
 	CREATE_BY int default 0 not null,
 	CREATE_TIME datetime default getdate() not null,
 	LAST_UPDATE_BY int default 0 not null,
@@ -104,23 +119,25 @@ go
 create unique index UX_DUOJU$USER_ACCOUNT on DUOJU$USERS(ACCOUNT)
 create unique index UX_DUOJU$USER_OPENID on DUOJU$USERS(OPEN_ID)
 create index IX_DUOJU$USER_ROLE on DUOJU$USERS(ROLE)
+alter table DUOJU$USERS add constraint CK_DUOJU$USER_SOURCE check (SOURCE in (0, 1))
+alter table DUOJU$USERS add constraint CK_DUOJU$USER_SUBSCRIBED check (SUBSCRIBED in ('Y', 'N'))
+alter table DUOJU$USERS add constraint CK_DUOJU$USER_SEX check (SEX in ('U', 'M', 'F'))
+alter table DUOJU$USERS add constraint CK_DUOJU$USER_ENABLED check (ENABLED in ('Y', 'N'))
 go
 
-/*
-create table DUOJU$USER_CREDITS
+create table DUOJU$USER_FINANCES
 (
-	USER_CREDIT_ID int primary key identity (1,1) not null,
+	USER_FINANCE_ID int primary key identity (1,1) not null,
 	USER_ID int references DUOJU$USERS(USER_ID) not null,
-	CREDIT_AMOUNT float not null,
+	COIN_COUNT float not null,
 	CREATE_BY int default 0 not null,
 	CREATE_TIME datetime default getdate() not null,
 	LAST_UPDATE_BY int default 0 not null,
 	LAST_UPDATE_TIME datetime default getdate() not null
 )
 go
-create index IX_DUOJU$USER_CREDIT_USERID on DUOJU$USER_CREDITS(USER_ID)
+create index IX_DUOJU$USER_FINANCE_USERID on DUOJU$USER_FINANCES(USER_ID)
 go
-*/
 
 
 
@@ -130,12 +147,12 @@ create table DUOJU$PARTIES
 	SUPPLIER_ID int /*references DUOJU$SUPPLIERS(SUPPLIER_ID)*/ not null,
 	INITIATOR_ID int references DUOJU$USERS(USER_ID) not null,
 	HOLD_DATE datetime not null,
-	HOLD_TIME int check (HOLD_TIME in (0, 1, 2, 3, 4, 5)) not null,
+	HOLD_TIME int not null,
 	DESCRIPTION nvarchar(100) null,
-	MIN_INTO_FORCE int check (MIN_INTO_FORCE >= 2) not null,
+	MIN_INTO_FORCE int not null,
 	MAX_INTO_FORCE int null,
-	CONSUMPTION_VOUCHER_NO varchar(20) null,
-	STATUS int check (STATUS in (-1, 1, 2, 3, 4)) not null,
+	CONSUMPTION_VOUCHER_ID int references DUOJU$IDENTIFIERS(IDENTIFIER_ID) null,
+	STATUS int not null,
 	CREATE_BY int default 0 not null,
 	CREATE_TIME datetime default getdate() not null,
 	LAST_UPDATE_BY int default 0 not null,
@@ -144,7 +161,10 @@ create table DUOJU$PARTIES
 go
 create index IX_DUOJU$PARTY_SUPPID on DUOJU$PARTIES(SUPPLIER_ID)
 create index IX_DUOJU$PARTY_INITID on DUOJU$PARTIES(INITIATOR_ID)
-alter table DUOJU$PARTIES add constraint CK_DUOJU$PARTY_INTOFORCE check (MAX_INTO_FORCE >= MIN_INTO_FORCE)
+alter table DUOJU$PARTIES add constraint CK_DUOJU$PARTY_HOLDTIME check (HOLD_TIME in (0, 1, 2, 3, 4, 5))
+alter table DUOJU$PARTIES add constraint CK_DUOJU$PARTY_MININTOFORCE check (MIN_INTO_FORCE >= 2)
+alter table DUOJU$PARTIES add constraint CK_DUOJU$PARTY_MAXINTOFORCE check (MAX_INTO_FORCE >= MIN_INTO_FORCE)
+alter table DUOJU$PARTIES add constraint CK_DUOJU$PARTY_STATUS check (STATUS in (-1, 1, 2, 3, 4))
 go
 
 create table DUOJU$PARTY_PARTICIPANTS
@@ -153,7 +173,7 @@ create table DUOJU$PARTY_PARTICIPANTS
 	PARTY_ID int references DUOJU$PARTIES(PARTY_ID) not null,
 	PARTICIPANT_ID int references DUOJU$USERS(USER_ID) not null,
 	PARTICIPATE_TIME datetime not null,
-	STATUS int check (STATUS in (-2, -1, 5)) not null,
+	STATUS int not null,
 	CREATE_BY int default 0 not null,
 	CREATE_TIME datetime default getdate() not null,
 	LAST_UPDATE_BY int default 0 not null,
@@ -163,6 +183,7 @@ go
 create index IX_DUOJU$PARTY_PARTICIPANT_PARTYID on DUOJU$PARTY_PARTICIPANTS(PARTY_ID)
 create index IX_DUOJU$PARTY_PARTICIPANT_PTCPTID on DUOJU$PARTY_PARTICIPANTS(PARTICIPANT_ID)
 create index IX_DUOJU$PARTY_PARTICIPANT_STATUS on DUOJU$PARTY_PARTICIPANTS(STATUS)
+alter table DUOJU$PARTY_PARTICIPANTS add constraint CK_DUOJU$PARTY_PARTICIPANT_STATUS check (STATUS in (-2, -1, 5))
 go
 
 create table DUOJU$PARTY_COMMENTS
@@ -172,7 +193,7 @@ create table DUOJU$PARTY_COMMENTS
 	PARTY_ID int references DUOJU$PARTIES(PARTY_ID) not null,
 	USER_ID int references DUOJU$USERS(USER_ID) not null,
 	CONTENT nvarchar(100) not null,
-	STATUS int check (STATUS in (-1, 0, 7)) not null,
+	STATUS int not null,
 	CREATE_BY int default 0 not null,
 	CREATE_TIME datetime default getdate() not null,
 	LAST_UPDATE_BY int default 0 not null,
@@ -183,6 +204,7 @@ create index IX_DUOJU$PARTY_COMMENT_SUPPID on DUOJU$PARTY_COMMENTS(SUPPLIER_ID)
 create index IX_DUOJU$PARTY_COMMENT_PARTYID on DUOJU$PARTY_COMMENTS(PARTY_ID)
 create index IX_DUOJU$PARTY_COMMENT_PTCPTID on DUOJU$PARTY_COMMENTS(USER_ID)
 create index IX_DUOJU$PARTY_COMMENT_STATUS on DUOJU$PARTY_COMMENTS(STATUS)
+alter table DUOJU$PARTY_COMMENTS add constraint CK_DUOJU$PARTY_COMMENT_STATUS check (STATUS in (-1, 0, 7))
 go
 
 

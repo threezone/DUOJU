@@ -31,11 +31,13 @@ namespace DUOJU.FRAMEWORK.WeChat
 
         private object _lockObj { get; set; }
 
+        private static DateTime _startDataTime = TimeZone.CurrentTimeZone.ToLocalTime(new DateTime(1970, 1, 1));
+
 
         /// <summary>
         /// 转换接收到的XML STREAM
         /// </summary>
-        public WeChatReceiveMessageModel ConvertReceiveXML(Stream xmlStream)
+        public static WeChatReceiveMessageModel ConvertReceiveXML(Stream xmlStream)
         {
             var xmlDoc = XDocument.Load(xmlStream);
             var rootElement = xmlDoc.Descendants(WeChatSettings.WECHATXML_ROOT_NAME);
@@ -142,7 +144,7 @@ namespace DUOJU.FRAMEWORK.WeChat
         /// <summary>
         /// 转换发送的XML数据
         /// </summary>
-        public string ConvertSendXML(WeChatSendMessageModel model)
+        public static string ConvertSendXML(WeChatSendMessageModel model)
         {
             var xmlDoc = new XDocument();
             var rootElement = new XElement(
@@ -225,15 +227,36 @@ namespace DUOJU.FRAMEWORK.WeChat
         }
 
         /// <summary>
+        /// 根据时间戳转换为具体时间（秒）
+        /// </summary>
+        public static DateTime ConvertDateTime(long secondTimeStamp)
+        {
+            return _startDataTime.AddSeconds(secondTimeStamp);
+        }
+
+        /// <summary>
+        /// 根据具体时间转换为时间戳（秒）
+        /// </summary>
+        public static long ConvertTimeStamp(DateTime dt)
+        {
+            return (long)(dt - _startDataTime).TotalSeconds;
+        }
+
+        /// <summary>
         /// 调用远程接口
         /// </summary>
-        public T CallRemoteInterface<T>(RequestTypes requestType, RequestContentTypes requestContentType, string url, string parameters = null) where T : class
+        private static T CallRemoteInterface<T>(RequestTypes requestType, RequestContentTypes requestContentType, string url, string parameters = null) where T : class
         {
             var uri = new Uri(url);
             var request = WebRequest.Create(uri);
 
             request.Method = requestType.ToString();
-            request.ContentType = requestContentType == RequestContentTypes.FORM ? WeChatSettings.REQUEST_CONTENTTYPE_FORM : WeChatSettings.REQUEST_CONTENTTYPE_JSON;
+            if (requestContentType == RequestContentTypes.FORM)
+                request.ContentType = WeChatSettings.REQUEST_CONTENTTYPE_FORM;
+            else if (requestContentType == RequestContentTypes.JSON)
+                request.ContentType = WeChatSettings.REQUEST_CONTENTTYPE_JSON;
+            else if (requestContentType == RequestContentTypes.XML)
+                request.ContentType = WeChatSettings.REQUEST_CONTENTTYPE_XML;
             request.Timeout = WeChatSettings.REQUEST_TIMEOUT;
 
             if (requestType == RequestTypes.POST && !string.IsNullOrEmpty(parameters))
@@ -243,6 +266,7 @@ namespace DUOJU.FRAMEWORK.WeChat
                 using (var stream = request.GetRequestStream())
                 {
                     stream.Write(bytes, 0, bytes.Length);
+                    stream.Close();
                 }
             }
 
@@ -250,6 +274,8 @@ namespace DUOJU.FRAMEWORK.WeChat
             using (var streamReader = new StreamReader(response.GetResponseStream()))
             {
                 var content = streamReader.ReadToEnd();
+                streamReader.Close();
+
                 if (typeof(T) == typeof(string))
                     return content as T;
                 else
@@ -285,6 +311,20 @@ namespace DUOJU.FRAMEWORK.WeChat
             return _accessTokenInfo;
         }
 
+        public WeChatAccessTokenInfo_OAuth GetWeChatAccessTokenInfo_OAuth(string code)
+        {
+            var url = string.Format(WeChatSettings.WECHATURL_GETACCESSTOKEN_OAUTH_FORMAT, _appid, _appsecret, code);
+
+            return CallRemoteInterface<WeChatAccessTokenInfo_OAuth>(RequestTypes.GET, RequestContentTypes.JSON, url);
+        }
+
+        public WeChatAccessTokenInfo_OAuth RefreshWeChatAccessTokenInfo_OAuth(string refreshToken)
+        {
+            var url = string.Format(WeChatSettings.WECHATURL_REFRESHACCESSTOKEN_OAUTH_FORMAT, _appid, refreshToken);
+
+            return CallRemoteInterface<WeChatAccessTokenInfo_OAuth>(RequestTypes.GET, RequestContentTypes.JSON, url);
+        }
+
         public string GetMenu()
         {
             var accessTokenInfo = GetWeChatAccessTokenInfo();
@@ -293,48 +333,10 @@ namespace DUOJU.FRAMEWORK.WeChat
             return CallRemoteInterface<string>(RequestTypes.GET, RequestContentTypes.JSON, url);
         }
 
-        public WeChatErrorInfo CreateMenu()
+        public WeChatErrorInfo CreateMenu(WeChatMenuInfo menuInfo)
         {
             var accessTokenInfo = GetWeChatAccessTokenInfo();
             var url = string.Format(WeChatSettings.WECHATURL_CREATEMENU_FORMAT, accessTokenInfo.access_token);
-
-            var menuInfo = new WeChatMenuInfo
-            {
-                button = new List<WeChatMenuItemInfo>
-                {
-                    new WeChatMenuItemInfo
-                    {
-                        name = "菜单",
-                        sub_button = new List<WeChatMenuItemInfo>
-                        {
-                            new WeChatMenuItemInfo
-                            {
-                                name = "发布聚会",
-                                type = MenuItemTypes.CLICK.ToString().ToLower(),
-                                key = "key1"
-                            },
-                            new WeChatMenuItemInfo
-                            {
-                                name = "周围的聚会",
-                                type = MenuItemTypes.CLICK.ToString().ToLower(),
-                                key = "key2"
-                            },
-                            new WeChatMenuItemInfo
-                            {
-                                name = "百度一下",
-                                type = MenuItemTypes.VIEW.ToString().ToLower(),
-                                url = "http://www.baidu.com"
-                            }
-                        }
-                    },
-                    new WeChatMenuItemInfo
-                    {
-                        name = "点个赞",
-                        type = MenuItemTypes.CLICK.ToString().ToLower(),
-                        key = "key3"
-                    }
-                }
-            };
 
             return CallRemoteInterface<WeChatErrorInfo>(RequestTypes.POST, RequestContentTypes.JSON, url, JsonHelper.GetJsonWithModel(menuInfo));
         }
@@ -355,12 +357,19 @@ namespace DUOJU.FRAMEWORK.WeChat
             return CallRemoteInterface<WeChatUserListInfo>(RequestTypes.GET, RequestContentTypes.JSON, url);
         }
 
-        public WeChatUserInfo GetWeChatUserInfo(string openid, string language = WeChatSettings.WECHATLANGUAGE_ZHCN)
+        public WeChatUserInfo GetWeChatUserInfo(string openid, string language = WeChatSettings.WECHATLANGUAGE_EN)
         {
             var accessTokenInfo = GetWeChatAccessTokenInfo();
             var url = string.Format(WeChatSettings.WECHATURL_GETUSERINFO_FORMAT, accessTokenInfo.access_token, openid, language);
 
             return CallRemoteInterface<WeChatUserInfo>(RequestTypes.GET, RequestContentTypes.JSON, url);
+        }
+
+        public WeChatUserInfo_OAuth GetWeChatUserInfo_OAuth(string accessToken, string openid, string language = WeChatSettings.WECHATLANGUAGE_EN)
+        {
+            var url = string.Format(WeChatSettings.WECHATURL_GETUSERINFO_OAUTH_FORMAT, accessToken, openid, language);
+
+            return CallRemoteInterface<WeChatUserInfo_OAuth>(RequestTypes.GET, RequestContentTypes.JSON, url);
         }
 
         #endregion

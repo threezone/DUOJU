@@ -4,9 +4,11 @@
     {
         public const int REQUEST_TIMEOUT = 6000;
 
-        public const string REQUEST_CONTENTTYPE_FORM = "application/x-www-form-urlencoded";
+        public const string REQUEST_CONTENTTYPE_FORM = "application/x-www-form-urlencoded; charset=utf-8";
 
-        public const string REQUEST_CONTENTTYPE_JSON = "application/json;charset=utf-8";
+        public const string REQUEST_CONTENTTYPE_JSON = "application/json; charset=utf-8";
+
+        public const string REQUEST_CONTENTTYPE_XML = "text/xml; charset=utf-8";
 
 
         public const string WECHATLANGUAGE_ZHCN = "zh_CN";
@@ -18,6 +20,10 @@
 
         public const string WECHATURL_GETACCESSTOKEN_FORMAT = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid={0}&secret={1}";
 
+        public const string WECHATURL_GETACCESSTOKEN_OAUTH_FORMAT = "https://api.weixin.qq.com/sns/oauth2/access_token?appid={0}&secret={0}&code={0}&grant_type=authorization_code";
+
+        public const string WECHATURL_REFRESHACCESSTOKEN_OAUTH_FORMAT = "https://api.weixin.qq.com/sns/oauth2/refresh_token?appid={0}&grant_type=refresh_token&refresh_token={1}";
+
         public const string WECHATURL_GETMENU_FORMAT = "https://api.weixin.qq.com/cgi-bin/menu/get?access_token={0}";
 
         public const string WECHATURL_CREATEMENU_FORMAT = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token={0}";
@@ -27,6 +33,8 @@
         public const string WECHATURL_GETUSERLISTINFO_FORMAT = "https://api.weixin.qq.com/cgi-bin/user/get?access_token={0}&next_openid={1}";
 
         public const string WECHATURL_GETUSERINFO_FORMAT = "https://api.weixin.qq.com/cgi-bin/user/info?access_token={0}&openid={1}&lang={2}";
+
+        public const string WECHATURL_GETUSERINFO_OAUTH_FORMAT = "https://api.weixin.qq.com/sns/userinfo?access_token={0}&openid={1}&lang={2}";
 
 
         public const string WECHATXML_ROOT_NAME = "xml";

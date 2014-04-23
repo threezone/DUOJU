@@ -18,7 +18,7 @@ namespace DUOJU.Dao.Concrete
             DBEntities.DUOJU_PARTIES.Add(party);
         }
 
-        public DUOJU_PARTIES GetParty(int partyId)
+        public DUOJU_PARTIES GetPartyById(int partyId)
         {
             return DBEntities.DUOJU_PARTIES.SingleOrDefault(p => p.PARTY_ID == partyId);
         }
@@ -30,6 +30,7 @@ namespace DUOJU.Dao.Concrete
                     orderby pp.PARTICIPATE_TIME
                     select new PartyParticipantInfo
                     {
+                        ParticipantId = pp.PARTICIPANT_ID,
                         ParticipantName = pp.DUOJU_USERS.NICK_NAME,
                         ParticipateTime = pp.PARTICIPATE_TIME,
                         Status = pp.STATUS

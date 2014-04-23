@@ -10,7 +10,7 @@ namespace DUOJU.Dao.Abstract
 
         void AddParty(DUOJU_PARTIES party);
 
-        DUOJU_PARTIES GetParty(int partyId);
+        DUOJU_PARTIES GetPartyById(int partyId);
 
         IList<PartyParticipantInfo> GetPartyParticipantInfos(int partyId);
     }

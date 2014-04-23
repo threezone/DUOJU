@@ -1,5 +1,6 @@
-﻿using DUOJU.Domain.Models.Party;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using DUOJU.Domain.Enums;
+using DUOJU.Domain.Models.Party;
 
 namespace DUOJU.Service.Abstract
 {
@@ -10,5 +11,7 @@ namespace DUOJU.Service.Abstract
         PartyInfo GetPartyInfo(int partyId);
 
         IList<PartyParticipantInfo> GetPartyParticipantInfos(int partyId);
+
+        PartyParticipateCountInfo ParticipateParty(int partyId, int userId);
     }
 }
