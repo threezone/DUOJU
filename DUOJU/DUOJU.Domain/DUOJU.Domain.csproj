@@ -96,6 +96,7 @@
     <Compile Include="Entities\DUOJU_USER_FINANCES.cs">
       <DependentUpon>DUOJUEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Enums\IdentifierTypes.cs" />
     <Compile Include="Enums\PartyHoldTimes.cs" />
     <Compile Include="Enums\PartyParticipantStatuses.cs" />
     <Compile Include="Enums\PartyStatuses.cs" />
@@ -107,9 +108,11 @@
     <Compile Include="Exceptions\CanNotFindPartyException.cs" />
     <Compile Include="Exceptions\PartyWasClosedException.cs" />
     <Compile Include="Extensions\LocalizedExtension.cs" />
+    <Compile Include="Helpers\IdentifierHelper.cs" />
     <Compile Include="Helpers\JsonHelper.cs" />
     <Compile Include="Helpers\SecurityHelper.cs" />
     <Compile Include="Models\Common\KeyValue.cs" />
+    <Compile Include="Models\Identifier\IdentifierInfo.cs" />
     <Compile Include="Models\Party\PartyInfo.cs" />
     <Compile Include="Models\Party\PartyParticipateCountInfo.cs" />
     <Compile Include="Models\Party\PartyParticipantInfo.cs" />

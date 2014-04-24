@@ -9,6 +9,7 @@ using DUOJU.WECHAT.Models.Party;
 using DUOJU.WECHAT.Sys.Helpers;
 using System.Web.Mvc;
 using DUOJU.FRAMEWORK.WeChat;
+using System;
 
 namespace DUOJU.WECHAT.Controllers
 {
@@ -142,9 +143,27 @@ namespace DUOJU.WECHAT.Controllers
 
 
 
-        public ActionResult TEST(string code, string state)
+        public ActionResult TEST(string i)
         {
-            return Content(code + " & " + state);
+            if (string.IsNullOrEmpty(i))
+            {
+                var str = IdentifierHelper.GeneratePartyIdentifier(new Domain.Models.Identifier.IdentifierInfo
+                {
+                    CreateTime = WeChat.ConvertTimeStamp(DateTime.Now),
+                    ExpiresTime = WeChat.ConvertTimeStamp(DateTime.Now.AddSeconds(7200)),
+                    Type = Domain.Enums.IdentifierTypes.PARTY,
+                    Parameters = new object[] { 100000 }
+                });
+
+                var str2 = IdentifierHelper.DecryptPartyIdentifier(str);
+
+                return Content(str + "-" + str2.Type + str2.Parameters[0]);
+            }
+            else
+            {
+                var city = UserService.TEST();
+                return Content(city.CITY_NAME_CN);
+            }
         }
     }
 }

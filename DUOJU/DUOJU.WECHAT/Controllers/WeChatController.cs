@@ -152,10 +152,10 @@ namespace DUOJU.WECHAT.Controllers
                             );
 
                             var subscribeUser = WeChatHelper.WeChat.GetWeChatUserInfo(receiveModel.FromUserName);
-                            //UserService.AddWeChatUser(subscribeUser);
+                            var userid = UserService.AddWeChatUser(subscribeUser);
 
                             sendModel.MsgType = MsgTypes.TEXT;
-                            sendModel.Content = "欢迎关注！";
+                            sendModel.Content = "欢迎关注！" + userid;
                             break;
 
                         case Events.SCAN:
