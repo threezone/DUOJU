@@ -157,7 +157,7 @@ namespace DUOJU.WECHAT.Controllers
 
                 var str2 = IdentifierHelper.DecryptPartyIdentifier(str);
 
-                return Content(str + "-" + str2.Type + str2.Parameters[0]);
+                return Content(str + "-" + str2.Type + str2.Parameters[0] + "-" + Request.Url.PathAndQuery);
             }
             else
             {

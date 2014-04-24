@@ -152,10 +152,19 @@ namespace DUOJU.WECHAT.Controllers
                             );
 
                             var subscribeUser = WeChatHelper.WeChat.GetWeChatUserInfo(receiveModel.FromUserName);
-                            var userid = UserService.AddWeChatUser(subscribeUser);
+
+                            logger.Warn(JsonHelper.GetJsonWithModel(subscribeUser));
+                            try
+                            {
+                                var userid = UserService.AddWeChatUser(subscribeUser);
+                            }
+                            catch (Exception ex)
+                            {
+                                logger.Warn(ex);
+                            }
 
                             sendModel.MsgType = MsgTypes.TEXT;
-                            sendModel.Content = "欢迎关注！" + userid;
+                            sendModel.Content = "欢迎关注！";
                             break;
 
                         case Events.SCAN:
@@ -198,6 +207,30 @@ namespace DUOJU.WECHAT.Controllers
             }
 
             return Content(WeChat.ConvertSendXML(sendModel));
+        }
+
+
+
+
+        public ActionResult TEST()
+        {
+            var userInfo = new WeChatUserInfo
+            {
+                subscribe = 1,
+                openid = "o2x6et8pNFA3QTAqkgCEjE2oslf8",
+                nickname = "Sugar.Lin",
+                sex = 1,
+                language = "zh_CN",
+                city = "Guangzhou",
+                province = "Guangdong",
+                country = "China",
+                headimgurl = "http://wx.qlogo.cn/mmopen/2wHLWI8Wicxg70G9xKTib9VkBBb8VfyOOX973v7V1xUibNhy8eQz3JtS2DVt45bqNPZOkCDNzZMiceYlIQtnG6UabW8yUIWibI6HV/0",
+                subscribe_time = 1398357231
+            };
+
+            var id = UserService.AddWeChatUser(userInfo);
+
+            return Content(id.ToString());
         }
     }
 }
