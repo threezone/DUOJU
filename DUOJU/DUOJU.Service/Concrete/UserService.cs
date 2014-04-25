@@ -26,16 +26,15 @@ namespace DUOJU.Service.Concrete
         public int AddWeChatUser(WeChatUserInfo info)
         {
             var user = UserRepository.GetUserByOpenId(info.openid);
+            var isAdd = user == null;
+
             var subscribed = info.subscribe.HasValue ?
                 (YesNo)Enum.Parse(typeof(YesNo), info.subscribe.Value.ToString()) :
                 (user != null && user.SUBSCRIBED == YesNo.Y.ToString() ? YesNo.Y : YesNo.N);
 
-            var isAdd = false;
-            if (user == null)
+            if (isAdd)
             {
-                isAdd = true;
                 var rolePrivilege = UserRepository.GetRolePrivilege(UserRoles.USER.ToString());
-
                 user = new DUOJU_USERS
                 {
                     ACCOUNT = string.Format(CommonSettings.USERACCOUNT_WECHAT_FORMAT, info.openid),
@@ -49,21 +48,32 @@ namespace DUOJU.Service.Concrete
             }
 
             user.SUBSCRIBED = subscribed.ToString();
-            user.SUBSCRIBE_TIME = WeChat.ConvertDateTime(info.subscribe_time.Value);
             if (subscribed == YesNo.Y)
             {
+                if (info.subscribe_time.HasValue)
+                    user.SUBSCRIBE_TIME = WeChat.ConvertDateTime(info.subscribe_time.Value);
                 user.NICK_NAME = info.nickname;
-                user.SEX = ((UserSexes)Enum.Parse(typeof(UserSexes), info.sex.Value.ToString())).ToString();
+                if (info.sex.HasValue)
+                    user.SEX = ((UserSexes)Enum.Parse(typeof(UserSexes), info.sex.Value.ToString())).ToString();
                 user.HEAD_IMG_URL = info.headimgurl;
-                var country = AreaRepository.GetCountryInfoByName(info.country);
-                if (country != null)
-                    user.DUOJU_COUNTRIES = country;
-                var province = AreaRepository.GetProvinceInfoByName(info.province);
-                if (province != null)
-                    user.DUOJU_PROVINCES = province;
-                var city = AreaRepository.GetCityInfoByName(info.city);
-                if (city != null)
-                    user.DUOJU_CITIES = city;
+                if (!string.IsNullOrEmpty(info.country))
+                {
+                    var country = AreaRepository.GetCountryInfoByName(info.country);
+                    if (country != null)
+                        user.DUOJU_COUNTRIES = country;
+                }
+                if (!string.IsNullOrEmpty(info.province))
+                {
+                    var province = AreaRepository.GetProvinceInfoByName(info.province);
+                    if (province != null)
+                        user.DUOJU_PROVINCES = province;
+                }
+                if (!string.IsNullOrEmpty(info.city))
+                {
+                    var city = AreaRepository.GetCityInfoByName(info.city);
+                    if (city != null)
+                        user.DUOJU_CITIES = city;
+                }
             }
             user.ENABLED = YesNo.Y.ToString();
             user.LAST_UPDATE_BY = CommonSettings.OPERATOR_SYSTEM_ID;

@@ -11,8 +11,8 @@ namespace DUOJU.WECHAT
 
             routes.MapRoute(
                 name: "Party_PublishParty",
-                url: "Party/PublishParty/{supplierId}/{openId}",
-                defaults: new { controller = "Party", action = "PublishParty", supplierId = UrlParameter.Optional, openId = UrlParameter.Optional }
+                url: "Party/PublishParty/{supplierId}",
+                defaults: new { controller = "Party", action = "PublishParty", supplierId = UrlParameter.Optional }
             );
 
             routes.MapRoute(

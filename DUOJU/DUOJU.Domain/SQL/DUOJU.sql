@@ -129,7 +129,7 @@ create table DUOJU$IDENTIFIERS
 	IDENTIFIER_ID int primary key identity (1,1) not null,
 	IDENTIFIER_TYPE int not null,
 	IDENTIFIER_NO varchar(20) not null,
-	EXPIRES_TIME datetime null,
+	EXPIRES_TIME datetime not null,
 	STATUS int not null,
 	CREATE_BY int default 0 not null,
 	CREATE_TIME datetime default getdate() not null,

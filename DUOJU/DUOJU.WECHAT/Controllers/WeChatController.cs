@@ -67,12 +67,12 @@ namespace DUOJU.WECHAT.Controllers
                 case MsgTypes.TEXT:
                     switch (receiveModel.Content)
                     {
-                        case "manager.getmenu":
+                        case "gm":
                             sendModel.MsgType = MsgTypes.TEXT;
                             sendModel.Content = WeChatHelper.WeChat.GetMenu();
                             break;
 
-                        case "manager.createmenu":
+                        case "cm":
                             var menuInfo = new WeChatMenuInfo
                             {
                                 button = new List<WeChatMenuItemInfo>
@@ -86,7 +86,7 @@ namespace DUOJU.WECHAT.Controllers
                                             {
                                                 name = "发布聚会",
                                                 type = MenuItemTypes.VIEW.ToString().ToLower(),
-                                                url = "http://www.baidu.com",
+                                                url = WeChatHelper.WeChat.ConvertOAuthUrl("http://wechat.duoju.us/Party/MyParties", OauthScopes.SNSAPI_BASE, null)
                                             },
                                             new WeChatMenuItemInfo
                                             {
@@ -105,13 +105,13 @@ namespace DUOJU.WECHAT.Controllers
                                             {
                                                 name = "发布的聚会",
                                                 type = MenuItemTypes.VIEW.ToString().ToLower(),
-                                                url = "https://wechat.duoju.us/Party/MyParties",
+                                                url = WeChatHelper.WeChat.ConvertOAuthUrl("http://wechat.duoju.us/Party/MyParties", OauthScopes.SNSAPI_BASE, null)
                                             },
                                             new WeChatMenuItemInfo
                                             {
                                                 name = "参与的聚会",
                                                 type = MenuItemTypes.VIEW.ToString().ToLower(),
-                                                url = "https://wechat.duoju.us/Party/MyParticipateParties",
+                                                url = WeChatHelper.WeChat.ConvertOAuthUrl("http://wechat.duoju.us/Party/MyParticipateParties", OauthScopes.SNSAPI_BASE, null)
                                             },
                                             new WeChatMenuItemInfo
                                             {
@@ -128,16 +128,23 @@ namespace DUOJU.WECHAT.Controllers
                             sendModel.Content = JsonHelper.GetJsonWithModel(WeChatHelper.WeChat.CreateMenu(menuInfo));
                             break;
 
-                        case "manager.deletemenu":
+                        case "dm":
                             sendModel.MsgType = MsgTypes.TEXT;
                             sendModel.Content = JsonHelper.GetJsonWithModel(WeChatHelper.WeChat.DeleteMenu());
                             break;
 
-                        case "manager.userurl":
-                            var url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx2b8e67341ef40666&redirect_uri=http%3A%2F%2Fwechat.duoju.us%2Fparty%2Ftest&response_type=code&scope=snsapi_base&state=test1#wechat_redirect";
+                        case "p":
+                            var url = WeChatHelper.WeChat.ConvertOAuthUrl(Server.UrlEncode("http://wechat.duoju.us/Party/PublishParty/1"), OauthScopes.SNSAPI_BASE, null);
 
                             sendModel.MsgType = MsgTypes.TEXT;
                             sendModel.Content = "<a href=\"" + url + "\">go</a>";
+                            break;
+
+                        case "c":
+                            var url2 = WeChatHelper.WeChat.ConvertOAuthUrl("http://wechat.duoju.us/Party/ConfirmParty/1", OauthScopes.SNSAPI_BASE, null);
+
+                            sendModel.MsgType = MsgTypes.TEXT;
+                            sendModel.Content = "<a href=\"" + url2 + "\">go</a>";
                             break;
                     }
                     break;

@@ -121,12 +121,21 @@
     <value>无法找到该验证码信息！</value>
   </data>
   <data name="BasicSystemException_CanNotFindPartyException" xml:space="preserve">
-    <value>无法找到该聚会信息！</value>
+    <value>小聚无法找到该聚会信息哦！</value>
+  </data>
+  <data name="BasicSystemException_IdentifierHasBeenExpiredException" xml:space="preserve">
+    <value>该验证码已过期！</value>
+  </data>
+  <data name="BasicSystemException_IdentifierHasBeenUsedException" xml:space="preserve">
+    <value>该验证码已使用！</value>
+  </data>
+  <data name="BasicSystemException_NoPartySInitiatorException" xml:space="preserve">
+    <value>需要由该聚会的发起人来确定聚会哦亲！</value>
   </data>
   <data name="BasicSystemException_PartyWasClosedException" xml:space="preserve">
-    <value>该聚会已截止报名！</value>
+    <value>该聚会已截止报名啦！</value>
   </data>
   <data name="BasicSystemException_UserHasBeenParticipateThePartyException" xml:space="preserve">
-    <value>您已报名了该聚会！</value>
+    <value>你已经报名了哦！</value>
   </data>
 </root>

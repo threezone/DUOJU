@@ -286,6 +286,11 @@ namespace DUOJU.FRAMEWORK.WeChat
 
         #region Remote
 
+        public string ConvertOAuthUrl(string redirectUri, OauthScopes scope, string state)
+        {
+            return string.Format(WeChatSettings.WECHATURL_OAUTH_FORMAT, _appid, redirectUri, scope.ToString().ToLower(), state);
+        }
+
         public WeChatAccessTokenInfo GetWeChatAccessTokenInfo()
         {
             if (_accessTokenInfo != null)

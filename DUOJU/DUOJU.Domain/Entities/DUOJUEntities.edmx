@@ -783,7 +783,7 @@
           <Property Name="IDENTIFIER_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="IDENTIFIER_TYPE" Type="Int32" Nullable="false" />
           <Property Name="IDENTIFIER_NO" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="EXPIRES_TIME" Type="DateTime" Precision="3" />
+          <Property Name="EXPIRES_TIME" Type="DateTime" Precision="3" Nullable="false" />
           <Property Name="STATUS" Type="Int32" Nullable="false" />
           <Property Name="CREATE_BY" Type="Int32" Nullable="false" />
           <Property Name="CREATE_TIME" Type="DateTime" Nullable="false" Precision="3" />

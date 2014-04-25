@@ -10,11 +10,14 @@ using DUOJU.WECHAT.Sys.Helpers;
 using System.Web.Mvc;
 using DUOJU.FRAMEWORK.WeChat;
 using System;
+using log4net;
 
 namespace DUOJU.WECHAT.Controllers
 {
     public class PartyController : Controller
     {
+        private ILog logger = LogManager.GetLogger(typeof(PartyController));
+
         private IPartyService PartyService { get; set; }
 
         private ISupplierService SupplierService { get; set; }
@@ -33,19 +36,26 @@ namespace DUOJU.WECHAT.Controllers
         /// <summary>
         /// 发布聚会
         /// </summary>
-        public ActionResult PublishParty(int supplierId, string openId)
+        public ActionResult PublishParty(int supplierId, string code, string state)
         {
-            var model = new PublishPartyViewModel
+            if (string.IsNullOrEmpty(code))
+                return Content("无法获取当前用户信息。");
+            else
             {
-                SupplierInfo = SupplierService.GetSupplierInfoById(supplierId),
-                PartyInfo = new PublishPartyInfo
-                {
-                    OpenId = openId,
-                    SupplierId = supplierId
-                }
-            };
+                var accessTokenInfo = WeChatHelper.WeChat.GetWeChatAccessTokenInfo_OAuth(code);
 
-            return View(model);
+                var model = new PublishPartyViewModel
+                {
+                    SupplierInfo = SupplierService.GetSupplierInfoById(supplierId),
+                    PartyInfo = new PublishPartyInfo
+                    {
+                        OpenId = accessTokenInfo.openid,
+                        SupplierId = supplierId
+                    }
+                };
+
+                return View(model);
+            }
         }
 
         /// <summary>
@@ -60,12 +70,8 @@ namespace DUOJU.WECHAT.Controllers
                 try
                 {
                     var partyId = PartyService.AddParty(partyInfo);
-                    json = JsonHelper.GetJsonWithModel(new
-                    {
-                        Result = CommonSettings.OPERATE_SUCCESS,
-                        Message = CommonSettings.TIPS_SUCCESS,
-                        Url = "/Party/ViewParty/" + partyId + "/" + partyInfo.OpenId
-                    });
+
+                    return RedirectToAction("ViewParty", new { partyId = partyId });
                 }
                 catch (BasicSystemException ex)
                 {
@@ -98,124 +104,92 @@ namespace DUOJU.WECHAT.Controllers
         /// </summary>
         public ActionResult ParticipateParty(int partyId, string code, string state)
         {
-            var userId = int.Parse(Request.QueryString["userid"]);
-            var openId = "o2x6et8pNFA3QTAqkgCEjE2oslf8";
-
-            try
+            if (string.IsNullOrEmpty(code))
+                return Content("请先允许获取当前用户信息。");
+            else
             {
-                var participateCountInfo = PartyService.ParticipateParty(partyId, userId);
-                if (participateCountInfo.ParticipateCount == participateCountInfo.MinIntoForce)
+                var accessTokenInfo = WeChatHelper.WeChat.GetWeChatAccessTokenInfo_OAuth(code);
+                var userInfo = WeChatHelper.WeChat.GetWeChatUserInfo_OAuth(accessTokenInfo.access_token, accessTokenInfo.openid);
+
+                try
                 {
-                    // 通知创建者
-                    WeChatHelper.WeChat.SendCSTextMessage(openId, "您发布的聚会，报名人数已达到预定的最少人数。请点击<a href=\"http://www.baidu.com/\">这里</a>进行领取凭证。");
+                    var userId = UserService.AddWeChatUser(userInfo);
+                    var participateCountInfo = PartyService.ParticipateParty(partyId, userId);
+                    if (participateCountInfo.ParticipateCount == participateCountInfo.MinIntoForce)
+                        WeChatHelper.WeChat.SendCSTextMessage(userInfo.openid, string.Format(CommonSettings.DUOJUWECHATMESSAGE_PARTYFULLED_FORMAT, WeChatHelper.WeChat.ConvertOAuthUrl("http://wechat.duoju.us/Party/ConfirmParty/" + partyId, OauthScopes.SNSAPI_BASE, null)));
+
+                    return RedirectToAction("ViewParty", new { partyId = partyId, isReturn = true, participantId = userId });
                 }
-
-                return RedirectToAction("ViewParty", new { partyId = partyId, isReturn = true, participantId = userId });
+                catch (BasicSystemException ex)
+                {
+                    return Content(ex.ToLocalize());
+                }
             }
-            catch (BasicSystemException ex)
-            {
-                return Content(ex.ToLocalize());
-            }
-
-            //if (string.IsNullOrEmpty(code))
-            //    return Content("请先允许获取当前用户信息。");
-            //else
-            //{
-            //    var accessToken = WeChatHelper.WeChat.GetWeChatAccessTokenInfo_OAuth(code);
-            //    var userInfo = WeChatHelper.WeChat.GetWeChatUserInfo_OAuth(accessToken.access_token, accessToken.openid);
-
-            //    try
-            //    {
-            //        var userId = UserService.AddWeChatUser(userInfo);
-            //        var participateCountInfo = PartyService.ParticipateParty(partyId, userId);
-            //        if (participateCountInfo.ParticipateCount == participateCountInfo.MinIntoForce)
-            //        {
-            //            // 通知创建者
-            //            WeChatHelper.WeChat.SendCSTextMessage(userInfo.openid, "您发布的聚会，报名人数已达到预定的最少人数。请点击<a href=\"http://www.baidu.com/\">这里</a>进行领取凭证。");
-            //        }
-
-            //        return RedirectToAction("ViewParty", new { partyId = partyId, isReturn = true, participantId = userId });
-            //    }
-            //    catch (BasicSystemException ex)
-            //    {
-            //        return Content(ex.ToLocalize());
-            //    }
-            //}
         }
 
         /// <summary>
         /// 确定聚会
         /// </summary>
-        public ActionResult ConfirmParty(int partyId)
+        public ActionResult ConfirmParty(int partyId, string code, string state)
         {
-            string json;
-            try
+            if (string.IsNullOrEmpty(code))
+                return Content("无法获取当前用户信息。");
+            else
             {
-                var identifierInfo = PartyService.ConfirmParty(partyId);
-                json = JsonHelper.GetJsonWithModel(new
-                {
-                    Result = CommonSettings.OPERATE_SUCCESS,
-                    Message = CommonSettings.TIPS_SUCCESS,
-                    IdentifierNO = identifierInfo.Item1,
-                    ExpiresTime = identifierInfo.Item2
-                });
-            }
-            catch (BasicSystemException ex)
-            {
-                json = JsonHelper.GetJsonForFail(ex.ToLocalize());
-            }
+                var accessTokenInfo = WeChatHelper.WeChat.GetWeChatAccessTokenInfo_OAuth(code);
 
-            return Content(json);
+                try
+                {
+                    var identifierInfo = PartyService.ConfirmParty(partyId, accessTokenInfo.openid);
+
+                    return Content(identifierInfo.Item1 + "-" + identifierInfo.Item2);
+                }
+                catch (BasicSystemException ex)
+                {
+                    return Content(ex.ToLocalize());
+                }
+            }
         }
 
 
         /// <summary>
         /// 我发布的聚会
         /// </summary>
-        public ActionResult MyParties(string openId)
+        public ActionResult MyParties(string code, string state)
         {
-            var model = new MyPartiesViewModel
+            if (string.IsNullOrEmpty(code))
+                return Content("无法获取当前用户信息。");
+            else
             {
-                PartyInfos = PartyService.GetPartyInfosByCreateUser(openId)
-            };
+                var accessTokenInfo = WeChatHelper.WeChat.GetWeChatAccessTokenInfo_OAuth(code);
 
-            return View(model);
+                var model = new MyPartiesViewModel
+                {
+                    PartyInfos = PartyService.GetPartyInfosByCreateUser(accessTokenInfo.openid)
+                };
+
+                return View(model);
+            }
         }
 
         /// <summary>
         /// 我参与的聚会
         /// </summary>
-        public ActionResult MyParticipateParties(string openId)
+        public ActionResult MyParticipateParties(string code, string state)
         {
-            var model = new MyParticipatePartiesViewModel
+            if (string.IsNullOrEmpty(code))
+                return Content("无法获取当前用户信息。");
+            else
             {
-                PartyInfos = PartyService.GetPartyInfosByParticipantUser(openId)
-            };
+                var accessTokenInfo = WeChatHelper.WeChat.GetWeChatAccessTokenInfo_OAuth(code);
 
-            return View(model);
+                var model = new MyParticipatePartiesViewModel
+                {
+                    PartyInfos = PartyService.GetPartyInfosByParticipantUser(accessTokenInfo.openid)
+                };
+
+                return View(model);
+            }
         }
-
-
-
-        //public ActionResult TEST()
-        //{
-        //    var userInfo = new WeChatUserInfo
-        //    {
-        //        subscribe = 1,
-        //        openid = "o2x6et8pNFA3QTAqkgCEjE2oslf8",
-        //        nickname = "Sugar.Lin",
-        //        sex = 1,
-        //        language = "zh_CN",
-        //        city = "Guangzhou",
-        //        province = "Guangdong",
-        //        country = "China",
-        //        headimgurl = "http://wx.qlogo.cn/mmopen/2wHLWI8Wicxg70G9xKTib9VkBBb8VfyOOX973v7V1xUibNhy8eQz3JtS2DVt45bqNPZOkCDNzZMiceYlIQtnG6UabW8yUIWibI6HV/0",
-        //        subscribe_time = 1398357231
-        //    };
-
-        //    var id = UserService.AddWeChatUser(userInfo);
-
-        //    return Content(id.ToString());
-        //}
     }
 }

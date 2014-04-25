@@ -111,7 +111,10 @@
     <Compile Include="Exceptions\BasicSystemException.cs" />
     <Compile Include="Exceptions\CanNotFindPartyException.cs" />
     <Compile Include="Exceptions\CanNotFindIdentifierException.cs" />
+    <Compile Include="Exceptions\PartyHasBeenConfirmedException.cs" />
+    <Compile Include="Exceptions\IdentifierHasBeenExpiredException.cs" />
     <Compile Include="Exceptions\IdentifierHasBeenUsedException.cs" />
+    <Compile Include="Exceptions\NoPartySInitiatorException.cs" />
     <Compile Include="Exceptions\PartyWasClosedException.cs" />
     <Compile Include="Exceptions\UserHasBeenParticipateThePartyException.cs" />
     <Compile Include="Extensions\LocalizedExtension.cs" />

@@ -1,5 +1,7 @@
 ﻿@using DUOJU.Domain.Enums
 @using DUOJU.Domain.Extensions
+@using DUOJU.FRAMEWORK.WeChat
+@using DUOJU.WECHAT.Sys.Helpers
 @model DUOJU.WECHAT.Models.Party.ViewPartyViewModel
 
 @{
@@ -57,12 +59,7 @@
             else
             {
                 <p>
-                    <button type="button" onclick="Registrat()">报名</button>
-                    <script>
-                        var Registrat = function () {
-                            location.href = "";
-                        }
-                    </script>
+                    <a href="@WeChatHelper.WeChat.ConvertOAuthUrl(Server.UrlEncode("http://wechat.duoju.us/Party/ParticipateParty/" + Model.PartyInfo.PartyId), OauthScopes.SNSAPI_USERINFO, null)">报名</a>
                 </p>
             }
         }

@@ -18,9 +18,11 @@
         public const string WECHATLANGUAGE_EN = "en";
 
 
+        public const string WECHATURL_OAUTH_FORMAT = "https://open.weixin.qq.com/connect/oauth2/authorize?appid={0}&redirect_uri={1}&response_type=code&scope={2}&state={3}#wechat_redirect";
+
         public const string WECHATURL_GETACCESSTOKEN_FORMAT = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid={0}&secret={1}";
 
-        public const string WECHATURL_GETACCESSTOKEN_OAUTH_FORMAT = "https://api.weixin.qq.com/sns/oauth2/access_token?appid={0}&secret={0}&code={0}&grant_type=authorization_code";
+        public const string WECHATURL_GETACCESSTOKEN_OAUTH_FORMAT = "https://api.weixin.qq.com/sns/oauth2/access_token?appid={0}&secret={1}&code={2}&grant_type=authorization_code";
 
         public const string WECHATURL_REFRESHACCESSTOKEN_OAUTH_FORMAT = "https://api.weixin.qq.com/sns/oauth2/refresh_token?appid={0}&grant_type=refresh_token&refresh_token={1}";
 

@@ -14,7 +14,7 @@ namespace DUOJU.Service.Abstract
 
         PartyParticipateCountInfo ParticipateParty(int partyId, int userId);
 
-        Tuple<string, DateTime> ConfirmParty(int partyId);
+        Tuple<string, DateTime> ConfirmParty(int partyId, string openId);
 
         IList<PartyInfo> GetPartyInfosByCreateUser(string openId);
 

@@ -24,6 +24,8 @@
 
         public const string DUOJUWECHAT_APPSECRET = "5e1c314ef6d160d2fbfa4d8bc0beef2d";
 
+        public const string DUOJUWECHATMESSAGE_PARTYFULLED_FORMAT = "你发布的聚会，报名人数已达到预定的最少人数。请点击<a href=\"{0}\">这里</a>领取凭证吧。";
+
 
         public const int IDENTIFIEREXPIRESTIME_DAY_PARTY = 7;
 

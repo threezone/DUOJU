@@ -84,6 +84,8 @@ namespace DUOJU.Service.Concrete
             {
                 if (identifier.STATUS == (int)IdentifierStatuses.USED)
                     throw new IdentifierHasBeenUsedException();
+                else if (identifier.EXPIRES_TIME > DateTime.Now)
+                    throw new IdentifierHasBeenExpiredException();
 
                 identifier.STATUS = (int)IdentifierStatuses.USED;
                 identifier.LAST_UPDATE_BY = operatorId;
