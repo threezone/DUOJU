@@ -333,20 +333,20 @@ namespace DUOJU.FRAMEWORK.WeChat
             return CallRemoteInterface<string>(RequestTypes.GET, RequestContentTypes.JSON, url);
         }
 
-        public WeChatErrorInfo CreateMenu(WeChatMenuInfo menuInfo)
+        public WeChatReturnInfo CreateMenu(WeChatMenuInfo menuInfo)
         {
             var accessTokenInfo = GetWeChatAccessTokenInfo();
             var url = string.Format(WeChatSettings.WECHATURL_CREATEMENU_FORMAT, accessTokenInfo.access_token);
 
-            return CallRemoteInterface<WeChatErrorInfo>(RequestTypes.POST, RequestContentTypes.JSON, url, JsonHelper.GetJsonWithModel(menuInfo));
+            return CallRemoteInterface<WeChatReturnInfo>(RequestTypes.POST, RequestContentTypes.JSON, url, JsonHelper.GetJsonWithModel(menuInfo));
         }
 
-        public WeChatErrorInfo DeleteMenu()
+        public WeChatReturnInfo DeleteMenu()
         {
             var accessTokenInfo = GetWeChatAccessTokenInfo();
             var url = string.Format(WeChatSettings.WECHATURL_DELETEMENU_FORMAT, accessTokenInfo.access_token);
 
-            return CallRemoteInterface<WeChatErrorInfo>(RequestTypes.GET, RequestContentTypes.JSON, url);
+            return CallRemoteInterface<WeChatReturnInfo>(RequestTypes.GET, RequestContentTypes.JSON, url);
         }
 
         public WeChatUserListInfo GetWeChatUserListInfo(string nextOpenid = "")
@@ -370,6 +370,20 @@ namespace DUOJU.FRAMEWORK.WeChat
             var url = string.Format(WeChatSettings.WECHATURL_GETUSERINFO_OAUTH_FORMAT, accessToken, openid, language);
 
             return CallRemoteInterface<WeChatUserInfo_OAuth>(RequestTypes.GET, RequestContentTypes.JSON, url);
+        }
+
+        public WeChatReturnInfo SendCSTextMessage(string openId, string content)
+        {
+            var accessTokenInfo = GetWeChatAccessTokenInfo();
+            var url = string.Format(WeChatSettings.WECHATURL_SENDMESSAGE_FORMAT, accessTokenInfo.access_token);
+
+            var parameters = JsonHelper.GetJsonWithModel(new
+            {
+                touser = openId,
+                msgtype = CSMessageTypes.TEXT.ToString().ToLower(),
+                text = new { content = content }
+            });
+            return CallRemoteInterface<WeChatReturnInfo>(RequestTypes.POST, RequestContentTypes.JSON, url, parameters);
         }
 
         #endregion

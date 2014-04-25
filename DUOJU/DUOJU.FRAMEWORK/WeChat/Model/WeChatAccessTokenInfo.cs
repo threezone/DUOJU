@@ -2,7 +2,7 @@
 
 namespace DUOJU.FRAMEWORK.WeChat
 {
-    public class WeChatAccessTokenInfo : WeChatErrorInfo
+    public class WeChatAccessTokenInfo : WeChatReturnInfo
     {
         public string access_token { get; set; }
 

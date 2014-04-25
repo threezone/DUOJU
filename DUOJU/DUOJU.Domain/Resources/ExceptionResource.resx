@@ -117,10 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="BasicSystemException_CanNotFindIdentifierException" xml:space="preserve">
+    <value>无法找到该验证码信息！</value>
+  </data>
   <data name="BasicSystemException_CanNotFindPartyException" xml:space="preserve">
-    <value>无法找到该聚会！</value>
+    <value>无法找到该聚会信息！</value>
   </data>
   <data name="BasicSystemException_PartyWasClosedException" xml:space="preserve">
     <value>该聚会已截止报名！</value>
+  </data>
+  <data name="BasicSystemException_UserHasBeenParticipateThePartyException" xml:space="preserve">
+    <value>您已报名了该聚会！</value>
   </data>
 </root>

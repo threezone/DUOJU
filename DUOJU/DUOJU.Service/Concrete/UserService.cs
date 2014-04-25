@@ -113,11 +113,5 @@ namespace DUOJU.Service.Concrete
                 UserRepository.SaveChanges();
             }
         }
-
-
-        public DUOJU_CITIES TEST()
-        {
-            return AreaRepository.GetCityInfoByName("guangzhou");
-        }
     }
 }

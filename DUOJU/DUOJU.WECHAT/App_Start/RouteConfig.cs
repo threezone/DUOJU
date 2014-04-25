@@ -28,6 +28,12 @@ namespace DUOJU.WECHAT
             );
 
             routes.MapRoute(
+                name: "Party_ConfirmParty",
+                url: "Party/ConfirmParty/{partyId}",
+                defaults: new { controller = "Party", action = "ConfirmParty", partyId = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}",
                 defaults: new { controller = "WeChat", action = "Index" }

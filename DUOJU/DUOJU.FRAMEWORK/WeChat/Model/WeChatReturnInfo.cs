@@ -1,6 +1,6 @@
 ﻿namespace DUOJU.FRAMEWORK.WeChat
 {
-    public class WeChatErrorInfo
+    public class WeChatReturnInfo
     {
         public bool IsValid
         {

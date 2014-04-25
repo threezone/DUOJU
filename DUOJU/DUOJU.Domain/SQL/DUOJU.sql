@@ -77,21 +77,6 @@ insert into DUOJU$ROLE_PRIVILEGES (ROLE, PRIVILEGES) values ('SUPPLIER', '')
 insert into DUOJU$ROLE_PRIVILEGES (ROLE, PRIVILEGES) values ('USER', '')
 go
 
-create table DUOJU$IDENTIFIERS
-(
-	IDENTIFIER_ID int primary key identity (1,1) not null,
-	IDENTIFIER_TYPE int not null,
-	IDENTIFIER_NO varchar(50) not null,
-	STATUS int not null,
-	CREATE_TIME datetime default getdate() not null,
-	LAST_UPDATE_TIME datetime default getdate() not null
-)
-go
-create unique index UX_DUOJU$IDENTIFIER_NO on DUOJU$IDENTIFIERS(IDENTIFIER_NO)
-alter table DUOJU$IDENTIFIERS add constraint CK_DUOJU$IDENTIFIER_TYPE check (IDENTIFIER_TYPE in (0, 1))
-alter table DUOJU$IDENTIFIERS add constraint CK_DUOJU$IDENTIFIER_STATUS check (STATUS in (0, 6))
-go
-
 create table DUOJU$USERS
 (
 	USER_ID int primary key identity (1,1) not null,
@@ -139,7 +124,38 @@ go
 create index IX_DUOJU$USER_FINANCE_USERID on DUOJU$USER_FINANCES(USER_ID)
 go
 
+create table DUOJU$IDENTIFIERS
+(
+	IDENTIFIER_ID int primary key identity (1,1) not null,
+	IDENTIFIER_TYPE int not null,
+	IDENTIFIER_NO varchar(20) not null,
+	EXPIRES_TIME datetime null,
+	STATUS int not null,
+	CREATE_BY int default 0 not null,
+	CREATE_TIME datetime default getdate() not null,
+	LAST_UPDATE_BY int default 0 not null,
+	LAST_UPDATE_TIME datetime default getdate() not null
+)
+go
+create unique index UX_DUOJU$IDENTIFIER_NO on DUOJU$IDENTIFIERS(IDENTIFIER_NO)
+alter table DUOJU$IDENTIFIERS add constraint CK_DUOJU$IDENTIFIER_TYPE check (IDENTIFIER_TYPE in (0, 1))
+alter table DUOJU$IDENTIFIERS add constraint CK_DUOJU$IDENTIFIER_STATUS check (STATUS in (0, 6))
+go
 
+create table DUOJU$IDENTIFIER_SETTINGS
+(
+	IDENTIFIER_SETTING_ID int primary key identity (1,1) not null,
+	IDENTIFIER_ID int references DUOJU$IDENTIFIERS(IDENTIFIER_ID) not null,
+	SETTING_CODE varchar(20) not null,
+	SETTING_VALUE varchar(20) not null,
+	CREATE_BY int default 0 not null,
+	CREATE_TIME datetime default getdate() not null,
+	LAST_UPDATE_BY int default 0 not null,
+	LAST_UPDATE_TIME datetime default getdate() not null
+)
+go
+create index IX_DUOJU$IDENTIFIER_SETTING_IDENTIID on DUOJU$IDENTIFIER_SETTINGS(IDENTIFIER_ID)
+go
 
 create table DUOJU$PARTIES
 (

@@ -36,6 +36,8 @@
 
         public const string WECHATURL_GETUSERINFO_OAUTH_FORMAT = "https://api.weixin.qq.com/sns/userinfo?access_token={0}&openid={1}&lang={2}";
 
+        public const string WECHATURL_SENDMESSAGE_FORMAT = "https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token={0}";
+
 
         public const string WECHATXML_ROOT_NAME = "xml";
 

@@ -2,7 +2,7 @@
 
 namespace DUOJU.FRAMEWORK.WeChat
 {
-    public class WeChatUserListInfo : WeChatErrorInfo
+    public class WeChatUserListInfo : WeChatReturnInfo
     {
         public int total { get; set; }
 

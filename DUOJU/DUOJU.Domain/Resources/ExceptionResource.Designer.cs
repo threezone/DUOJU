@@ -61,7 +61,16 @@ namespace DUOJU.Domain.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 无法找到该聚会！.
+        ///   Looks up a localized string similar to 无法找到该验证码信息！.
+        /// </summary>
+        public static string BasicSystemException_CanNotFindIdentifierException {
+            get {
+                return ResourceManager.GetString("BasicSystemException_CanNotFindIdentifierException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 无法找到该聚会信息！.
         /// </summary>
         public static string BasicSystemException_CanNotFindPartyException {
             get {
@@ -75,6 +84,15 @@ namespace DUOJU.Domain.Resources {
         public static string BasicSystemException_PartyWasClosedException {
             get {
                 return ResourceManager.GetString("BasicSystemException_PartyWasClosedException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 您已报名了该聚会！.
+        /// </summary>
+        public static string BasicSystemException_UserHasBeenParticipateThePartyException {
+            get {
+                return ResourceManager.GetString("BasicSystemException_UserHasBeenParticipateThePartyException", resourceCulture);
             }
         }
     }

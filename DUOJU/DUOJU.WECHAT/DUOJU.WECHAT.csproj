@@ -115,6 +115,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Party\MyParticipatePartiesViewModel.cs" />
+    <Compile Include="Models\Party\MyPartiesViewModel.cs" />
     <Compile Include="Models\Party\PublishPartyViewModel.cs" />
     <Compile Include="Models\Party\ViewPartyViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -167,6 +169,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Party\ViewParty.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Party\MyParties.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Party\MyParticipateParties.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

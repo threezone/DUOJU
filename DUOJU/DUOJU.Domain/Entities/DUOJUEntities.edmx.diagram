@@ -29,6 +29,8 @@
         <EntityTypeShape EntityType="DUOJUModel.DUOJU_USER_FINANCES" Width="1.5" PointX="9.75" PointY="5.875" />
         <AssociationConnector Association="DUOJUModel.FK__DUOJU_PAR__CONSU__5DCAEF64" />
         <AssociationConnector Association="DUOJUModel.FK__DUOJU_USE__USER___32E0915F" />
+        <EntityTypeShape EntityType="DUOJUModel.DUOJU_IDENTIFIER_SETTINGS" Width="1.5" PointX="9.75" PointY="15.5" />
+        <AssociationConnector Association="DUOJUModel.FK__DUOJU_IDE__IDENT__6754599E" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

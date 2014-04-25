@@ -9,8 +9,5 @@ namespace DUOJU.Service.Abstract
         int AddWeChatUser(WeChatUserInfo_OAuth info);
 
         void WeChatUserUnsubscribe(string openId);
-
-
-        DUOJU.Domain.Entities.DUOJU_CITIES TEST();
     }
 }

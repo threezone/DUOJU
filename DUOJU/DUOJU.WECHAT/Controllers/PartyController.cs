@@ -98,29 +98,49 @@ namespace DUOJU.WECHAT.Controllers
         /// </summary>
         public ActionResult ParticipateParty(int partyId, string code, string state)
         {
-            if (string.IsNullOrEmpty(code))
-                return Content("请先允许获取当前用户信息。");
-            else
+            var userId = int.Parse(Request.QueryString["userid"]);
+            var openId = "o2x6et8pNFA3QTAqkgCEjE2oslf8";
+
+            try
             {
-                var accessToken = WeChatHelper.WeChat.GetWeChatAccessTokenInfo_OAuth(code);
-                var userInfo = WeChatHelper.WeChat.GetWeChatUserInfo_OAuth(accessToken.access_token, accessToken.openid);
-
-                var userId = UserService.AddWeChatUser(userInfo);
-                try
+                var participateCountInfo = PartyService.ParticipateParty(partyId, userId);
+                if (participateCountInfo.ParticipateCount == participateCountInfo.MinIntoForce)
                 {
-                    var participateCountInfo = PartyService.ParticipateParty(partyId, userId);
-                    if (participateCountInfo.ParticipateCount == participateCountInfo.MinIntoForce)
-                    {
-                        // 通知创建者
-                    }
+                    // 通知创建者
+                    WeChatHelper.WeChat.SendCSTextMessage(openId, "您发布的聚会，报名人数已达到预定的最少人数。请点击<a href=\"http://www.baidu.com/\">这里</a>进行领取凭证。");
+                }
 
-                    return RedirectToAction("ViewParty", new { partyId = partyId, isReturn = true, participantId = userId });
-                }
-                catch (BasicSystemException ex)
-                {
-                    return Content(ex.ToLocalize());
-                }
+                return RedirectToAction("ViewParty", new { partyId = partyId, isReturn = true, participantId = userId });
             }
+            catch (BasicSystemException ex)
+            {
+                return Content(ex.ToLocalize());
+            }
+
+            //if (string.IsNullOrEmpty(code))
+            //    return Content("请先允许获取当前用户信息。");
+            //else
+            //{
+            //    var accessToken = WeChatHelper.WeChat.GetWeChatAccessTokenInfo_OAuth(code);
+            //    var userInfo = WeChatHelper.WeChat.GetWeChatUserInfo_OAuth(accessToken.access_token, accessToken.openid);
+
+            //    try
+            //    {
+            //        var userId = UserService.AddWeChatUser(userInfo);
+            //        var participateCountInfo = PartyService.ParticipateParty(partyId, userId);
+            //        if (participateCountInfo.ParticipateCount == participateCountInfo.MinIntoForce)
+            //        {
+            //            // 通知创建者
+            //            WeChatHelper.WeChat.SendCSTextMessage(userInfo.openid, "您发布的聚会，报名人数已达到预定的最少人数。请点击<a href=\"http://www.baidu.com/\">这里</a>进行领取凭证。");
+            //        }
+
+            //        return RedirectToAction("ViewParty", new { partyId = partyId, isReturn = true, participantId = userId });
+            //    }
+            //    catch (BasicSystemException ex)
+            //    {
+            //        return Content(ex.ToLocalize());
+            //    }
+            //}
         }
 
         /// <summary>
@@ -128,42 +148,74 @@ namespace DUOJU.WECHAT.Controllers
         /// </summary>
         public ActionResult ConfirmParty(int partyId)
         {
-            return null;
+            string json;
+            try
+            {
+                var identifierInfo = PartyService.ConfirmParty(partyId);
+                json = JsonHelper.GetJsonWithModel(new
+                {
+                    Result = CommonSettings.OPERATE_SUCCESS,
+                    Message = CommonSettings.TIPS_SUCCESS,
+                    IdentifierNO = identifierInfo.Item1,
+                    ExpiresTime = identifierInfo.Item2
+                });
+            }
+            catch (BasicSystemException ex)
+            {
+                json = JsonHelper.GetJsonForFail(ex.ToLocalize());
+            }
+
+            return Content(json);
+        }
+
+
+        /// <summary>
+        /// 我发布的聚会
+        /// </summary>
+        public ActionResult MyParties(string openId)
+        {
+            var model = new MyPartiesViewModel
+            {
+                PartyInfos = PartyService.GetPartyInfosByCreateUser(openId)
+            };
+
+            return View(model);
         }
 
         /// <summary>
-        /// 消费聚会
+        /// 我参与的聚会
         /// </summary>
-        public ActionResult ConsumParty(int partyId)
+        public ActionResult MyParticipateParties(string openId)
         {
-            return null;
+            var model = new MyParticipatePartiesViewModel
+            {
+                PartyInfos = PartyService.GetPartyInfosByParticipantUser(openId)
+            };
+
+            return View(model);
         }
 
 
 
+        //public ActionResult TEST()
+        //{
+        //    var userInfo = new WeChatUserInfo
+        //    {
+        //        subscribe = 1,
+        //        openid = "o2x6et8pNFA3QTAqkgCEjE2oslf8",
+        //        nickname = "Sugar.Lin",
+        //        sex = 1,
+        //        language = "zh_CN",
+        //        city = "Guangzhou",
+        //        province = "Guangdong",
+        //        country = "China",
+        //        headimgurl = "http://wx.qlogo.cn/mmopen/2wHLWI8Wicxg70G9xKTib9VkBBb8VfyOOX973v7V1xUibNhy8eQz3JtS2DVt45bqNPZOkCDNzZMiceYlIQtnG6UabW8yUIWibI6HV/0",
+        //        subscribe_time = 1398357231
+        //    };
 
+        //    var id = UserService.AddWeChatUser(userInfo);
 
-        public ActionResult TEST(string i)
-        {
-            if (string.IsNullOrEmpty(i))
-            {
-                var str = IdentifierHelper.GeneratePartyIdentifier(new Domain.Models.Identifier.IdentifierInfo
-                {
-                    CreateTime = WeChat.ConvertTimeStamp(DateTime.Now),
-                    ExpiresTime = WeChat.ConvertTimeStamp(DateTime.Now.AddSeconds(7200)),
-                    Type = Domain.Enums.IdentifierTypes.PARTY,
-                    Parameters = new object[] { 100000 }
-                });
-
-                var str2 = IdentifierHelper.DecryptPartyIdentifier(str);
-
-                return Content(str + "-" + str2.Type + str2.Parameters[0] + "-" + Request.Url.PathAndQuery);
-            }
-            else
-            {
-                var city = UserService.TEST();
-                return Content(city.CITY_NAME_CN);
-            }
-        }
+        //    return Content(id.ToString());
+        //}
     }
 }

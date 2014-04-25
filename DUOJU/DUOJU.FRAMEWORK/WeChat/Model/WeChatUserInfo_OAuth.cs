@@ -2,7 +2,7 @@
 
 namespace DUOJU.FRAMEWORK.WeChat
 {
-    public class WeChatUserInfo_OAuth : WeChatErrorInfo
+    public class WeChatUserInfo_OAuth : WeChatReturnInfo
     {
         public string openid { get; set; }
 

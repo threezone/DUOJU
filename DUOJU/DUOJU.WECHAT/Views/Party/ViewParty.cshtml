@@ -19,12 +19,12 @@
         <legend>聚会信息</legend>
 
         <dl>
-            <dt>InitiatorOpenName 发起者</dt>
-            <dd>@Model.PartyInfo.InitiatorOpenName</dd>
+            <dt>InitiatorName 发起者</dt>
+            <dd>@Model.PartyInfo.InitiatorName</dd>
             <dt>HoldDate 具体日期</dt>
             <dd>@Model.PartyInfo.HoldDate.ToString("yyyy-MM-dd")</dd>
             <dt>HoldTime 具体时间段</dt>
-            <dd>@Model.PartyInfo.HoldTime.ToLocalize()</dd>
+            <dd>@Model.PartyInfo.EHoldTime.ToLocalize()</dd>
             <dt>Description 说明</dt>
             <dd>@Model.PartyInfo.Description</dd>
             <dt>MinIntoForce 最少人数</dt>
@@ -32,11 +32,11 @@
             <dt>MaxIntoForce 最多人数</dt>
             <dd>@(Model.PartyInfo.MaxIntoForce.HasValue ? @Model.PartyInfo.MaxIntoForce.Value.ToString() : "无限制")</dd>
             <dt>Status 状态</dt>
-            <dd>@Model.PartyInfo.Status.ToLocalize()</dd>
+            <dd>@Model.PartyInfo.EStatus.ToLocalize()</dd>
         </dl>
 
         <hr />
-        @{ var isFulled = Model.PartyInfo.Status == PartyStatuses.FULLED; }
+        @{ var isFulled = Model.PartyInfo.EStatus == PartyStatuses.FULLED; }
         <h4>已报名：@(Model.PartyInfo.PartyParticipantInfos.Count(i => i.EStatus == PartyParticipantStatuses.PARTICIPATED))人@(isFulled ? "，已满额！" : string.Empty)</h4>
 
         @foreach (var info in Model.PartyInfo.PartyParticipantInfos)

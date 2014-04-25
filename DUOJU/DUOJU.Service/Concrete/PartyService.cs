@@ -1,13 +1,14 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using DUOJU.Dao.Abstract;
 using DUOJU.Dao.Concrete;
+using DUOJU.Domain;
 using DUOJU.Domain.Entities;
 using DUOJU.Domain.Enums;
+using DUOJU.Domain.Exceptions;
 using DUOJU.Domain.Models.Party;
 using DUOJU.Service.Abstract;
-using System;
-using System.Collections.Generic;
-using DUOJU.Domain.Exceptions;
 
 namespace DUOJU.Service.Concrete
 {
@@ -19,12 +20,22 @@ namespace DUOJU.Service.Concrete
 
         private ISupplierService SupplierService { get; set; }
 
+        private IIdentifierService IdentifierService { get; set; }
+
 
         public PartyService()
         {
             PartyRepository = new PartyRepository();
             UserRepository = new UserRepository();
             SupplierService = new SupplierService();
+            IdentifierService = new IdentifierService();
+        }
+
+
+        private void ConvertPartyInfo(PartyInfo info)
+        {
+            info.EHoldTime = (PartyHoldTimes)Enum.Parse(typeof(PartyHoldTimes), info.HoldTime.ToString());
+            info.EStatus = (PartyStatuses)Enum.Parse(typeof(PartyStatuses), info.Status.ToString());
         }
 
 
@@ -69,19 +80,22 @@ namespace DUOJU.Service.Concrete
             var party = PartyRepository.GetPartyById(partyId);
             if (party != null)
             {
-                return new PartyInfo
+                var info = new PartyInfo
                 {
                     PartyId = party.PARTY_ID,
-                    InitiatorOpenName = party.DUOJU_USERS.NICK_NAME,
+                    InitiatorName = party.DUOJU_USERS.NICK_NAME,
                     HoldDate = party.HOLD_DATE,
-                    HoldTime = (PartyHoldTimes)Enum.Parse(typeof(PartyHoldTimes), party.HOLD_TIME.ToString()),
+                    HoldTime = party.HOLD_TIME,
                     Description = party.DESCRIPTION,
                     MinIntoForce = party.MIN_INTO_FORCE,
                     MaxIntoForce = party.MAX_INTO_FORCE,
-                    Status = (PartyStatuses)Enum.Parse(typeof(PartyStatuses), party.STATUS.ToString()),
+                    Status = party.STATUS,
                     SupplierInfo = SupplierService.GetSupplierInfoById(party.SUPPLIER_ID),
                     PartyParticipantInfos = GetPartyParticipantInfos(partyId)
                 };
+
+                ConvertPartyInfo(info);
+                return info;
             }
 
             return null;
@@ -108,24 +122,34 @@ namespace DUOJU.Service.Concrete
             {
                 if (party.STATUS == (int)PartyStatuses.PUBLISHED)
                 {
-                    if (party.MAX_INTO_FORCE.HasValue && party.DUOJU_PARTY_PARTICIPANTS.Count + 1 >= party.MAX_INTO_FORCE.Value)
+                    var participant = party.DUOJU_PARTY_PARTICIPANTS.FirstOrDefault(i => i.PARTY_ID == partyId && i.PARTICIPANT_ID == userId);
+
+                    if (participant != null && participant.STATUS == (int)PartyParticipantStatuses.PARTICIPATED)
+                        throw new UserHasBeenParticipateThePartyException();
+
+                    if (participant == null)
                     {
-                        party.STATUS = (int)PartyStatuses.FULLED;
-                        party.LAST_UPDATE_BY = userId;
-                        party.LAST_UPDATE_TIME = DateTime.Now;
+                        var user = UserRepository.GetUserById(userId);
+                        participant = new DUOJU_PARTY_PARTICIPANTS
+                        {
+                            DUOJU_USERS = user,
+                            CREATE_BY = userId,
+                            CREATE_TIME = DateTime.Now
+                        };
+
+                        party.DUOJU_PARTY_PARTICIPANTS.Add(participant);
+                        if (party.MAX_INTO_FORCE.HasValue && party.DUOJU_PARTY_PARTICIPANTS.Count + 1 >= party.MAX_INTO_FORCE.Value && party.STATUS == (int)PartyStatuses.PUBLISHED)
+                        {
+                            party.STATUS = (int)PartyStatuses.FULLED;
+                            party.LAST_UPDATE_BY = userId;
+                            party.LAST_UPDATE_TIME = DateTime.Now;
+                        }
                     }
 
-                    var user = UserRepository.GetUserById(userId);
-                    party.DUOJU_PARTY_PARTICIPANTS.Add(new DUOJU_PARTY_PARTICIPANTS
-                    {
-                        DUOJU_USERS = user,
-                        PARTICIPATE_TIME = DateTime.Now,
-                        STATUS = (int)PartyParticipantStatuses.PARTICIPATED,
-                        CREATE_BY = userId,
-                        CREATE_TIME = DateTime.Now,
-                        LAST_UPDATE_BY = userId,
-                        LAST_UPDATE_TIME = DateTime.Now
-                    });
+                    participant.PARTICIPATE_TIME = DateTime.Now;
+                    participant.STATUS = (int)PartyParticipantStatuses.PARTICIPATED;
+                    participant.LAST_UPDATE_BY = userId;
+                    participant.LAST_UPDATE_TIME = DateTime.Now;
 
                     PartyRepository.SaveChanges();
                     return new PartyParticipateCountInfo
@@ -140,6 +164,47 @@ namespace DUOJU.Service.Concrete
                 else
                     throw new PartyWasClosedException();
             }
+        }
+
+        public Tuple<string, DateTime> ConfirmParty(int partyId)
+        {
+            var party = PartyRepository.GetPartyById(partyId);
+            if (party == null)
+                throw new CanNotFindPartyException();
+            else
+            {
+                var expiresTime = DateTime.Now.AddDays(CommonSettings.IDENTIFIEREXPIRESTIME_DAY_PARTY);
+                expiresTime = new DateTime(expiresTime.Year, expiresTime.Month, expiresTime.Day).AddDays(1).AddSeconds(-1);
+                var identifier = IdentifierService.GenerateIdentifier(IdentifierTypes.PARTY, expiresTime, new List<KeyValuePair<string, string>>
+                {
+                    new KeyValuePair<string,string>(CommonSettings.IDENTIFIERSETTINGCODE_PARTYID, partyId.ToString())
+                }, party.CREATE_BY);
+
+                party.DUOJU_IDENTIFIERS = identifier;
+                party.STATUS = (int)PartyStatuses.CONFIRMED;
+                party.LAST_UPDATE_BY = party.CREATE_BY;
+                party.LAST_UPDATE_TIME = DateTime.Now;
+
+                PartyRepository.SaveChanges();
+
+                return new Tuple<string, DateTime>(identifier.IDENTIFIER_NO, expiresTime);
+            }
+        }
+
+        public IList<PartyInfo> GetPartyInfosByCreateUser(string openId)
+        {
+            var infos = PartyRepository.GetPartyInfosByCreateUser(openId);
+            infos.ToList().ForEach(i => ConvertPartyInfo(i));
+
+            return infos;
+        }
+
+        public IList<PartyInfo> GetPartyInfosByParticipantUser(string openId)
+        {
+            var infos = PartyRepository.GetPartyInfosByParticipantUser(openId);
+            infos.ToList().ForEach(i => ConvertPartyInfo(i));
+
+            return infos;
         }
     }
 }

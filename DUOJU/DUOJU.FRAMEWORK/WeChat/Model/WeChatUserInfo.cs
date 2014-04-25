@@ -1,6 +1,6 @@
 ﻿namespace DUOJU.FRAMEWORK.WeChat
 {
-    public class WeChatUserInfo : WeChatErrorInfo
+    public class WeChatUserInfo : WeChatReturnInfo
     {
         public int? subscribe { get; set; }
 

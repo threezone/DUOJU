@@ -15,7 +15,7 @@ namespace DUOJU.Domain.Models.Party
         /// <summary>
         /// 发起者姓名
         /// </summary>
-        public string InitiatorOpenName { get; set; }
+        public string InitiatorName { get; set; }
 
         /// <summary>
         /// 聚会日期
@@ -25,7 +25,12 @@ namespace DUOJU.Domain.Models.Party
         /// <summary>
         /// 聚会时间段
         /// </summary>
-        public PartyHoldTimes HoldTime { get; set; }
+        public int HoldTime { get; set; }
+
+        /// <summary>
+        /// 聚会时间段
+        /// </summary>
+        public PartyHoldTimes EHoldTime { get; set; }
 
         /// <summary>
         /// 说明
@@ -45,7 +50,12 @@ namespace DUOJU.Domain.Models.Party
         /// <summary>
         /// 状态
         /// </summary>
-        public PartyStatuses Status { get; set; }
+        public int Status { get; set; }
+
+        /// <summary>
+        /// 状态
+        /// </summary>
+        public PartyStatuses EStatus { get; set; }
 
 
         /// <summary>

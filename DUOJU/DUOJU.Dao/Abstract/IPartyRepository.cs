@@ -13,5 +13,9 @@ namespace DUOJU.Dao.Abstract
         DUOJU_PARTIES GetPartyById(int partyId);
 
         IList<PartyParticipantInfo> GetPartyParticipantInfos(int partyId);
+
+        IList<PartyInfo> GetPartyInfosByCreateUser(string openId);
+
+        IList<PartyInfo> GetPartyInfosByParticipantUser(string openId);
     }
 }

@@ -25,18 +25,8 @@
         public const string DUOJUWECHAT_APPSECRET = "5e1c314ef6d160d2fbfa4d8bc0beef2d";
 
 
-        public const string IDENTIFIERNO_WORDS = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        public const int IDENTIFIEREXPIRESTIME_DAY_PARTY = 7;
 
-        public const string IDENTIFIERNO_FORMAT = "{0}${1}${2}${3}${4}";
-
-        public const char IDENTIFIERNO_FIELDSEPARATOR = '$';
-
-        public const char IDENTIFIERNO_PARAMETERSEPARATOR = '-';
-
-        public const int IDENTIFIERNO_RANDOMWORDSLENGTH = 1;
-
-        public const string IDENTIFIERKEY_PARTY = "Iasd76uusd6sad9S";
-
-        public const string IDENTIFIERKEY_FINANCE = "jsu8d87adSDhad7A";
+        public const string IDENTIFIERSETTINGCODE_PARTYID = "partyid";
     }
 }

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="DUOJUModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="DUOJUModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="DUOJU$CITIES">
           <Key>
             <PropertyRef Name="CITY_ID" />
@@ -28,15 +28,31 @@
           <Property Name="CREATE_TIME" Type="datetime" Nullable="false" />
           <Property Name="LAST_UPDATE_TIME" Type="datetime" Nullable="false" />
         </EntityType>
+        <EntityType Name="DUOJU$IDENTIFIER_SETTINGS">
+          <Key>
+            <PropertyRef Name="IDENTIFIER_SETTING_ID" />
+          </Key>
+          <Property Name="IDENTIFIER_SETTING_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IDENTIFIER_ID" Type="int" Nullable="false" />
+          <Property Name="SETTING_CODE" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="SETTING_VALUE" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="CREATE_BY" Type="int" Nullable="false" />
+          <Property Name="CREATE_TIME" Type="datetime" Nullable="false" />
+          <Property Name="LAST_UPDATE_BY" Type="int" Nullable="false" />
+          <Property Name="LAST_UPDATE_TIME" Type="datetime" Nullable="false" />
+        </EntityType>
         <EntityType Name="DUOJU$IDENTIFIERS">
           <Key>
             <PropertyRef Name="IDENTIFIER_ID" />
           </Key>
           <Property Name="IDENTIFIER_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="IDENTIFIER_TYPE" Type="int" Nullable="false" />
-          <Property Name="IDENTIFIER_NO" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="IDENTIFIER_NO" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="EXPIRES_TIME" Type="datetime" />
           <Property Name="STATUS" Type="int" Nullable="false" />
+          <Property Name="CREATE_BY" Type="int" Nullable="false" />
           <Property Name="CREATE_TIME" Type="datetime" Nullable="false" />
+          <Property Name="LAST_UPDATE_BY" Type="int" Nullable="false" />
           <Property Name="LAST_UPDATE_TIME" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="DUOJU$PARTIES">
@@ -124,17 +140,17 @@
             <PropertyRef Name="USER_ID" />
           </Key>
           <Property Name="USER_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ACCOUNT" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="PASSWORD" Type="varchar" MaxLength="50" />
+          <Property Name="ACCOUNT" Type="varchar" MaxLength="70" Nullable="false" />
+          <Property Name="PASSWORD" Type="varchar" MaxLength="70" />
           <Property Name="SOURCE" Type="int" Nullable="false" />
           <Property Name="ROLE" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="PRIVILEGES" Type="varchar" MaxLength="500" Nullable="false" />
           <Property Name="SUBSCRIBED" Type="char" MaxLength="1" />
           <Property Name="SUBSCRIBE_TIME" Type="datetime" />
-          <Property Name="OPEN_ID" Type="varchar" MaxLength="50" />
-          <Property Name="NICK_NAME" Type="nvarchar" MaxLength="50" />
+          <Property Name="OPEN_ID" Type="varchar" MaxLength="70" />
+          <Property Name="NICK_NAME" Type="nvarchar" MaxLength="70" />
           <Property Name="SEX" Type="char" MaxLength="1" />
-          <Property Name="HEAD_IMG_URL" Type="varchar" MaxLength="100" />
+          <Property Name="HEAD_IMG_URL" Type="varchar" MaxLength="200" />
           <Property Name="COUNTRY_ID" Type="int" />
           <Property Name="PROVINCE_ID" Type="int" />
           <Property Name="CITY_ID" Type="int" />
@@ -168,7 +184,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__DUOJU$PAR__CONSU__3C69FB99">
+        <Association Name="FK__DUOJU$IDE__IDENT__3D5E1FD2">
+          <End Role="DUOJU$IDENTIFIERS" Type="Self.DUOJU$IDENTIFIERS" Multiplicity="1" />
+          <End Role="DUOJU$IDENTIFIER_SETTINGS" Type="Self.DUOJU$IDENTIFIER_SETTINGS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DUOJU$IDENTIFIERS">
+              <PropertyRef Name="IDENTIFIER_ID" />
+            </Principal>
+            <Dependent Role="DUOJU$IDENTIFIER_SETTINGS">
+              <PropertyRef Name="IDENTIFIER_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DUOJU$PAR__CONSU__46E78A0C">
           <End Role="DUOJU$IDENTIFIERS" Type="Self.DUOJU$IDENTIFIERS" Multiplicity="0..1" />
           <End Role="DUOJU$PARTIES" Type="Self.DUOJU$PARTIES" Multiplicity="*" />
           <ReferentialConstraint>
@@ -180,7 +208,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__DUOJU$PAR__INITI__3B75D760">
+        <Association Name="FK__DUOJU$PAR__INITI__45F365D3">
           <End Role="DUOJU$USERS" Type="Self.DUOJU$USERS" Multiplicity="1" />
           <End Role="DUOJU$PARTIES" Type="Self.DUOJU$PARTIES" Multiplicity="*" />
           <ReferentialConstraint>
@@ -192,7 +220,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__DUOJU$PAR__PARTI__49C3F6B7">
+        <Association Name="FK__DUOJU$PAR__PARTI__5441852A">
           <End Role="DUOJU$USERS" Type="Self.DUOJU$USERS" Multiplicity="1" />
           <End Role="DUOJU$PARTY_PARTICIPANTS" Type="Self.DUOJU$PARTY_PARTICIPANTS" Multiplicity="*" />
           <ReferentialConstraint>
@@ -204,7 +232,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__DUOJU$PAR__PARTY__48CFD27E">
+        <Association Name="FK__DUOJU$PAR__PARTY__534D60F1">
           <End Role="DUOJU$PARTIES" Type="Self.DUOJU$PARTIES" Multiplicity="1" />
           <End Role="DUOJU$PARTY_PARTICIPANTS" Type="Self.DUOJU$PARTY_PARTICIPANTS" Multiplicity="*" />
           <ReferentialConstraint>
@@ -216,7 +244,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__DUOJU$PAR__PARTY__534D60F1">
+        <Association Name="FK__DUOJU$PAR__PARTY__5DCAEF64">
           <End Role="DUOJU$PARTIES" Type="Self.DUOJU$PARTIES" Multiplicity="1" />
           <End Role="DUOJU$PARTY_COMMENTS" Type="Self.DUOJU$PARTY_COMMENTS" Multiplicity="*" />
           <ReferentialConstraint>
@@ -228,7 +256,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__DUOJU$PAR__USER___5441852A">
+        <Association Name="FK__DUOJU$PAR__USER___5EBF139D">
           <End Role="DUOJU$USERS" Type="Self.DUOJU$USERS" Multiplicity="1" />
           <End Role="DUOJU$PARTY_COMMENTS" Type="Self.DUOJU$PARTY_COMMENTS" Multiplicity="*" />
           <ReferentialConstraint>
@@ -252,7 +280,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__DUOJU$USE__CITY___267ABA7A">
+        <Association Name="FK__DUOJU$USE__CITY___1ED998B2">
           <End Role="DUOJU$CITIES" Type="Self.DUOJU$CITIES" Multiplicity="0..1" />
           <End Role="DUOJU$USERS" Type="Self.DUOJU$USERS" Multiplicity="*" />
           <ReferentialConstraint>
@@ -264,7 +292,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__DUOJU$USE__COUNT__24927208">
+        <Association Name="FK__DUOJU$USE__COUNT__1CF15040">
           <End Role="DUOJU$COUNTRIES" Type="Self.DUOJU$COUNTRIES" Multiplicity="0..1" />
           <End Role="DUOJU$USERS" Type="Self.DUOJU$USERS" Multiplicity="*" />
           <ReferentialConstraint>
@@ -276,7 +304,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__DUOJU$USE__PROVI__25869641">
+        <Association Name="FK__DUOJU$USE__PROVI__1DE57479">
           <End Role="DUOJU$PROVINCES" Type="Self.DUOJU$PROVINCES" Multiplicity="0..1" />
           <End Role="DUOJU$USERS" Type="Self.DUOJU$USERS" Multiplicity="*" />
           <ReferentialConstraint>
@@ -288,7 +316,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__DUOJU$USE__USER___32E0915F">
+        <Association Name="FK__DUOJU$USE__USER___2B3F6F97">
           <End Role="DUOJU$USERS" Type="Self.DUOJU$USERS" Multiplicity="1" />
           <End Role="DUOJU$USER_FINANCES" Type="Self.DUOJU$USER_FINANCES" Multiplicity="*" />
           <ReferentialConstraint>
@@ -300,7 +328,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__DUOJU$USER__ROLE__239E4DCF">
+        <Association Name="FK__DUOJU$USER__ROLE__1BFD2C07">
           <End Role="DUOJU$ROLE_PRIVILEGES" Type="Self.DUOJU$ROLE_PRIVILEGES" Multiplicity="1" />
           <End Role="DUOJU$USERS" Type="Self.DUOJU$USERS" Multiplicity="*" />
           <ReferentialConstraint>
@@ -315,6 +343,7 @@
         <EntityContainer Name="DUOJUModelStoreContainer">
           <EntitySet Name="DUOJU$CITIES" EntityType="Self.DUOJU$CITIES" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DUOJU$COUNTRIES" EntityType="Self.DUOJU$COUNTRIES" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DUOJU$IDENTIFIER_SETTINGS" EntityType="Self.DUOJU$IDENTIFIER_SETTINGS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DUOJU$IDENTIFIERS" EntityType="Self.DUOJU$IDENTIFIERS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DUOJU$PARTIES" EntityType="Self.DUOJU$PARTIES" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DUOJU$PARTY_COMMENTS" EntityType="Self.DUOJU$PARTY_COMMENTS" Schema="dbo" store:Type="Tables" />
@@ -331,27 +360,31 @@
             <End Role="DUOJU$PROVINCES" EntitySet="DUOJU$PROVINCES" />
             <End Role="DUOJU$CITIES" EntitySet="DUOJU$CITIES" />
           </AssociationSet>
-          <AssociationSet Name="FK__DUOJU$PAR__CONSU__3C69FB99" Association="Self.FK__DUOJU$PAR__CONSU__3C69FB99">
+          <AssociationSet Name="FK__DUOJU$IDE__IDENT__3D5E1FD2" Association="Self.FK__DUOJU$IDE__IDENT__3D5E1FD2">
+            <End Role="DUOJU$IDENTIFIERS" EntitySet="DUOJU$IDENTIFIERS" />
+            <End Role="DUOJU$IDENTIFIER_SETTINGS" EntitySet="DUOJU$IDENTIFIER_SETTINGS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DUOJU$PAR__CONSU__46E78A0C" Association="Self.FK__DUOJU$PAR__CONSU__46E78A0C">
             <End Role="DUOJU$IDENTIFIERS" EntitySet="DUOJU$IDENTIFIERS" />
             <End Role="DUOJU$PARTIES" EntitySet="DUOJU$PARTIES" />
           </AssociationSet>
-          <AssociationSet Name="FK__DUOJU$PAR__INITI__3B75D760" Association="Self.FK__DUOJU$PAR__INITI__3B75D760">
+          <AssociationSet Name="FK__DUOJU$PAR__INITI__45F365D3" Association="Self.FK__DUOJU$PAR__INITI__45F365D3">
             <End Role="DUOJU$USERS" EntitySet="DUOJU$USERS" />
             <End Role="DUOJU$PARTIES" EntitySet="DUOJU$PARTIES" />
           </AssociationSet>
-          <AssociationSet Name="FK__DUOJU$PAR__PARTI__49C3F6B7" Association="Self.FK__DUOJU$PAR__PARTI__49C3F6B7">
+          <AssociationSet Name="FK__DUOJU$PAR__PARTI__5441852A" Association="Self.FK__DUOJU$PAR__PARTI__5441852A">
             <End Role="DUOJU$USERS" EntitySet="DUOJU$USERS" />
-            <End Role="DUOJU$PARTY_PARTICIPANTS" EntitySet="DUOJU$PARTY_PARTICIPANTS" />
-          </AssociationSet>
-          <AssociationSet Name="FK__DUOJU$PAR__PARTY__48CFD27E" Association="Self.FK__DUOJU$PAR__PARTY__48CFD27E">
-            <End Role="DUOJU$PARTIES" EntitySet="DUOJU$PARTIES" />
             <End Role="DUOJU$PARTY_PARTICIPANTS" EntitySet="DUOJU$PARTY_PARTICIPANTS" />
           </AssociationSet>
           <AssociationSet Name="FK__DUOJU$PAR__PARTY__534D60F1" Association="Self.FK__DUOJU$PAR__PARTY__534D60F1">
             <End Role="DUOJU$PARTIES" EntitySet="DUOJU$PARTIES" />
+            <End Role="DUOJU$PARTY_PARTICIPANTS" EntitySet="DUOJU$PARTY_PARTICIPANTS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DUOJU$PAR__PARTY__5DCAEF64" Association="Self.FK__DUOJU$PAR__PARTY__5DCAEF64">
+            <End Role="DUOJU$PARTIES" EntitySet="DUOJU$PARTIES" />
             <End Role="DUOJU$PARTY_COMMENTS" EntitySet="DUOJU$PARTY_COMMENTS" />
           </AssociationSet>
-          <AssociationSet Name="FK__DUOJU$PAR__USER___5441852A" Association="Self.FK__DUOJU$PAR__USER___5441852A">
+          <AssociationSet Name="FK__DUOJU$PAR__USER___5EBF139D" Association="Self.FK__DUOJU$PAR__USER___5EBF139D">
             <End Role="DUOJU$USERS" EntitySet="DUOJU$USERS" />
             <End Role="DUOJU$PARTY_COMMENTS" EntitySet="DUOJU$PARTY_COMMENTS" />
           </AssociationSet>
@@ -359,23 +392,23 @@
             <End Role="DUOJU$COUNTRIES" EntitySet="DUOJU$COUNTRIES" />
             <End Role="DUOJU$PROVINCES" EntitySet="DUOJU$PROVINCES" />
           </AssociationSet>
-          <AssociationSet Name="FK__DUOJU$USE__CITY___267ABA7A" Association="Self.FK__DUOJU$USE__CITY___267ABA7A">
+          <AssociationSet Name="FK__DUOJU$USE__CITY___1ED998B2" Association="Self.FK__DUOJU$USE__CITY___1ED998B2">
             <End Role="DUOJU$CITIES" EntitySet="DUOJU$CITIES" />
             <End Role="DUOJU$USERS" EntitySet="DUOJU$USERS" />
           </AssociationSet>
-          <AssociationSet Name="FK__DUOJU$USE__COUNT__24927208" Association="Self.FK__DUOJU$USE__COUNT__24927208">
+          <AssociationSet Name="FK__DUOJU$USE__COUNT__1CF15040" Association="Self.FK__DUOJU$USE__COUNT__1CF15040">
             <End Role="DUOJU$COUNTRIES" EntitySet="DUOJU$COUNTRIES" />
             <End Role="DUOJU$USERS" EntitySet="DUOJU$USERS" />
           </AssociationSet>
-          <AssociationSet Name="FK__DUOJU$USE__PROVI__25869641" Association="Self.FK__DUOJU$USE__PROVI__25869641">
+          <AssociationSet Name="FK__DUOJU$USE__PROVI__1DE57479" Association="Self.FK__DUOJU$USE__PROVI__1DE57479">
             <End Role="DUOJU$PROVINCES" EntitySet="DUOJU$PROVINCES" />
             <End Role="DUOJU$USERS" EntitySet="DUOJU$USERS" />
           </AssociationSet>
-          <AssociationSet Name="FK__DUOJU$USE__USER___32E0915F" Association="Self.FK__DUOJU$USE__USER___32E0915F">
+          <AssociationSet Name="FK__DUOJU$USE__USER___2B3F6F97" Association="Self.FK__DUOJU$USE__USER___2B3F6F97">
             <End Role="DUOJU$USERS" EntitySet="DUOJU$USERS" />
             <End Role="DUOJU$USER_FINANCES" EntitySet="DUOJU$USER_FINANCES" />
           </AssociationSet>
-          <AssociationSet Name="FK__DUOJU$USER__ROLE__239E4DCF" Association="Self.FK__DUOJU$USER__ROLE__239E4DCF">
+          <AssociationSet Name="FK__DUOJU$USER__ROLE__1BFD2C07" Association="Self.FK__DUOJU$USER__ROLE__1BFD2C07">
             <End Role="DUOJU$ROLE_PRIVILEGES" EntitySet="DUOJU$ROLE_PRIVILEGES" />
             <End Role="DUOJU$USERS" EntitySet="DUOJU$USERS" />
           </AssociationSet>
@@ -621,6 +654,11 @@
             <End Role="DUOJU_USERS" EntitySet="DUOJU_USERS" />
             <End Role="DUOJU_USER_FINANCES" EntitySet="DUOJU_USER_FINANCES" />
           </AssociationSet>
+          <EntitySet Name="DUOJU_IDENTIFIER_SETTINGS" EntityType="DUOJUModel.DUOJU_IDENTIFIER_SETTINGS" />
+          <AssociationSet Name="FK__DUOJU_IDE__IDENT__6754599E" Association="DUOJUModel.FK__DUOJU_IDE__IDENT__6754599E">
+            <End Role="DUOJU_IDENTIFIERS" EntitySet="DUOJU_IDENTIFIERS" />
+            <End Role="DUOJU_IDENTIFIER_SETTINGS" EntitySet="DUOJU_IDENTIFIER_SETTINGS" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="DUOJU_PARTIES">
           <Key>
@@ -744,11 +782,15 @@
           </Key>
           <Property Name="IDENTIFIER_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="IDENTIFIER_TYPE" Type="Int32" Nullable="false" />
-          <Property Name="IDENTIFIER_NO" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IDENTIFIER_NO" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="EXPIRES_TIME" Type="DateTime" Precision="3" />
           <Property Name="STATUS" Type="Int32" Nullable="false" />
+          <Property Name="CREATE_BY" Type="Int32" Nullable="false" />
           <Property Name="CREATE_TIME" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LAST_UPDATE_BY" Type="Int32" Nullable="false" />
           <Property Name="LAST_UPDATE_TIME" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="DUOJU_PARTIES" Relationship="DUOJUModel.FK__DUOJU_PAR__CONSU__5DCAEF64" FromRole="DUOJU_IDENTIFIERS" ToRole="DUOJU_PARTIES" />
+          <NavigationProperty Name="DUOJU_IDENTIFIER_SETTINGS" Relationship="DUOJUModel.FK__DUOJU_IDE__IDENT__6754599E" FromRole="DUOJU_IDENTIFIERS" ToRole="DUOJU_IDENTIFIER_SETTINGS" />
         </EntityType>
         <EntityType Name="DUOJU_USER_FINANCES">
           <Key>
@@ -784,6 +826,32 @@
             </Principal>
             <Dependent Role="DUOJU_USER_FINANCES">
               <PropertyRef Name="USER_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="DUOJU_IDENTIFIER_SETTINGS">
+          <Key>
+            <PropertyRef Name="IDENTIFIER_SETTING_ID" />
+          </Key>
+          <Property Name="IDENTIFIER_SETTING_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDENTIFIER_ID" Type="Int32" Nullable="false" />
+          <Property Name="SETTING_CODE" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="SETTING_VALUE" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CREATE_BY" Type="Int32" Nullable="false" />
+          <Property Name="CREATE_TIME" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LAST_UPDATE_BY" Type="Int32" Nullable="false" />
+          <Property Name="LAST_UPDATE_TIME" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="DUOJU_IDENTIFIERS" Relationship="DUOJUModel.FK__DUOJU_IDE__IDENT__6754599E" FromRole="DUOJU_IDENTIFIER_SETTINGS" ToRole="DUOJU_IDENTIFIERS" />
+        </EntityType>
+        <Association Name="FK__DUOJU_IDE__IDENT__6754599E">
+          <End Type="DUOJUModel.DUOJU_IDENTIFIERS" Role="DUOJU_IDENTIFIERS" Multiplicity="1" />
+          <End Type="DUOJUModel.DUOJU_IDENTIFIER_SETTINGS" Role="DUOJU_IDENTIFIER_SETTINGS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DUOJU_IDENTIFIERS">
+              <PropertyRef Name="IDENTIFIER_ID" />
+            </Principal>
+            <Dependent Role="DUOJU_IDENTIFIER_SETTINGS">
+              <PropertyRef Name="IDENTIFIER_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -920,6 +988,9 @@
           <EntitySetMapping Name="DUOJU_IDENTIFIERS">
             <EntityTypeMapping TypeName="DUOJUModel.DUOJU_IDENTIFIERS">
               <MappingFragment StoreEntitySet="DUOJU$IDENTIFIERS">
+                <ScalarProperty Name="LAST_UPDATE_BY" ColumnName="LAST_UPDATE_BY" />
+                <ScalarProperty Name="CREATE_BY" ColumnName="CREATE_BY" />
+                <ScalarProperty Name="EXPIRES_TIME" ColumnName="EXPIRES_TIME" />
                 <ScalarProperty Name="LAST_UPDATE_TIME" ColumnName="LAST_UPDATE_TIME" />
                 <ScalarProperty Name="CREATE_TIME" ColumnName="CREATE_TIME" />
                 <ScalarProperty Name="STATUS" ColumnName="STATUS" />
@@ -939,6 +1010,20 @@
                 <ScalarProperty Name="COIN_COUNT" ColumnName="COIN_COUNT" />
                 <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
                 <ScalarProperty Name="USER_FINANCE_ID" ColumnName="USER_FINANCE_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DUOJU_IDENTIFIER_SETTINGS">
+            <EntityTypeMapping TypeName="DUOJUModel.DUOJU_IDENTIFIER_SETTINGS">
+              <MappingFragment StoreEntitySet="DUOJU$IDENTIFIER_SETTINGS">
+                <ScalarProperty Name="LAST_UPDATE_TIME" ColumnName="LAST_UPDATE_TIME" />
+                <ScalarProperty Name="LAST_UPDATE_BY" ColumnName="LAST_UPDATE_BY" />
+                <ScalarProperty Name="CREATE_TIME" ColumnName="CREATE_TIME" />
+                <ScalarProperty Name="CREATE_BY" ColumnName="CREATE_BY" />
+                <ScalarProperty Name="SETTING_VALUE" ColumnName="SETTING_VALUE" />
+                <ScalarProperty Name="SETTING_CODE" ColumnName="SETTING_CODE" />
+                <ScalarProperty Name="IDENTIFIER_ID" ColumnName="IDENTIFIER_ID" />
+                <ScalarProperty Name="IDENTIFIER_SETTING_ID" ColumnName="IDENTIFIER_SETTING_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
