@@ -78,6 +78,12 @@
     <Compile Include="Entities\DUOJU_IDENTIFIER_SETTINGS.cs">
       <DependentUpon>DUOJUEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entities\DUOJU_IMAGECATEGORY.cs">
+      <DependentUpon>DUOJUEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\DUOJU_IMAGES.cs">
+      <DependentUpon>DUOJUEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Entities\DUOJU_PARTIES.cs">
       <DependentUpon>DUOJUEntities.tt</DependentUpon>
     </Compile>
@@ -91,6 +97,15 @@
       <DependentUpon>DUOJUEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\DUOJU_ROLE_PRIVILEGES.cs">
+      <DependentUpon>DUOJUEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\DUOJU_SUPPLIER.cs">
+      <DependentUpon>DUOJUEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\DUOJU_SUPPLIERINFO.cs">
+      <DependentUpon>DUOJUEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\DUOJU_SUPPLIER_IMAGES.cs">
       <DependentUpon>DUOJUEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\DUOJU_USERS.cs">
@@ -123,6 +138,7 @@
     <Compile Include="Helpers\SecurityHelper.cs" />
     <Compile Include="Models\Common\KeyValue.cs" />
     <Compile Include="Models\Party\ConfirmPartyInfo.cs" />
+    <Compile Include="Models\Party\PartyCommentInfo.cs" />
     <Compile Include="Models\Party\PartyInfo.cs" />
     <Compile Include="Models\Party\PartyParticipateCountInfo.cs" />
     <Compile Include="Models\Party\PartyParticipantInfo.cs" />

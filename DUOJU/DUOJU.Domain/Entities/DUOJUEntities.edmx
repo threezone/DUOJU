@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="DUOJUModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="DUOJUModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="DUOJU$CITIES">
           <Key>
             <PropertyRef Name="CITY_ID" />
@@ -48,8 +48,34 @@
           <Property Name="IDENTIFIER_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="IDENTIFIER_TYPE" Type="int" Nullable="false" />
           <Property Name="IDENTIFIER_NO" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="EXPIRES_TIME" Type="datetime" />
+          <Property Name="EXPIRES_TIME" Type="datetime" Nullable="false" />
           <Property Name="STATUS" Type="int" Nullable="false" />
+          <Property Name="CREATE_BY" Type="int" Nullable="false" />
+          <Property Name="CREATE_TIME" Type="datetime" Nullable="false" />
+          <Property Name="LAST_UPDATE_BY" Type="int" Nullable="false" />
+          <Property Name="LAST_UPDATE_TIME" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DUOJU$IMAGECATEGORY">
+          <Key>
+            <PropertyRef Name="IMAGECATEGORY_ID" />
+          </Key>
+          <Property Name="IMAGECATEGORY_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DESCRIPTION" Type="nvarchar" MaxLength="200" />
+          <Property Name="CREATE_BY" Type="int" Nullable="false" />
+          <Property Name="CREATE_TIME" Type="datetime" Nullable="false" />
+          <Property Name="LAST_UPDATE_BY" Type="int" Nullable="false" />
+          <Property Name="LAST_UPDATE_TIME" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DUOJU$IMAGES">
+          <Key>
+            <PropertyRef Name="IMAGE_ID" />
+          </Key>
+          <Property Name="IMAGE_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IMAGECATEGORY_ID" Type="int" Nullable="false" />
+          <Property Name="DESCRIPTION" Type="nvarchar" MaxLength="200" />
+          <Property Name="URL" Type="nvarchar" MaxLength="500" />
+          <Property Name="CREATEDDATE" Type="datetime" />
+          <Property Name="SORTORDER" Type="int" />
           <Property Name="CREATE_BY" Type="int" Nullable="false" />
           <Property Name="CREATE_TIME" Type="datetime" Nullable="false" />
           <Property Name="LAST_UPDATE_BY" Type="int" Nullable="false" />
@@ -121,6 +147,56 @@
           <Property Name="ROLE" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="PRIVILEGES" Type="varchar" MaxLength="500" Nullable="false" />
           <Property Name="CREATE_TIME" Type="datetime" Nullable="false" />
+          <Property Name="LAST_UPDATE_TIME" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DUOJU$SUPPLIER">
+          <Key>
+            <PropertyRef Name="SUPPLIER_ID" />
+          </Key>
+          <Property Name="SUPPLIER_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PROVINCE_ID" Type="int" />
+          <Property Name="CITY_ID" Type="int" />
+          <Property Name="NAME" Type="nvarchar" MaxLength="255" />
+          <Property Name="ADDRESS" Type="nvarchar" MaxLength="1000" />
+          <Property Name="TELPHONE" Type="nvarchar" MaxLength="255" />
+          <Property Name="FAX" Type="nvarchar" MaxLength="255" />
+          <Property Name="EMAIL" Type="nvarchar" MaxLength="50" />
+          <Property Name="QQ" Type="nvarchar" MaxLength="50" />
+          <Property Name="WEBSITE" Type="nvarchar" MaxLength="100" />
+          <Property Name="LONGITUDE" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="LATITUDE" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="CREATE_BY" Type="int" Nullable="false" />
+          <Property Name="CREATE_TIME" Type="datetime" Nullable="false" />
+          <Property Name="LAST_UPDATE_BY" Type="int" Nullable="false" />
+          <Property Name="LAST_UPDATE_TIME" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DUOJU$SUPPLIER_IMAGES">
+          <Key>
+            <PropertyRef Name="SUPPLIERIMAGE_ID" />
+          </Key>
+          <Property Name="SUPPLIERIMAGE_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SUPPLIER_ID" Type="int" Nullable="false" />
+          <Property Name="IMAGE_ID" Type="int" Nullable="false" />
+          <Property Name="CREATE_BY" Type="int" Nullable="false" />
+          <Property Name="CREATE_TIME" Type="datetime" Nullable="false" />
+          <Property Name="LAST_UPDATE_BY" Type="int" Nullable="false" />
+          <Property Name="LAST_UPDATE_TIME" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DUOJU$SUPPLIERINFO">
+          <Key>
+            <PropertyRef Name="SUPPLIERINFO_ID" />
+          </Key>
+          <Property Name="SUPPLIERINFO_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SUPPLIER_ID" Type="int" Nullable="false" />
+          <Property Name="MAINTITLE" Type="nvarchar" MaxLength="500" />
+          <Property Name="SUBTITLE" Type="nvarchar" MaxLength="500" />
+          <Property Name="VIEWCOUNT" Type="int" />
+          <Property Name="PARTYCOUNT" Type="int" />
+          <Property Name="FAVOURCOUNT" Type="int" />
+          <Property Name="CONTENT" Type="nvarchar(max)" />
+          <Property Name="CREATE_BY" Type="int" Nullable="false" />
+          <Property Name="CREATE_TIME" Type="datetime" Nullable="false" />
+          <Property Name="LAST_UPDATE_BY" Type="int" Nullable="false" />
           <Property Name="LAST_UPDATE_TIME" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="DUOJU$USER_FINANCES">
@@ -340,16 +416,93 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_DUOJU$IMAGES_DUOJU$IMAGECATEGORY">
+          <End Role="DUOJU$IMAGECATEGORY" Type="Self.DUOJU$IMAGECATEGORY" Multiplicity="1" />
+          <End Role="DUOJU$IMAGES" Type="Self.DUOJU$IMAGES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DUOJU$IMAGECATEGORY">
+              <PropertyRef Name="IMAGECATEGORY_ID" />
+            </Principal>
+            <Dependent Role="DUOJU$IMAGES">
+              <PropertyRef Name="IMAGECATEGORY_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DUOJU$SUPPLIER_DUOJU$CITIES">
+          <End Role="DUOJU$CITIES" Type="Self.DUOJU$CITIES" Multiplicity="0..1" />
+          <End Role="DUOJU$SUPPLIER" Type="Self.DUOJU$SUPPLIER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DUOJU$CITIES">
+              <PropertyRef Name="CITY_ID" />
+            </Principal>
+            <Dependent Role="DUOJU$SUPPLIER">
+              <PropertyRef Name="CITY_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DUOJU$SUPPLIER_DUOJU$PROVINCES">
+          <End Role="DUOJU$PROVINCES" Type="Self.DUOJU$PROVINCES" Multiplicity="0..1" />
+          <End Role="DUOJU$SUPPLIER" Type="Self.DUOJU$SUPPLIER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DUOJU$PROVINCES">
+              <PropertyRef Name="PROVINCE_ID" />
+            </Principal>
+            <Dependent Role="DUOJU$SUPPLIER">
+              <PropertyRef Name="PROVINCE_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DUOJU$SUPPLIER_IMAGES_DUOJU$IMAGES">
+          <End Role="DUOJU$IMAGES" Type="Self.DUOJU$IMAGES" Multiplicity="1" />
+          <End Role="DUOJU$SUPPLIER_IMAGES" Type="Self.DUOJU$SUPPLIER_IMAGES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DUOJU$IMAGES">
+              <PropertyRef Name="IMAGE_ID" />
+            </Principal>
+            <Dependent Role="DUOJU$SUPPLIER_IMAGES">
+              <PropertyRef Name="IMAGE_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DUOJU$SUPPLIER_IMAGES_DUOJU$SUPPLIER">
+          <End Role="DUOJU$SUPPLIER" Type="Self.DUOJU$SUPPLIER" Multiplicity="1" />
+          <End Role="DUOJU$SUPPLIER_IMAGES" Type="Self.DUOJU$SUPPLIER_IMAGES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DUOJU$SUPPLIER">
+              <PropertyRef Name="SUPPLIER_ID" />
+            </Principal>
+            <Dependent Role="DUOJU$SUPPLIER_IMAGES">
+              <PropertyRef Name="SUPPLIER_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DUOJU$SUPPLIERINFO_DUOJU$SUPPLIER">
+          <End Role="DUOJU$SUPPLIER" Type="Self.DUOJU$SUPPLIER" Multiplicity="1" />
+          <End Role="DUOJU$SUPPLIERINFO" Type="Self.DUOJU$SUPPLIERINFO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DUOJU$SUPPLIER">
+              <PropertyRef Name="SUPPLIER_ID" />
+            </Principal>
+            <Dependent Role="DUOJU$SUPPLIERINFO">
+              <PropertyRef Name="SUPPLIER_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="DUOJUModelStoreContainer">
           <EntitySet Name="DUOJU$CITIES" EntityType="Self.DUOJU$CITIES" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DUOJU$COUNTRIES" EntityType="Self.DUOJU$COUNTRIES" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DUOJU$IDENTIFIER_SETTINGS" EntityType="Self.DUOJU$IDENTIFIER_SETTINGS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DUOJU$IDENTIFIERS" EntityType="Self.DUOJU$IDENTIFIERS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DUOJU$IMAGECATEGORY" EntityType="Self.DUOJU$IMAGECATEGORY" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DUOJU$IMAGES" EntityType="Self.DUOJU$IMAGES" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DUOJU$PARTIES" EntityType="Self.DUOJU$PARTIES" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DUOJU$PARTY_COMMENTS" EntityType="Self.DUOJU$PARTY_COMMENTS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DUOJU$PARTY_PARTICIPANTS" EntityType="Self.DUOJU$PARTY_PARTICIPANTS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DUOJU$PROVINCES" EntityType="Self.DUOJU$PROVINCES" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DUOJU$ROLE_PRIVILEGES" EntityType="Self.DUOJU$ROLE_PRIVILEGES" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DUOJU$SUPPLIER" EntityType="Self.DUOJU$SUPPLIER" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DUOJU$SUPPLIER_IMAGES" EntityType="Self.DUOJU$SUPPLIER_IMAGES" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DUOJU$SUPPLIERINFO" EntityType="Self.DUOJU$SUPPLIERINFO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DUOJU$USER_FINANCES" EntityType="Self.DUOJU$USER_FINANCES" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DUOJU$USERS" EntityType="Self.DUOJU$USERS" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__DUOJU$CIT__COUNT__0DAF0CB0" Association="Self.FK__DUOJU$CIT__COUNT__0DAF0CB0">
@@ -412,6 +565,30 @@
             <End Role="DUOJU$ROLE_PRIVILEGES" EntitySet="DUOJU$ROLE_PRIVILEGES" />
             <End Role="DUOJU$USERS" EntitySet="DUOJU$USERS" />
           </AssociationSet>
+          <AssociationSet Name="FK_DUOJU$IMAGES_DUOJU$IMAGECATEGORY" Association="Self.FK_DUOJU$IMAGES_DUOJU$IMAGECATEGORY">
+            <End Role="DUOJU$IMAGECATEGORY" EntitySet="DUOJU$IMAGECATEGORY" />
+            <End Role="DUOJU$IMAGES" EntitySet="DUOJU$IMAGES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DUOJU$SUPPLIER_DUOJU$CITIES" Association="Self.FK_DUOJU$SUPPLIER_DUOJU$CITIES">
+            <End Role="DUOJU$CITIES" EntitySet="DUOJU$CITIES" />
+            <End Role="DUOJU$SUPPLIER" EntitySet="DUOJU$SUPPLIER" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DUOJU$SUPPLIER_DUOJU$PROVINCES" Association="Self.FK_DUOJU$SUPPLIER_DUOJU$PROVINCES">
+            <End Role="DUOJU$PROVINCES" EntitySet="DUOJU$PROVINCES" />
+            <End Role="DUOJU$SUPPLIER" EntitySet="DUOJU$SUPPLIER" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DUOJU$SUPPLIER_IMAGES_DUOJU$IMAGES" Association="Self.FK_DUOJU$SUPPLIER_IMAGES_DUOJU$IMAGES">
+            <End Role="DUOJU$IMAGES" EntitySet="DUOJU$IMAGES" />
+            <End Role="DUOJU$SUPPLIER_IMAGES" EntitySet="DUOJU$SUPPLIER_IMAGES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DUOJU$SUPPLIER_IMAGES_DUOJU$SUPPLIER" Association="Self.FK_DUOJU$SUPPLIER_IMAGES_DUOJU$SUPPLIER">
+            <End Role="DUOJU$SUPPLIER" EntitySet="DUOJU$SUPPLIER" />
+            <End Role="DUOJU$SUPPLIER_IMAGES" EntitySet="DUOJU$SUPPLIER_IMAGES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DUOJU$SUPPLIERINFO_DUOJU$SUPPLIER" Association="Self.FK_DUOJU$SUPPLIERINFO_DUOJU$SUPPLIER">
+            <End Role="DUOJU$SUPPLIER" EntitySet="DUOJU$SUPPLIER" />
+            <End Role="DUOJU$SUPPLIERINFO" EntitySet="DUOJU$SUPPLIERINFO" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -431,6 +608,7 @@
           <NavigationProperty Name="DUOJU_COUNTRIES" Relationship="Self.FK__DUOJU_CIT__COUNT__0DAF0CB0" FromRole="DUOJU_CITIES" ToRole="DUOJU_COUNTRIES" />
           <NavigationProperty Name="DUOJU_PROVINCES" Relationship="Self.FK__DUOJU_CIT__PROVI__0EA330E9" FromRole="DUOJU_CITIES" ToRole="DUOJU_PROVINCES" />
           <NavigationProperty Name="DUOJU_USERS" Relationship="Self.FK__DUOJU_USE__CITY___21B6055D" FromRole="DUOJU_CITIES" ToRole="DUOJU_USERS" />
+          <NavigationProperty Name="DUOJU_SUPPLIER" Relationship="DUOJUModel.FK_DUOJU_SUPPLIER_DUOJU_CITIES" FromRole="DUOJU_CITIES" ToRole="DUOJU_SUPPLIER" />
         </EntityType>
         <EntityType Name="DUOJU_COUNTRIES">
           <Key>
@@ -459,6 +637,7 @@
           <NavigationProperty Name="DUOJU_CITIES" Relationship="Self.FK__DUOJU_CIT__PROVI__0EA330E9" FromRole="DUOJU_PROVINCES" ToRole="DUOJU_CITIES" />
           <NavigationProperty Name="DUOJU_COUNTRIES" Relationship="Self.FK__DUOJU_PRO__COUNT__07020F21" FromRole="DUOJU_PROVINCES" ToRole="DUOJU_COUNTRIES" />
           <NavigationProperty Name="DUOJU_USERS" Relationship="Self.FK__DUOJU_USE__PROVI__20C1E124" FromRole="DUOJU_PROVINCES" ToRole="DUOJU_USERS" />
+          <NavigationProperty Name="DUOJU_SUPPLIER" Relationship="DUOJUModel.FK_DUOJU_SUPPLIER_DUOJU_PROVINCES" FromRole="DUOJU_PROVINCES" ToRole="DUOJU_SUPPLIER" />
         </EntityType>
         <EntityType Name="DUOJU_ROLE_PRIVILEGES">
           <Key>
@@ -659,6 +838,35 @@
             <End Role="DUOJU_IDENTIFIERS" EntitySet="DUOJU_IDENTIFIERS" />
             <End Role="DUOJU_IDENTIFIER_SETTINGS" EntitySet="DUOJU_IDENTIFIER_SETTINGS" />
           </AssociationSet>
+          <EntitySet Name="DUOJU_IMAGECATEGORY" EntityType="DUOJUModel.DUOJU_IMAGECATEGORY" />
+          <EntitySet Name="DUOJU_IMAGES" EntityType="DUOJUModel.DUOJU_IMAGES" />
+          <EntitySet Name="DUOJU_SUPPLIER" EntityType="DUOJUModel.DUOJU_SUPPLIER" />
+          <EntitySet Name="DUOJU_SUPPLIER_IMAGES" EntityType="DUOJUModel.DUOJU_SUPPLIER_IMAGES" />
+          <EntitySet Name="DUOJU_SUPPLIERINFO" EntityType="DUOJUModel.DUOJU_SUPPLIERINFO" />
+          <AssociationSet Name="FK_DUOJU_SUPPLIER_DUOJU_CITIES" Association="DUOJUModel.FK_DUOJU_SUPPLIER_DUOJU_CITIES">
+            <End Role="DUOJU_CITIES" EntitySet="DUOJU_CITIES" />
+            <End Role="DUOJU_SUPPLIER" EntitySet="DUOJU_SUPPLIER" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DUOJU_IMAGES_DUOJU_IMAGECATEGORY" Association="DUOJUModel.FK_DUOJU_IMAGES_DUOJU_IMAGECATEGORY">
+            <End Role="DUOJU_IMAGECATEGORY" EntitySet="DUOJU_IMAGECATEGORY" />
+            <End Role="DUOJU_IMAGES" EntitySet="DUOJU_IMAGES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DUOJU_SUPPLIER_IMAGES_DUOJU_IMAGES" Association="DUOJUModel.FK_DUOJU_SUPPLIER_IMAGES_DUOJU_IMAGES">
+            <End Role="DUOJU_IMAGES" EntitySet="DUOJU_IMAGES" />
+            <End Role="DUOJU_SUPPLIER_IMAGES" EntitySet="DUOJU_SUPPLIER_IMAGES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DUOJU_SUPPLIER_DUOJU_PROVINCES" Association="DUOJUModel.FK_DUOJU_SUPPLIER_DUOJU_PROVINCES">
+            <End Role="DUOJU_PROVINCES" EntitySet="DUOJU_PROVINCES" />
+            <End Role="DUOJU_SUPPLIER" EntitySet="DUOJU_SUPPLIER" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DUOJU_SUPPLIER_IMAGES_DUOJU_SUPPLIER" Association="DUOJUModel.FK_DUOJU_SUPPLIER_IMAGES_DUOJU_SUPPLIER">
+            <End Role="DUOJU_SUPPLIER" EntitySet="DUOJU_SUPPLIER" />
+            <End Role="DUOJU_SUPPLIER_IMAGES" EntitySet="DUOJU_SUPPLIER_IMAGES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DUOJU_SUPPLIERINFO_DUOJU_SUPPLIER" Association="DUOJUModel.FK_DUOJU_SUPPLIERINFO_DUOJU_SUPPLIER">
+            <End Role="DUOJU_SUPPLIER" EntitySet="DUOJU_SUPPLIER" />
+            <End Role="DUOJU_SUPPLIERINFO" EntitySet="DUOJU_SUPPLIERINFO" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="DUOJU_PARTIES">
           <Key>
@@ -855,6 +1063,164 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="DUOJU_IMAGECATEGORY">
+          <Key>
+            <PropertyRef Name="IMAGECATEGORY_ID" />
+          </Key>
+          <Property Name="IMAGECATEGORY_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DESCRIPTION" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CREATE_BY" Type="Int32" Nullable="false" />
+          <Property Name="CREATE_TIME" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LAST_UPDATE_BY" Type="Int32" Nullable="false" />
+          <Property Name="LAST_UPDATE_TIME" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="DUOJU_IMAGES" Relationship="DUOJUModel.FK_DUOJU_IMAGES_DUOJU_IMAGECATEGORY" FromRole="DUOJU_IMAGECATEGORY" ToRole="DUOJU_IMAGES" />
+        </EntityType>
+        <EntityType Name="DUOJU_IMAGES">
+          <Key>
+            <PropertyRef Name="IMAGE_ID" />
+          </Key>
+          <Property Name="IMAGE_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IMAGECATEGORY_ID" Type="Int32" Nullable="false" />
+          <Property Name="DESCRIPTION" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="URL" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="CREATEDDATE" Type="DateTime" Precision="3" />
+          <Property Name="SORTORDER" Type="Int32" />
+          <Property Name="CREATE_BY" Type="Int32" Nullable="false" />
+          <Property Name="CREATE_TIME" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LAST_UPDATE_BY" Type="Int32" Nullable="false" />
+          <Property Name="LAST_UPDATE_TIME" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="DUOJU_IMAGECATEGORY" Relationship="DUOJUModel.FK_DUOJU_IMAGES_DUOJU_IMAGECATEGORY" FromRole="DUOJU_IMAGES" ToRole="DUOJU_IMAGECATEGORY" />
+          <NavigationProperty Name="DUOJU_SUPPLIER_IMAGES" Relationship="DUOJUModel.FK_DUOJU_SUPPLIER_IMAGES_DUOJU_IMAGES" FromRole="DUOJU_IMAGES" ToRole="DUOJU_SUPPLIER_IMAGES" />
+        </EntityType>
+        <EntityType Name="DUOJU_SUPPLIER">
+          <Key>
+            <PropertyRef Name="SUPPLIER_ID" />
+          </Key>
+          <Property Name="SUPPLIER_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PROVINCE_ID" Type="Int32" />
+          <Property Name="CITY_ID" Type="Int32" />
+          <Property Name="NAME" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ADDRESS" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="TELPHONE" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="FAX" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="EMAIL" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="QQ" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="WEBSITE" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="LONGITUDE" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="LATITUDE" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="CREATE_BY" Type="Int32" Nullable="false" />
+          <Property Name="CREATE_TIME" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LAST_UPDATE_BY" Type="Int32" Nullable="false" />
+          <Property Name="LAST_UPDATE_TIME" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="DUOJU_CITIES" Relationship="DUOJUModel.FK_DUOJU_SUPPLIER_DUOJU_CITIES" FromRole="DUOJU_SUPPLIER" ToRole="DUOJU_CITIES" />
+          <NavigationProperty Name="DUOJU_PROVINCES" Relationship="DUOJUModel.FK_DUOJU_SUPPLIER_DUOJU_PROVINCES" FromRole="DUOJU_SUPPLIER" ToRole="DUOJU_PROVINCES" />
+          <NavigationProperty Name="DUOJU_SUPPLIER_IMAGES" Relationship="DUOJUModel.FK_DUOJU_SUPPLIER_IMAGES_DUOJU_SUPPLIER" FromRole="DUOJU_SUPPLIER" ToRole="DUOJU_SUPPLIER_IMAGES" />
+          <NavigationProperty Name="DUOJU_SUPPLIERINFO" Relationship="DUOJUModel.FK_DUOJU_SUPPLIERINFO_DUOJU_SUPPLIER" FromRole="DUOJU_SUPPLIER" ToRole="DUOJU_SUPPLIERINFO" />
+        </EntityType>
+        <EntityType Name="DUOJU_SUPPLIER_IMAGES">
+          <Key>
+            <PropertyRef Name="SUPPLIERIMAGE_ID" />
+          </Key>
+          <Property Name="SUPPLIERIMAGE_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SUPPLIER_ID" Type="Int32" Nullable="false" />
+          <Property Name="IMAGE_ID" Type="Int32" Nullable="false" />
+          <Property Name="CREATE_BY" Type="Int32" Nullable="false" />
+          <Property Name="CREATE_TIME" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LAST_UPDATE_BY" Type="Int32" Nullable="false" />
+          <Property Name="LAST_UPDATE_TIME" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="DUOJU_IMAGES" Relationship="DUOJUModel.FK_DUOJU_SUPPLIER_IMAGES_DUOJU_IMAGES" FromRole="DUOJU_SUPPLIER_IMAGES" ToRole="DUOJU_IMAGES" />
+          <NavigationProperty Name="DUOJU_SUPPLIER" Relationship="DUOJUModel.FK_DUOJU_SUPPLIER_IMAGES_DUOJU_SUPPLIER" FromRole="DUOJU_SUPPLIER_IMAGES" ToRole="DUOJU_SUPPLIER" />
+        </EntityType>
+        <EntityType Name="DUOJU_SUPPLIERINFO">
+          <Key>
+            <PropertyRef Name="SUPPLIERINFO_ID" />
+          </Key>
+          <Property Name="SUPPLIERINFO_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SUPPLIER_ID" Type="Int32" Nullable="false" />
+          <Property Name="MAINTITLE" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="SUBTITLE" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="VIEWCOUNT" Type="Int32" />
+          <Property Name="PARTYCOUNT" Type="Int32" />
+          <Property Name="FAVOURCOUNT" Type="Int32" />
+          <Property Name="CONTENT" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CREATE_BY" Type="Int32" Nullable="false" />
+          <Property Name="CREATE_TIME" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LAST_UPDATE_BY" Type="Int32" Nullable="false" />
+          <Property Name="LAST_UPDATE_TIME" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="DUOJU_SUPPLIER" Relationship="DUOJUModel.FK_DUOJU_SUPPLIERINFO_DUOJU_SUPPLIER" FromRole="DUOJU_SUPPLIERINFO" ToRole="DUOJU_SUPPLIER" />
+        </EntityType>
+        <Association Name="FK_DUOJU_SUPPLIER_DUOJU_CITIES">
+          <End Type="DUOJUModel.DUOJU_CITIES" Role="DUOJU_CITIES" Multiplicity="0..1" />
+          <End Type="DUOJUModel.DUOJU_SUPPLIER" Role="DUOJU_SUPPLIER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DUOJU_CITIES">
+              <PropertyRef Name="CITY_ID" />
+            </Principal>
+            <Dependent Role="DUOJU_SUPPLIER">
+              <PropertyRef Name="CITY_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DUOJU_IMAGES_DUOJU_IMAGECATEGORY">
+          <End Type="DUOJUModel.DUOJU_IMAGECATEGORY" Role="DUOJU_IMAGECATEGORY" Multiplicity="1" />
+          <End Type="DUOJUModel.DUOJU_IMAGES" Role="DUOJU_IMAGES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DUOJU_IMAGECATEGORY">
+              <PropertyRef Name="IMAGECATEGORY_ID" />
+            </Principal>
+            <Dependent Role="DUOJU_IMAGES">
+              <PropertyRef Name="IMAGECATEGORY_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DUOJU_SUPPLIER_IMAGES_DUOJU_IMAGES">
+          <End Type="DUOJUModel.DUOJU_IMAGES" Role="DUOJU_IMAGES" Multiplicity="1" />
+          <End Type="DUOJUModel.DUOJU_SUPPLIER_IMAGES" Role="DUOJU_SUPPLIER_IMAGES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DUOJU_IMAGES">
+              <PropertyRef Name="IMAGE_ID" />
+            </Principal>
+            <Dependent Role="DUOJU_SUPPLIER_IMAGES">
+              <PropertyRef Name="IMAGE_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DUOJU_SUPPLIER_DUOJU_PROVINCES">
+          <End Type="DUOJUModel.DUOJU_PROVINCES" Role="DUOJU_PROVINCES" Multiplicity="0..1" />
+          <End Type="DUOJUModel.DUOJU_SUPPLIER" Role="DUOJU_SUPPLIER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DUOJU_PROVINCES">
+              <PropertyRef Name="PROVINCE_ID" />
+            </Principal>
+            <Dependent Role="DUOJU_SUPPLIER">
+              <PropertyRef Name="PROVINCE_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DUOJU_SUPPLIER_IMAGES_DUOJU_SUPPLIER">
+          <End Type="DUOJUModel.DUOJU_SUPPLIER" Role="DUOJU_SUPPLIER" Multiplicity="1" />
+          <End Type="DUOJUModel.DUOJU_SUPPLIER_IMAGES" Role="DUOJU_SUPPLIER_IMAGES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DUOJU_SUPPLIER">
+              <PropertyRef Name="SUPPLIER_ID" />
+            </Principal>
+            <Dependent Role="DUOJU_SUPPLIER_IMAGES">
+              <PropertyRef Name="SUPPLIER_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DUOJU_SUPPLIERINFO_DUOJU_SUPPLIER">
+          <End Type="DUOJUModel.DUOJU_SUPPLIER" Role="DUOJU_SUPPLIER" Multiplicity="1" />
+          <End Type="DUOJUModel.DUOJU_SUPPLIERINFO" Role="DUOJU_SUPPLIERINFO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DUOJU_SUPPLIER">
+              <PropertyRef Name="SUPPLIER_ID" />
+            </Principal>
+            <Dependent Role="DUOJU_SUPPLIERINFO">
+              <PropertyRef Name="SUPPLIER_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1024,6 +1390,87 @@
                 <ScalarProperty Name="SETTING_CODE" ColumnName="SETTING_CODE" />
                 <ScalarProperty Name="IDENTIFIER_ID" ColumnName="IDENTIFIER_ID" />
                 <ScalarProperty Name="IDENTIFIER_SETTING_ID" ColumnName="IDENTIFIER_SETTING_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DUOJU_IMAGECATEGORY">
+            <EntityTypeMapping TypeName="DUOJUModel.DUOJU_IMAGECATEGORY">
+              <MappingFragment StoreEntitySet="DUOJU$IMAGECATEGORY">
+                <ScalarProperty Name="LAST_UPDATE_TIME" ColumnName="LAST_UPDATE_TIME" />
+                <ScalarProperty Name="LAST_UPDATE_BY" ColumnName="LAST_UPDATE_BY" />
+                <ScalarProperty Name="CREATE_TIME" ColumnName="CREATE_TIME" />
+                <ScalarProperty Name="CREATE_BY" ColumnName="CREATE_BY" />
+                <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+                <ScalarProperty Name="IMAGECATEGORY_ID" ColumnName="IMAGECATEGORY_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DUOJU_IMAGES">
+            <EntityTypeMapping TypeName="DUOJUModel.DUOJU_IMAGES">
+              <MappingFragment StoreEntitySet="DUOJU$IMAGES">
+                <ScalarProperty Name="LAST_UPDATE_TIME" ColumnName="LAST_UPDATE_TIME" />
+                <ScalarProperty Name="LAST_UPDATE_BY" ColumnName="LAST_UPDATE_BY" />
+                <ScalarProperty Name="CREATE_TIME" ColumnName="CREATE_TIME" />
+                <ScalarProperty Name="CREATE_BY" ColumnName="CREATE_BY" />
+                <ScalarProperty Name="SORTORDER" ColumnName="SORTORDER" />
+                <ScalarProperty Name="CREATEDDATE" ColumnName="CREATEDDATE" />
+                <ScalarProperty Name="URL" ColumnName="URL" />
+                <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+                <ScalarProperty Name="IMAGECATEGORY_ID" ColumnName="IMAGECATEGORY_ID" />
+                <ScalarProperty Name="IMAGE_ID" ColumnName="IMAGE_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DUOJU_SUPPLIER">
+            <EntityTypeMapping TypeName="DUOJUModel.DUOJU_SUPPLIER">
+              <MappingFragment StoreEntitySet="DUOJU$SUPPLIER">
+                <ScalarProperty Name="LAST_UPDATE_TIME" ColumnName="LAST_UPDATE_TIME" />
+                <ScalarProperty Name="LAST_UPDATE_BY" ColumnName="LAST_UPDATE_BY" />
+                <ScalarProperty Name="CREATE_TIME" ColumnName="CREATE_TIME" />
+                <ScalarProperty Name="CREATE_BY" ColumnName="CREATE_BY" />
+                <ScalarProperty Name="LATITUDE" ColumnName="LATITUDE" />
+                <ScalarProperty Name="LONGITUDE" ColumnName="LONGITUDE" />
+                <ScalarProperty Name="WEBSITE" ColumnName="WEBSITE" />
+                <ScalarProperty Name="QQ" ColumnName="QQ" />
+                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+                <ScalarProperty Name="FAX" ColumnName="FAX" />
+                <ScalarProperty Name="TELPHONE" ColumnName="TELPHONE" />
+                <ScalarProperty Name="ADDRESS" ColumnName="ADDRESS" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="CITY_ID" ColumnName="CITY_ID" />
+                <ScalarProperty Name="PROVINCE_ID" ColumnName="PROVINCE_ID" />
+                <ScalarProperty Name="SUPPLIER_ID" ColumnName="SUPPLIER_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DUOJU_SUPPLIER_IMAGES">
+            <EntityTypeMapping TypeName="DUOJUModel.DUOJU_SUPPLIER_IMAGES">
+              <MappingFragment StoreEntitySet="DUOJU$SUPPLIER_IMAGES">
+                <ScalarProperty Name="LAST_UPDATE_TIME" ColumnName="LAST_UPDATE_TIME" />
+                <ScalarProperty Name="LAST_UPDATE_BY" ColumnName="LAST_UPDATE_BY" />
+                <ScalarProperty Name="CREATE_TIME" ColumnName="CREATE_TIME" />
+                <ScalarProperty Name="CREATE_BY" ColumnName="CREATE_BY" />
+                <ScalarProperty Name="IMAGE_ID" ColumnName="IMAGE_ID" />
+                <ScalarProperty Name="SUPPLIER_ID" ColumnName="SUPPLIER_ID" />
+                <ScalarProperty Name="SUPPLIERIMAGE_ID" ColumnName="SUPPLIERIMAGE_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DUOJU_SUPPLIERINFO">
+            <EntityTypeMapping TypeName="DUOJUModel.DUOJU_SUPPLIERINFO">
+              <MappingFragment StoreEntitySet="DUOJU$SUPPLIERINFO">
+                <ScalarProperty Name="LAST_UPDATE_TIME" ColumnName="LAST_UPDATE_TIME" />
+                <ScalarProperty Name="LAST_UPDATE_BY" ColumnName="LAST_UPDATE_BY" />
+                <ScalarProperty Name="CREATE_TIME" ColumnName="CREATE_TIME" />
+                <ScalarProperty Name="CREATE_BY" ColumnName="CREATE_BY" />
+                <ScalarProperty Name="CONTENT" ColumnName="CONTENT" />
+                <ScalarProperty Name="FAVOURCOUNT" ColumnName="FAVOURCOUNT" />
+                <ScalarProperty Name="PARTYCOUNT" ColumnName="PARTYCOUNT" />
+                <ScalarProperty Name="VIEWCOUNT" ColumnName="VIEWCOUNT" />
+                <ScalarProperty Name="SUBTITLE" ColumnName="SUBTITLE" />
+                <ScalarProperty Name="MAINTITLE" ColumnName="MAINTITLE" />
+                <ScalarProperty Name="SUPPLIER_ID" ColumnName="SUPPLIER_ID" />
+                <ScalarProperty Name="SUPPLIERINFO_ID" ColumnName="SUPPLIERINFO_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

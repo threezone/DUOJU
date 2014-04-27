@@ -67,5 +67,10 @@ namespace DUOJU.Domain.Models.Party
         /// 参与者信息
         /// </summary>
         public IList<PartyParticipantInfo> PartyParticipantInfos { get; set; }
+
+        /// <summary>
+        /// 评论信息
+        /// </summary>
+        public IList<PartyCommentInfo> PartyCommentInfos { get; set; }
     }
 }

@@ -31,6 +31,17 @@
         <AssociationConnector Association="DUOJUModel.FK__DUOJU_USE__USER___32E0915F" />
         <EntityTypeShape EntityType="DUOJUModel.DUOJU_IDENTIFIER_SETTINGS" Width="1.5" PointX="9.75" PointY="15.5" />
         <AssociationConnector Association="DUOJUModel.FK__DUOJU_IDE__IDENT__6754599E" />
+        <EntityTypeShape EntityType="DUOJUModel.DUOJU_IMAGECATEGORY" Width="1.5" PointX="13.25" PointY="12.5" />
+        <EntityTypeShape EntityType="DUOJUModel.DUOJU_IMAGES" Width="1.5" PointX="15.5" PointY="12" />
+        <EntityTypeShape EntityType="DUOJUModel.DUOJU_SUPPLIER" Width="1.5" PointX="12.5" PointY="2.25" />
+        <EntityTypeShape EntityType="DUOJUModel.DUOJU_SUPPLIER_IMAGES" Width="1.5" PointX="17.75" PointY="3.375" />
+        <EntityTypeShape EntityType="DUOJUModel.DUOJU_SUPPLIERINFO" Width="1.5" PointX="14.75" PointY="3.5" />
+        <AssociationConnector Association="DUOJUModel.FK_DUOJU_SUPPLIER_DUOJU_CITIES" />
+        <AssociationConnector Association="DUOJUModel.FK_DUOJU_IMAGES_DUOJU_IMAGECATEGORY" />
+        <AssociationConnector Association="DUOJUModel.FK_DUOJU_SUPPLIER_IMAGES_DUOJU_IMAGES" />
+        <AssociationConnector Association="DUOJUModel.FK_DUOJU_SUPPLIER_DUOJU_PROVINCES" />
+        <AssociationConnector Association="DUOJUModel.FK_DUOJU_SUPPLIER_IMAGES_DUOJU_SUPPLIER" />
+        <AssociationConnector Association="DUOJUModel.FK_DUOJU_SUPPLIERINFO_DUOJU_SUPPLIER" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

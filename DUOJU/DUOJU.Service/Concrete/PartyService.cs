@@ -78,7 +78,7 @@ namespace DUOJU.Service.Concrete
         public PartyInfo GetPartyInfo(int partyId)
         {
             var party = PartyRepository.GetPartyById(partyId);
-            if (party != null)
+            if (party != null && party.STATUS != (int)PartyStatuses.DELETED)
             {
                 var info = new PartyInfo
                 {
@@ -91,7 +91,8 @@ namespace DUOJU.Service.Concrete
                     MaxIntoForce = party.MAX_INTO_FORCE,
                     Status = party.STATUS,
                     SupplierInfo = SupplierService.GetSupplierInfoById(party.SUPPLIER_ID),
-                    PartyParticipantInfos = GetPartyParticipantInfos(partyId)
+                    PartyParticipantInfos = GetPartyParticipantInfos(partyId),
+                    PartyCommentInfos = party.STATUS == (int)PartyStatuses.CONSUMED ? PartyRepository.GetPartyCommentInfos(partyId) : null
                 };
 
                 ConvertPartyInfo(info);

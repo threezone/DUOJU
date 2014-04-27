@@ -37,6 +37,11 @@ namespace DUOJU.Dao.Concrete
                     }).ToList();
         }
 
+        public IList<PartyCommentInfo> GetPartyCommentInfos(int partyId)
+        {
+            return null;
+        }
+
         public IList<PartyInfo> GetPartyInfosByCreateUser(string openId)
         {
             return (from u in DBEntities.DUOJU_USERS

@@ -15,12 +15,15 @@
         <h4>发布成功！</h4>
     }
 
-    <fieldset>
-        <legend>客户信息</legend>
-        <div>
-            xxx xx xxx xxxxx xxxx xxx xx xxx xxx xxx xxxxx xx xxx xx xx xxxx x xxx xx xx xxxx xx
-        </div>
-    </fieldset>
+    if (Model.PartyInfo.SupplierInfo != null)
+    {
+        <fieldset>
+            <legend>客户信息</legend>
+            <div>
+                xxx xx xxx xxxxx xxxx xxx xx xxx xxx xxx xxxxx xx xxx xx xx xxxx x xxx xx xx xxxx xx
+            </div>
+        </fieldset>
+    }
 
     <fieldset>
         <legend>聚会信息</legend>
@@ -60,11 +63,14 @@
             {
                 <p>已满额！</p>
             }
-            else
+            else if (Model.PartyInfo.EStatus == PartyStatuses.PUBLISHED)
             {
                 <p>
                     <a href="@WeChatHelper.WeChat.ConvertOAuthUrl("http://wechat.duoju.us/Party/ParticipateParty/" + Model.PartyInfo.PartyId, OauthScopes.SNSAPI_BASE, null)">报名</a>
                 </p>
+            }
+            else if (Model.PartyInfo.EStatus == PartyStatuses.CONSUMED)
+            {
             }
         }
     </fieldset>

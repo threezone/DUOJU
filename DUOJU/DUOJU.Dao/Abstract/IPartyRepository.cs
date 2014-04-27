@@ -14,6 +14,8 @@ namespace DUOJU.Dao.Abstract
 
         IList<PartyParticipantInfo> GetPartyParticipantInfos(int partyId);
 
+        IList<PartyCommentInfo> GetPartyCommentInfos(int partyId);
+
         IList<PartyInfo> GetPartyInfosByCreateUser(string openId);
 
         IList<PartyInfo> GetPartyInfosByParticipantUser(string openId);
