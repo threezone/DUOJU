@@ -115,7 +115,16 @@ namespace DUOJU.Domain.Resources {
         }
         
         /// <summary>
-        ///   查找类似 你已经报名了哦！ 的本地化字符串。
+        ///   查找类似 您还未关注小聚哦，请先关注吧！ 的本地化字符串。
+        /// </summary>
+        public static string BasicSystemException_UserDidNotConcernException {
+            get {
+                return ResourceManager.GetString("BasicSystemException_UserDidNotConcernException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 您已经报名了哦！ 的本地化字符串。
         /// </summary>
         public static string BasicSystemException_UserHasBeenParticipateThePartyException {
             get {

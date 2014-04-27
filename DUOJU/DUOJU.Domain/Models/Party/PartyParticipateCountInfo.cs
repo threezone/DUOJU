@@ -2,6 +2,8 @@
 {
     public class PartyParticipateCountInfo
     {
+        public string InitiatorOpenId { get; set; }
+
         public int MinIntoForce { get; set; }
 
         public int? MaxIntoForce { get; set; }

@@ -3,7 +3,7 @@ using DUOJU.Domain.Models.Party;
 
 namespace DUOJU.WECHAT.Models.Party
 {
-    public class MyParticipatePartiesViewModel
+    public class ViewPartiesViewModel
     {
         public IList<PartyInfo> PartyInfos { get; set; }
     }

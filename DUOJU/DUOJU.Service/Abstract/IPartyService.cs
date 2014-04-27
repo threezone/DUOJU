@@ -12,9 +12,9 @@ namespace DUOJU.Service.Abstract
 
         IList<PartyParticipantInfo> GetPartyParticipantInfos(int partyId);
 
-        PartyParticipateCountInfo ParticipateParty(int partyId, int userId);
+        PartyParticipateCountInfo ParticipateParty(int partyId, string openId);
 
-        Tuple<string, DateTime> ConfirmParty(int partyId, string openId);
+        ConfirmPartyInfo ConfirmParty(int partyId, string openId);
 
         IList<PartyInfo> GetPartyInfosByCreateUser(string openId);
 

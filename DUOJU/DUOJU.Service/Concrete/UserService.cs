@@ -6,6 +6,8 @@ using DUOJU.Domain.Entities;
 using DUOJU.Domain.Enums;
 using DUOJU.FRAMEWORK.WeChat;
 using DUOJU.Service.Abstract;
+using DUOJU.Domain.Models.User;
+using System.Collections.Generic;
 
 namespace DUOJU.Service.Concrete
 {
@@ -122,6 +124,11 @@ namespace DUOJU.Service.Concrete
 
                 UserRepository.SaveChanges();
             }
+        }
+
+        public UserFinanceInfo GetUserFinanceInfoByOpenId(string openId)
+        {
+            return UserRepository.GetUserFinanceInfoByOpenId(openId);
         }
     }
 }

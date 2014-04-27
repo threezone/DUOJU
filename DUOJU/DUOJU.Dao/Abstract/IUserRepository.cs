@@ -1,4 +1,5 @@
 ﻿using DUOJU.Domain.Entities;
+using DUOJU.Domain.Models.User;
 
 namespace DUOJU.Dao.Abstract
 {
@@ -6,12 +7,14 @@ namespace DUOJU.Dao.Abstract
     {
         int SaveChanges();
 
+        void AddUser(DUOJU_USERS user);
+
         DUOJU_ROLE_PRIVILEGES GetRolePrivilege(string role);
 
         DUOJU_USERS GetUserById(int id);
 
         DUOJU_USERS GetUserByOpenId(string openId);
 
-        void AddUser(DUOJU_USERS user);
+        UserFinanceInfo GetUserFinanceInfoByOpenId(string openId);
     }
 }

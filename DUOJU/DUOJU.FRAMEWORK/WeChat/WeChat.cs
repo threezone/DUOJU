@@ -1,10 +1,10 @@
 ﻿using DUOJU.Domain.Helpers;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Web;
 using System.Xml.Linq;
 
 namespace DUOJU.FRAMEWORK.WeChat
@@ -288,7 +288,7 @@ namespace DUOJU.FRAMEWORK.WeChat
 
         public string ConvertOAuthUrl(string redirectUri, OauthScopes scope, string state)
         {
-            return string.Format(WeChatSettings.WECHATURL_OAUTH_FORMAT, _appid, redirectUri, scope.ToString().ToLower(), state);
+            return string.Format(WeChatSettings.WECHATURL_OAUTH_FORMAT, _appid, HttpUtility.UrlEncode(redirectUri, Encoding.GetEncoding("GB2312")), scope.ToString().ToLower(), state);
         }
 
         public WeChatAccessTokenInfo GetWeChatAccessTokenInfo()

@@ -86,7 +86,7 @@ namespace DUOJU.WECHAT.Controllers
                                             {
                                                 name = "发布聚会",
                                                 type = MenuItemTypes.VIEW.ToString().ToLower(),
-                                                url = WeChatHelper.WeChat.ConvertOAuthUrl("http://wechat.duoju.us/Party/MyParties", OauthScopes.SNSAPI_BASE, null)
+                                                url = WeChatHelper.WeChat.ConvertOAuthUrl("http://wechat.duoju.us/Party/PublishParty/1", OauthScopes.SNSAPI_BASE, null)
                                             },
                                             new WeChatMenuItemInfo
                                             {
@@ -115,7 +115,13 @@ namespace DUOJU.WECHAT.Controllers
                                             },
                                             new WeChatMenuItemInfo
                                             {
-                                                name = "点个赞",
+                                                name = "个人财产",
+                                                type = MenuItemTypes.VIEW.ToString().ToLower(),
+                                                url = WeChatHelper.WeChat.ConvertOAuthUrl("http://wechat.duoju.us/User/MyFinances", OauthScopes.SNSAPI_BASE, null)
+                                            },
+                                            new WeChatMenuItemInfo
+                                            {
+                                                name = "点赞支持",
                                                 type = MenuItemTypes.CLICK.ToString().ToLower(),
                                                 key = "key_praise",
                                             }
@@ -128,24 +134,10 @@ namespace DUOJU.WECHAT.Controllers
                             sendModel.Content = JsonHelper.GetJsonWithModel(WeChatHelper.WeChat.CreateMenu(menuInfo));
                             break;
 
-                        case "dm":
-                            sendModel.MsgType = MsgTypes.TEXT;
-                            sendModel.Content = JsonHelper.GetJsonWithModel(WeChatHelper.WeChat.DeleteMenu());
-                            break;
-
-                        case "p":
-                            var url = WeChatHelper.WeChat.ConvertOAuthUrl(Server.UrlEncode("http://wechat.duoju.us/Party/PublishParty/1"), OauthScopes.SNSAPI_BASE, null);
-
-                            sendModel.MsgType = MsgTypes.TEXT;
-                            sendModel.Content = "<a href=\"" + url + "\">go</a>";
-                            break;
-
-                        case "c":
-                            var url2 = WeChatHelper.WeChat.ConvertOAuthUrl("http://wechat.duoju.us/Party/ConfirmParty/1", OauthScopes.SNSAPI_BASE, null);
-
-                            sendModel.MsgType = MsgTypes.TEXT;
-                            sendModel.Content = "<a href=\"" + url2 + "\">go</a>";
-                            break;
+                        //case "dm":
+                        //    sendModel.MsgType = MsgTypes.TEXT;
+                        //    sendModel.Content = JsonHelper.GetJsonWithModel(WeChatHelper.WeChat.DeleteMenu());
+                        //    break;
                     }
                     break;
 

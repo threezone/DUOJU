@@ -116,16 +116,19 @@
     <Compile Include="Exceptions\IdentifierHasBeenUsedException.cs" />
     <Compile Include="Exceptions\NoPartySInitiatorException.cs" />
     <Compile Include="Exceptions\PartyWasClosedException.cs" />
+    <Compile Include="Exceptions\UserDidNotConcernException.cs" />
     <Compile Include="Exceptions\UserHasBeenParticipateThePartyException.cs" />
     <Compile Include="Extensions\LocalizedExtension.cs" />
     <Compile Include="Helpers\JsonHelper.cs" />
     <Compile Include="Helpers\SecurityHelper.cs" />
     <Compile Include="Models\Common\KeyValue.cs" />
+    <Compile Include="Models\Party\ConfirmPartyInfo.cs" />
     <Compile Include="Models\Party\PartyInfo.cs" />
     <Compile Include="Models\Party\PartyParticipateCountInfo.cs" />
     <Compile Include="Models\Party\PartyParticipantInfo.cs" />
     <Compile Include="Models\Party\PublishPartyInfo.cs" />
     <Compile Include="Models\Supplier\SupplierInfo.cs" />
+    <Compile Include="Models\User\UserFinanceInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\EnumResource.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -192,7 +195,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\Identifier\" />
-    <Folder Include="Models\User\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

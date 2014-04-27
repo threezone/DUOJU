@@ -1,5 +1,6 @@
 ﻿using DUOJU.Dao.Abstract;
 using DUOJU.Domain.Entities;
+using DUOJU.Domain.Models.User;
 using System.Linq;
 
 namespace DUOJU.Dao.Concrete
@@ -9,6 +10,11 @@ namespace DUOJU.Dao.Concrete
         public int SaveChanges()
         {
             return DBEntities.SaveChanges();
+        }
+
+        public void AddUser(DUOJU_USERS user)
+        {
+            DBEntities.DUOJU_USERS.Add(user);
         }
 
         public DUOJU_ROLE_PRIVILEGES GetRolePrivilege(string role)
@@ -26,9 +32,15 @@ namespace DUOJU.Dao.Concrete
             return DBEntities.DUOJU_USERS.SingleOrDefault(u => u.OPEN_ID == openId);
         }
 
-        public void AddUser(DUOJU_USERS user)
+        public UserFinanceInfo GetUserFinanceInfoByOpenId(string openId)
         {
-            DBEntities.DUOJU_USERS.Add(user);
+            return (from u in DBEntities.DUOJU_USERS
+                    join uf in DBEntities.DUOJU_USER_FINANCES on u.USER_ID equals uf.USER_ID
+                    where u.OPEN_ID == openId
+                    select new UserFinanceInfo
+                    {
+                        CoinCount = uf.COIN_COUNT
+                    }).SingleOrDefault();
         }
     }
 }

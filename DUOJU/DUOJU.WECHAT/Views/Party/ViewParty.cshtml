@@ -10,10 +10,15 @@
 
 @if (Model.PartyInfo != null && Model.PartyInfo.PartyId.HasValue)
 {
+    if (Model.IsCreate)
+    {
+        <h4>发布成功！</h4>
+    }
+
     <fieldset>
         <legend>客户信息</legend>
         <div>
-            xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+            xxx xx xxx xxxxx xxxx xxx xx xxx xxx xxx xxxxx xx xxx xx xx xxxx x xxx xx xx xxxx xx
         </div>
     </fieldset>
 
@@ -38,28 +43,27 @@
         </dl>
 
         <hr />
-        @{ var isFulled = Model.PartyInfo.EStatus == PartyStatuses.FULLED; }
-        <h4>已报名：@(Model.PartyInfo.PartyParticipantInfos.Count(i => i.EStatus == PartyParticipantStatuses.PARTICIPATED))人@(isFulled ? "，已满额！" : string.Empty)</h4>
+        <h4>已报名：@(Model.PartyInfo.PartyParticipantInfos.Count(i => i.EStatus == PartyParticipantStatuses.PARTICIPATED))人</h4>
 
         @foreach (var info in Model.PartyInfo.PartyParticipantInfos)
         {
             <p>@info.ParticipantId - @info.ParticipantName</p>
         }
 
-        @if (isFulled)
+        @if (Model.IsReturn)
         {
-                <p>已满额！</p>
+            <p>您已成功报名！</p>
         }
         else
         {
-            if (Model.IsReturn && Model.ParticipantId.HasValue)
+            if (Model.PartyInfo.EStatus == PartyStatuses.FULLED)
             {
-                <p>您已成功报名！</p>
+                <p>已满额！</p>
             }
             else
             {
                 <p>
-                    <a href="@WeChatHelper.WeChat.ConvertOAuthUrl(Server.UrlEncode("http://wechat.duoju.us/Party/ParticipateParty/" + Model.PartyInfo.PartyId), OauthScopes.SNSAPI_USERINFO, null)">报名</a>
+                    <a href="@WeChatHelper.WeChat.ConvertOAuthUrl("http://wechat.duoju.us/Party/ParticipateParty/" + Model.PartyInfo.PartyId, OauthScopes.SNSAPI_BASE, null)">报名</a>
                 </p>
             }
         }

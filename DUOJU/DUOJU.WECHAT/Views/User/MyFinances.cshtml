@@ -1,0 +1,13 @@
+﻿@model DUOJU.WECHAT.Models.User.MyFinancesViewModel
+
+@{
+    ViewBag.Title = "MyFinances";
+}
+
+@if (Model.UserFinanceInfo != null)
+{
+    <dl>
+        <dt>金币数</dt>
+        <dd>@Model.UserFinanceInfo.CoinCount</dd>
+    </dl>
+}

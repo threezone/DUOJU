@@ -1,0 +1,12 @@
+﻿@model DUOJU.WECHAT.Models.Party.ConfirmPartyViewModel
+
+@{
+    ViewBag.Title = "ConfirmParty";
+}
+
+<dl>
+    <dt>验证码</dt>
+    <dd>@Model.ConfirmPartyInfo.IdentifierNO</dd>
+    <dt>有效期至</dt>
+    <dd>@Model.ConfirmPartyInfo.ExpiresTime.ToString("yyyy-MM-dd")</dd>
+</dl>

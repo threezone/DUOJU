@@ -1,4 +1,5 @@
-﻿using DUOJU.FRAMEWORK.WeChat;
+﻿using DUOJU.Domain.Models.User;
+using DUOJU.FRAMEWORK.WeChat;
 
 namespace DUOJU.Service.Abstract
 {
@@ -9,5 +10,7 @@ namespace DUOJU.Service.Abstract
         int AddWeChatUser(WeChatUserInfo_OAuth info);
 
         void WeChatUserUnsubscribe(string openId);
+
+        UserFinanceInfo GetUserFinanceInfoByOpenId(string openId);
     }
 }

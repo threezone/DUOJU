@@ -135,7 +135,10 @@
   <data name="BasicSystemException_PartyWasClosedException" xml:space="preserve">
     <value>该聚会已截止报名啦！</value>
   </data>
+  <data name="BasicSystemException_UserDidNotConcernException" xml:space="preserve">
+    <value>您还未关注小聚哦，请先关注吧！</value>
+  </data>
   <data name="BasicSystemException_UserHasBeenParticipateThePartyException" xml:space="preserve">
-    <value>你已经报名了哦！</value>
+    <value>您已经报名了哦！</value>
   </data>
 </root>

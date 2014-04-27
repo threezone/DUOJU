@@ -1,8 +1,10 @@
 ﻿@using DUOJU.Domain.Extensions
-@model DUOJU.WECHAT.Models.Party.MyParticipatePartiesViewModel
+@using DUOJU.FRAMEWORK.WeChat
+@using DUOJU.WECHAT.Sys.Helpers
+@model DUOJU.WECHAT.Models.Party.ViewPartiesViewModel
 
 @{
-    ViewBag.Title = "MyParticipateParties";
+    ViewBag.Title = "MyParties";
 }
 
 @if (Model.PartyInfos != null && Model.PartyInfos.Count > 0)
@@ -24,6 +26,10 @@
             <dd>@(info.MaxIntoForce.HasValue ? @info.MaxIntoForce.Value.ToString() : "无限制")</dd>
             <dt>Status 状态</dt>
             <dd>@info.EStatus.ToLocalize()</dd>
+            <dd>
+                <a href="http://wechat.duoju.us/Party/ViewParty/@info.PartyId">ViewParty</a>
+                <a href="@WeChatHelper.WeChat.ConvertOAuthUrl("http://wechat.duoju.us/Party/ConfirmParty/" + info.PartyId, OauthScopes.SNSAPI_BASE, null)">ConfirmParty</a>
+            </dd>
         </dl>
     }
 }

@@ -22,14 +22,11 @@ namespace DUOJU.WECHAT.Controllers
 
         private ISupplierService SupplierService { get; set; }
 
-        private IUserService UserService { get; set; }
-
 
         public PartyController()
         {
             PartyService = new PartyService();
             SupplierService = new SupplierService();
-            UserService = new UserService();
         }
 
 
@@ -71,7 +68,7 @@ namespace DUOJU.WECHAT.Controllers
                 {
                     var partyId = PartyService.AddParty(partyInfo);
 
-                    return RedirectToAction("ViewParty", new { partyId = partyId });
+                    return RedirectToAction("ViewParty", new { partyId = partyId, isCreate = true });
                 }
                 catch (BasicSystemException ex)
                 {
@@ -87,12 +84,12 @@ namespace DUOJU.WECHAT.Controllers
         /// <summary>
         /// 查看聚会
         /// </summary>
-        public ActionResult ViewParty(int partyId, bool? isReturn, int? participantId)
+        public ActionResult ViewParty(int partyId, bool? isCreate, bool? isReturn)
         {
             var model = new ViewPartyViewModel
             {
+                IsCreate = isCreate ?? false,
                 IsReturn = isReturn ?? false,
-                ParticipantId = participantId,
                 PartyInfo = PartyService.GetPartyInfo(partyId)
             };
 
@@ -105,20 +102,18 @@ namespace DUOJU.WECHAT.Controllers
         public ActionResult ParticipateParty(int partyId, string code, string state)
         {
             if (string.IsNullOrEmpty(code))
-                return Content("请先允许获取当前用户信息。");
+                return Content("无法获取当前用户信息。");
             else
             {
                 var accessTokenInfo = WeChatHelper.WeChat.GetWeChatAccessTokenInfo_OAuth(code);
-                var userInfo = WeChatHelper.WeChat.GetWeChatUserInfo_OAuth(accessTokenInfo.access_token, accessTokenInfo.openid);
 
                 try
                 {
-                    var userId = UserService.AddWeChatUser(userInfo);
-                    var participateCountInfo = PartyService.ParticipateParty(partyId, userId);
+                    var participateCountInfo = PartyService.ParticipateParty(partyId, accessTokenInfo.openid);
                     if (participateCountInfo.ParticipateCount == participateCountInfo.MinIntoForce)
-                        WeChatHelper.WeChat.SendCSTextMessage(userInfo.openid, string.Format(CommonSettings.DUOJUWECHATMESSAGE_PARTYFULLED_FORMAT, WeChatHelper.WeChat.ConvertOAuthUrl("http://wechat.duoju.us/Party/ConfirmParty/" + partyId, OauthScopes.SNSAPI_BASE, null)));
+                        WeChatHelper.WeChat.SendCSTextMessage(participateCountInfo.InitiatorOpenId, string.Format(CommonSettings.DUOJUWECHATMESSAGE_PARTYFULLED_FORMAT, WeChatHelper.WeChat.ConvertOAuthUrl("http://wechat.duoju.us/Party/ConfirmParty/" + partyId, OauthScopes.SNSAPI_BASE, null)));
 
-                    return RedirectToAction("ViewParty", new { partyId = partyId, isReturn = true, participantId = userId });
+                    return RedirectToAction("ViewParty", new { partyId = partyId, isReturn = true });
                 }
                 catch (BasicSystemException ex)
                 {
@@ -140,9 +135,14 @@ namespace DUOJU.WECHAT.Controllers
 
                 try
                 {
-                    var identifierInfo = PartyService.ConfirmParty(partyId, accessTokenInfo.openid);
+                    var confirmPartyInfo = PartyService.ConfirmParty(partyId, accessTokenInfo.openid);
 
-                    return Content(identifierInfo.Item1 + "-" + identifierInfo.Item2);
+                    var model = new ConfirmPartyViewModel
+                    {
+                        ConfirmPartyInfo = confirmPartyInfo
+                    };
+
+                    return View(model);
                 }
                 catch (BasicSystemException ex)
                 {
@@ -163,12 +163,12 @@ namespace DUOJU.WECHAT.Controllers
             {
                 var accessTokenInfo = WeChatHelper.WeChat.GetWeChatAccessTokenInfo_OAuth(code);
 
-                var model = new MyPartiesViewModel
+                var model = new ViewPartiesViewModel
                 {
                     PartyInfos = PartyService.GetPartyInfosByCreateUser(accessTokenInfo.openid)
                 };
 
-                return View(model);
+                return View("ViewParties", model);
             }
         }
 
@@ -183,12 +183,12 @@ namespace DUOJU.WECHAT.Controllers
             {
                 var accessTokenInfo = WeChatHelper.WeChat.GetWeChatAccessTokenInfo_OAuth(code);
 
-                var model = new MyParticipatePartiesViewModel
+                var model = new ViewPartiesViewModel
                 {
                     PartyInfos = PartyService.GetPartyInfosByParticipantUser(accessTokenInfo.openid)
                 };
 
-                return View(model);
+                return View("ViewParties", model);
             }
         }
     }

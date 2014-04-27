@@ -113,8 +113,12 @@ namespace DUOJU.Service.Concrete
             return infos;
         }
 
-        public PartyParticipateCountInfo ParticipateParty(int partyId, int userId)
+        public PartyParticipateCountInfo ParticipateParty(int partyId, string openId)
         {
+            var user = UserRepository.GetUserByOpenId(openId);
+            if (user == null || user.SUBSCRIBED == YesNo.N.ToString())
+                throw new UserDidNotConcernException();
+
             var party = PartyRepository.GetPartyById(partyId);
             if (party == null)
                 throw new CanNotFindPartyException();
@@ -123,18 +127,18 @@ namespace DUOJU.Service.Concrete
                 if (party.STATUS == (int)PartyStatuses.PUBLISHED)
                 {
                     var validParticipants = party.DUOJU_PARTY_PARTICIPANTS.Where(i => i.PARTY_ID == partyId && i.STATUS == (int)PartyParticipantStatuses.PARTICIPATED);
-                    var participant = validParticipants.FirstOrDefault(i => i.PARTICIPANT_ID == userId);
+                    var participant = validParticipants.FirstOrDefault(i => i.PARTICIPANT_ID == user.USER_ID);
 
+                    participant = null;
                     if (participant != null && participant.STATUS == (int)PartyParticipantStatuses.PARTICIPATED)
                         throw new UserHasBeenParticipateThePartyException();
 
                     if (participant == null)
                     {
-                        var user = UserRepository.GetUserById(userId);
                         participant = new DUOJU_PARTY_PARTICIPANTS
                         {
                             DUOJU_USERS = user,
-                            CREATE_BY = userId,
+                            CREATE_BY = user.USER_ID,
                             CREATE_TIME = DateTime.Now
                         };
 
@@ -142,19 +146,20 @@ namespace DUOJU.Service.Concrete
                         if (party.MAX_INTO_FORCE.HasValue && validParticipants.Count() + 1 >= party.MAX_INTO_FORCE.Value)
                         {
                             party.STATUS = (int)PartyStatuses.FULLED;
-                            party.LAST_UPDATE_BY = userId;
+                            party.LAST_UPDATE_BY = user.USER_ID;
                             party.LAST_UPDATE_TIME = DateTime.Now;
                         }
                     }
 
                     participant.PARTICIPATE_TIME = DateTime.Now;
                     participant.STATUS = (int)PartyParticipantStatuses.PARTICIPATED;
-                    participant.LAST_UPDATE_BY = userId;
+                    participant.LAST_UPDATE_BY = user.USER_ID;
                     participant.LAST_UPDATE_TIME = DateTime.Now;
 
                     PartyRepository.SaveChanges();
                     return new PartyParticipateCountInfo
                     {
+                        InitiatorOpenId = party.DUOJU_USERS.OPEN_ID,
                         MinIntoForce = party.MIN_INTO_FORCE,
                         MaxIntoForce = party.MAX_INTO_FORCE,
                         ParticipateCount = party.DUOJU_PARTY_PARTICIPANTS.Count
@@ -167,7 +172,7 @@ namespace DUOJU.Service.Concrete
             }
         }
 
-        public Tuple<string, DateTime> ConfirmParty(int partyId, string openId)
+        public ConfirmPartyInfo ConfirmParty(int partyId, string openId)
         {
             var party = PartyRepository.GetPartyById(partyId);
             if (party == null)
@@ -177,7 +182,11 @@ namespace DUOJU.Service.Concrete
                 if (party.DUOJU_USERS.OPEN_ID != openId)
                     throw new NoPartySInitiatorException();
                 else if (party.STATUS == (int)PartyStatuses.CONFIRMED)
-                    return new Tuple<string, DateTime>(party.DUOJU_IDENTIFIERS.IDENTIFIER_NO, party.DUOJU_IDENTIFIERS.EXPIRES_TIME);
+                    return new ConfirmPartyInfo
+                    {
+                        IdentifierNO = party.DUOJU_IDENTIFIERS.IDENTIFIER_NO,
+                        ExpiresTime = party.DUOJU_IDENTIFIERS.EXPIRES_TIME
+                    };
 
                 var expiresTime = DateTime.Now.AddDays(CommonSettings.IDENTIFIEREXPIRESTIME_DAY_PARTY);
                 expiresTime = new DateTime(expiresTime.Year, expiresTime.Month, expiresTime.Day).AddDays(1).AddSeconds(-1);
@@ -193,7 +202,11 @@ namespace DUOJU.Service.Concrete
 
                 PartyRepository.SaveChanges();
 
-                return new Tuple<string, DateTime>(identifier.IDENTIFIER_NO, expiresTime);
+                return new ConfirmPartyInfo
+                {
+                    IdentifierNO = identifier.IDENTIFIER_NO,
+                    ExpiresTime = identifier.EXPIRES_TIME
+                };
             }
         }
 
