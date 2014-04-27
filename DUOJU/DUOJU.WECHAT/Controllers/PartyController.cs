@@ -3,14 +3,13 @@ using DUOJU.Domain.Exceptions;
 using DUOJU.Domain.Extensions;
 using DUOJU.Domain.Helpers;
 using DUOJU.Domain.Models.Party;
+using DUOJU.FRAMEWORK.WeChat;
 using DUOJU.Service.Abstract;
 using DUOJU.Service.Concrete;
 using DUOJU.WECHAT.Models.Party;
 using DUOJU.WECHAT.Sys.Helpers;
-using System.Web.Mvc;
-using DUOJU.FRAMEWORK.WeChat;
-using System;
 using log4net;
+using System.Web.Mvc;
 
 namespace DUOJU.WECHAT.Controllers
 {
@@ -149,6 +148,23 @@ namespace DUOJU.WECHAT.Controllers
                     return Content(ex.ToLocalize());
                 }
             }
+        }
+
+        /// <summary>
+        /// 评论聚会
+        /// </summary>
+        public ActionResult CommentParty(int partyId, string code, string state)
+        {
+            return null;
+        }
+
+        /// <summary>
+        /// 评论聚会
+        /// </summary>
+        [HttpPost]
+        public ActionResult CommentParty(PartyCommentInfo partyCommentInfo)
+        {
+            return null;
         }
 
 

@@ -39,7 +39,20 @@ namespace DUOJU.Dao.Concrete
 
         public IList<PartyCommentInfo> GetPartyCommentInfos(int partyId)
         {
-            return null;
+            return (from pc in DBEntities.DUOJU_PARTY_COMMENTS
+                    where pc.PARTY_ID == partyId
+                    orderby pc.CREATE_TIME descending
+                    select new PartyCommentInfo
+                    {
+                        CommentId = pc.PARTY_COMMENT_ID,
+                        SupplierId = pc.SUPPLIER_ID,
+                        PartyId = pc.PARTY_ID,
+                        UserId = pc.USER_ID,
+                        UserNickName = pc.DUOJU_USERS.NICK_NAME,
+                        Content = pc.CONTENT,
+                        Status = pc.STATUS,
+                        CreateTime = pc.CREATE_TIME,
+                    }).ToList();
         }
 
         public IList<PartyInfo> GetPartyInfosByCreateUser(string openId)

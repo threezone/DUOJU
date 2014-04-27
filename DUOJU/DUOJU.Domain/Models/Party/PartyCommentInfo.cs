@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using DUOJU.Domain.Enums;
+using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace DUOJU.Domain.Models.Party
 {
@@ -10,16 +8,24 @@ namespace DUOJU.Domain.Models.Party
     {
         public int? CommentId { get; set; }
 
-        public int? SUPPLIER_ID { get; set; }
+        [Required]
+        public int? SupplierId { get; set; }
 
-        public int? PARTY_ID { get; set; }
+        [Required]
+        public int? PartyId { get; set; }
 
-        public int? USER_ID { get; set; }
+        [Required]
+        public int? UserId { get; set; }
 
-        public string CONTENT { get; set; }
+        public string UserNickName { get; set; }
 
-        public int? STATUS { get; set; }
+        [Required]
+        public string Content { get; set; }
 
-        public int? ESTATUS { get; set; }
+        public int? Status { get; set; }
+
+        public PartyCommentStatuses? EStatus { get; set; }
+
+        public DateTime CreateTime { get; set; }
     }
 }

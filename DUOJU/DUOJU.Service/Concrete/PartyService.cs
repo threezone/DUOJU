@@ -39,6 +39,17 @@ namespace DUOJU.Service.Concrete
         {
             info.EHoldTime = (PartyHoldTimes)Enum.Parse(typeof(PartyHoldTimes), info.HoldTime.ToString());
             info.EStatus = (PartyStatuses)Enum.Parse(typeof(PartyStatuses), info.Status.ToString());
+
+            if (info.PartyCommentInfos != null)
+            {
+                info.PartyCommentInfos = info.PartyCommentInfos.Where(i => i.Status != (int)PartyCommentStatuses.DELETED).ToList();
+                info.PartyCommentInfos
+                    .ToList()
+                    .ForEach(i =>
+                    {
+                        i.EStatus = (PartyCommentStatuses)Enum.Parse(typeof(PartyCommentStatuses), i.Status.ToString());
+                    });
+            }
         }
 
 

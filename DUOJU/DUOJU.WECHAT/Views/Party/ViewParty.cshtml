@@ -71,11 +71,24 @@
             }
             else if (Model.PartyInfo.EStatus == PartyStatuses.CONSUMED)
             {
+                <p>
+                    <a href="@WeChatHelper.WeChat.ConvertOAuthUrl("http://wechat.duoju.us/Party/CommentParty/" + Model.PartyInfo.PartyId, OauthScopes.SNSAPI_BASE, null)">评论</a>
+                </p>
+
                 if (Model.PartyInfo.PartyCommentInfos != null && Model.PartyInfo.PartyCommentInfos.Count > 0)
                 {
                     foreach (var info in Model.PartyInfo.PartyCommentInfos)
                     {
+                        <div>
+                            <p>@info.UserNickName 于 @info.CreateTime 回复到：</p>
+                            <p>@info.Content</p>
+                            <hr />
+                        </div>
                     }
+                }
+                else
+                {
+                    <p>还没有人评论哦，来抢沙发吧。</p>
                 }
             }
         }
