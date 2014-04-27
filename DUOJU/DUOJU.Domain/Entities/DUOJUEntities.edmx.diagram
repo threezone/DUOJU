@@ -39,11 +39,11 @@
         <EntityTypeShape EntityType="DUOJUModel.DUOJU_SUPPLIERS" Width="1.5" PointX="1.875" PointY="5.125" />
         <AssociationConnector Association="DUOJUModel.FK__DUOJU_SUP__CITY___2E1BDC42" />
         <AssociationConnector Association="DUOJUModel.FK__DUOJU_IMA__IMAGE__239E4DCF" ManuallyRouted="true" >
-          <ConnectorPoint PointX="8.7672179869438942" PointY="1.125" />
+          <ConnectorPoint PointX="8.7672179869438942" PointY="1.1250000000000002" />
           <ConnectorPoint PointX="8.7672179869438942" PointY="0.875" />
           <ConnectorPoint PointX="9.75" PointY="0.875" />
-          <ConnectorPoint PointX="9.75" PointY="2.7629582050781307" />
-          <ConnectorPoint PointX="10" PointY="2.7629582050781307" />
+          <ConnectorPoint PointX="9.75" PointY="46.964113472343286" />
+          <ConnectorPoint PointX="10" PointY="4.2411507161458317" />
         </AssociationConnector>
         <AssociationConnector Association="DUOJUModel.FK__DUOJU_PAR__SUPPL__75A278F5" />
         <AssociationConnector Association="DUOJUModel.FK__DUOJU_PAR__SUPPL__0E6E26BF" />

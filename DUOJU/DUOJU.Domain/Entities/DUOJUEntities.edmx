@@ -1109,25 +1109,22 @@
             <PropertyRef Name="IMAGE_ID" />
           </Key>
           <Property Name="IMAGE_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="IMAGECATEGORY_ID" Type="Int32" Nullable="false" />
+          <Property Name="IMAGE_CATEGORY_ID" Type="Int32" Nullable="false" />
           <Property Name="DESCRIPTION" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="URL" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="CREATEDDATE" Type="DateTime" Precision="3" />
           <Property Name="SORTORDER" Type="Int32" />
           <Property Name="CREATE_BY" Type="Int32" Nullable="false" />
           <Property Name="CREATE_TIME" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="LAST_UPDATE_BY" Type="Int32" Nullable="false" />
           <Property Name="LAST_UPDATE_TIME" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="DUOJU_SUPPLIER_IMAGES" Relationship="DUOJUModel.FK_DUOJU_SUPPLIER_IMAGES_DUOJU_IMAGES" FromRole="DUOJU_IMAGES" ToRole="DUOJU_SUPPLIER_IMAGES" />
-          <Property Name="IMAGE_CATEGORY_ID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="DUOJU_IMAGE_CATEGORIES" Relationship="DUOJUModel.FK__DUOJU_IMA__IMAGE__239E4DCF" FromRole="DUOJU_IMAGES" ToRole="DUOJU_IMAGE_CATEGORIES" />
         </EntityType>
         <EntityType Name="DUOJU_SUPPLIER_IMAGES">
           <Key>
-            <PropertyRef Name="SUPPLIERIMAGE_ID" />
             <PropertyRef Name="SUPPLIER_IMAGE_ID" />
           </Key>
-          <Property Name="SUPPLIERIMAGE_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SUPPLIER_IMAGE_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns="http://schemas.microsoft.com/ado/2009/11/edm" />
           <Property Name="SUPPLIER_ID" Type="Int32" Nullable="false" />
           <Property Name="IMAGE_ID" Type="Int32" Nullable="false" />
           <Property Name="CREATE_BY" Type="Int32" Nullable="false" />
@@ -1135,7 +1132,6 @@
           <Property Name="LAST_UPDATE_BY" Type="Int32" Nullable="false" />
           <Property Name="LAST_UPDATE_TIME" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="DUOJU_IMAGES" Relationship="DUOJUModel.FK_DUOJU_SUPPLIER_IMAGES_DUOJU_IMAGES" FromRole="DUOJU_SUPPLIER_IMAGES" ToRole="DUOJU_IMAGES" />
-          <Property Name="SUPPLIER_IMAGE_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="DUOJU_SUPPLIERS" Relationship="DUOJUModel.FK__DUOJU_SUP__SUPPL__4222D4EF" FromRole="DUOJU_SUPPLIER_IMAGES" ToRole="DUOJU_SUPPLIERS" />
         </EntityType>
         <Association Name="FK_DUOJU_SUPPLIER_IMAGES_DUOJU_IMAGES">

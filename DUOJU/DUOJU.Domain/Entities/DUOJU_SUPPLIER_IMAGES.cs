@@ -14,14 +14,13 @@ namespace DUOJU.Domain.Entities
     
     public partial class DUOJU_SUPPLIER_IMAGES
     {
-        public int SUPPLIERIMAGE_ID { get; set; }
+        public int SUPPLIER_IMAGE_ID { get; set; }
         public int SUPPLIER_ID { get; set; }
         public int IMAGE_ID { get; set; }
         public int CREATE_BY { get; set; }
         public System.DateTime CREATE_TIME { get; set; }
         public int LAST_UPDATE_BY { get; set; }
         public System.DateTime LAST_UPDATE_TIME { get; set; }
-        public int SUPPLIER_IMAGE_ID { get; set; }
     
         public virtual DUOJU_IMAGES DUOJU_IMAGES { get; set; }
         public virtual DUOJU_SUPPLIERS DUOJU_SUPPLIERS { get; set; }

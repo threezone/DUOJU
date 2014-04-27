@@ -78,10 +78,10 @@
     <Compile Include="Entities\DUOJU_IDENTIFIER_SETTINGS.cs">
       <DependentUpon>DUOJUEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Entities\DUOJU_IMAGECATEGORY.cs">
+    <Compile Include="Entities\DUOJU_IMAGES.cs">
       <DependentUpon>DUOJUEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Entities\DUOJU_IMAGES.cs">
+    <Compile Include="Entities\DUOJU_IMAGE_CATEGORIES.cs">
       <DependentUpon>DUOJUEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\DUOJU_PARTIES.cs">
@@ -99,13 +99,13 @@
     <Compile Include="Entities\DUOJU_ROLE_PRIVILEGES.cs">
       <DependentUpon>DUOJUEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Entities\DUOJU_SUPPLIER.cs">
-      <DependentUpon>DUOJUEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\DUOJU_SUPPLIERINFO.cs">
+    <Compile Include="Entities\DUOJU_SUPPLIERS.cs">
       <DependentUpon>DUOJUEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\DUOJU_SUPPLIER_IMAGES.cs">
+      <DependentUpon>DUOJUEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\DUOJU_SUPPLIER_INFOS.cs">
       <DependentUpon>DUOJUEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\DUOJU_USERS.cs">
@@ -116,6 +116,7 @@
     </Compile>
     <Compile Include="Enums\IdentifierStatuses.cs" />
     <Compile Include="Enums\IdentifierTypes.cs" />
+    <Compile Include="Enums\PartyCommentStatuses.cs" />
     <Compile Include="Enums\PartyHoldTimes.cs" />
     <Compile Include="Enums\PartyParticipantStatuses.cs" />
     <Compile Include="Enums\PartyStatuses.cs" />

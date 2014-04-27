@@ -20,16 +20,14 @@ namespace DUOJU.Domain.Entities
         }
     
         public int IMAGE_ID { get; set; }
-        public int IMAGECATEGORY_ID { get; set; }
+        public int IMAGE_CATEGORY_ID { get; set; }
         public string DESCRIPTION { get; set; }
         public string URL { get; set; }
-        public Nullable<System.DateTime> CREATEDDATE { get; set; }
         public Nullable<int> SORTORDER { get; set; }
         public int CREATE_BY { get; set; }
         public System.DateTime CREATE_TIME { get; set; }
         public int LAST_UPDATE_BY { get; set; }
         public System.DateTime LAST_UPDATE_TIME { get; set; }
-        public int IMAGE_CATEGORY_ID { get; set; }
     
         public virtual ICollection<DUOJU_SUPPLIER_IMAGES> DUOJU_SUPPLIER_IMAGES { get; set; }
         public virtual DUOJU_IMAGE_CATEGORIES DUOJU_IMAGE_CATEGORIES { get; set; }

@@ -71,6 +71,12 @@
             }
             else if (Model.PartyInfo.EStatus == PartyStatuses.CONSUMED)
             {
+                if (Model.PartyInfo.PartyCommentInfos != null && Model.PartyInfo.PartyCommentInfos.Count > 0)
+                {
+                    foreach (var info in Model.PartyInfo.PartyCommentInfos)
+                    {
+                    }
+                }
             }
         }
     </fieldset>

@@ -18,6 +18,8 @@ namespace DUOJU.Service.Concrete
 
         private IUserRepository UserRepository { get; set; }
 
+        private ISupplierRepository SupplierRepository { get; set; }
+
         private ISupplierService SupplierService { get; set; }
 
         private IIdentifierService IdentifierService { get; set; }
@@ -27,6 +29,7 @@ namespace DUOJU.Service.Concrete
         {
             PartyRepository = new PartyRepository();
             UserRepository = new UserRepository();
+            SupplierRepository = new SupplierRepository();
             SupplierService = new SupplierService();
             IdentifierService = new IdentifierService();
         }
@@ -44,7 +47,7 @@ namespace DUOJU.Service.Concrete
             var user = UserRepository.GetUserByOpenId(partyInfo.OpenId);
             var party = new DUOJU_PARTIES
             {
-                SUPPLIER_ID = partyInfo.SupplierId.Value,
+                DUOJU_SUPPLIERS = SupplierRepository.GetSupplierById(partyInfo.SupplierId.Value),
                 DUOJU_USERS = user,
                 HOLD_DATE = partyInfo.HoldDate.Value,
                 HOLD_TIME = (int)partyInfo.HoldTime.Value,
