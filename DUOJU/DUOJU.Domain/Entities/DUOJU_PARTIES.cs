@@ -39,5 +39,6 @@ namespace DUOJU.Domain.Entities
         public virtual ICollection<DUOJU_PARTY_PARTICIPANTS> DUOJU_PARTY_PARTICIPANTS { get; set; }
         public virtual ICollection<DUOJU_PARTY_COMMENTS> DUOJU_PARTY_COMMENTS { get; set; }
         public virtual DUOJU_IDENTIFIERS DUOJU_IDENTIFIERS { get; set; }
+        public virtual DUOJU_SUPPLIERS DUOJU_SUPPLIERS { get; set; }
     }
 }

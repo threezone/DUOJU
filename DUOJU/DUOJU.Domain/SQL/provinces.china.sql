@@ -1,3 +1,4 @@
+use DUOJU
 insert into DUOJU$PROVINCES (COUNTRY_ID, PROVINCE_NAME, PROVINCE_NAME_CN) values (43, 'Anhui', '安徽')
 insert into DUOJU$PROVINCES (COUNTRY_ID, PROVINCE_NAME, PROVINCE_NAME_CN) values (43, 'Beijing', '北京')
 insert into DUOJU$PROVINCES (COUNTRY_ID, PROVINCE_NAME, PROVINCE_NAME_CN) values (43, 'Chongqing', '重庆')

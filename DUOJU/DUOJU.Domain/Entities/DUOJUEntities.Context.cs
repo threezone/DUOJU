@@ -36,10 +36,10 @@ namespace DUOJU.Domain.Entities
         public DbSet<DUOJU_IDENTIFIERS> DUOJU_IDENTIFIERS { get; set; }
         public DbSet<DUOJU_USER_FINANCES> DUOJU_USER_FINANCES { get; set; }
         public DbSet<DUOJU_IDENTIFIER_SETTINGS> DUOJU_IDENTIFIER_SETTINGS { get; set; }
-        public DbSet<DUOJU_IMAGECATEGORY> DUOJU_IMAGECATEGORY { get; set; }
         public DbSet<DUOJU_IMAGES> DUOJU_IMAGES { get; set; }
-        public DbSet<DUOJU_SUPPLIER> DUOJU_SUPPLIER { get; set; }
         public DbSet<DUOJU_SUPPLIER_IMAGES> DUOJU_SUPPLIER_IMAGES { get; set; }
-        public DbSet<DUOJU_SUPPLIERINFO> DUOJU_SUPPLIERINFO { get; set; }
+        public DbSet<DUOJU_IMAGE_CATEGORIES> DUOJU_IMAGE_CATEGORIES { get; set; }
+        public DbSet<DUOJU_SUPPLIER_INFOS> DUOJU_SUPPLIER_INFOS { get; set; }
+        public DbSet<DUOJU_SUPPLIERS> DUOJU_SUPPLIERS { get; set; }
     }
 }

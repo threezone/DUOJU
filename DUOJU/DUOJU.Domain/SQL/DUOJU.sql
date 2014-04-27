@@ -77,6 +77,81 @@ insert into DUOJU$ROLE_PRIVILEGES (ROLE, PRIVILEGES) values ('SUPPLIER', '')
 insert into DUOJU$ROLE_PRIVILEGES (ROLE, PRIVILEGES) values ('USER', '')
 go
 
+create table DUOJU$IMAGE_CATEGORIES
+(
+	IMAGE_CATEGORY_ID int primary key identity (1,1) not null,
+	DESCRIPTION nvarchar(200) null,
+	CREATE_BY int default 0 not null,
+	CREATE_TIME datetime default getdate() not null,
+	LAST_UPDATE_BY int default 0 not null,
+	LAST_UPDATE_TIME datetime default getdate() not null
+)
+go
+
+create table DUOJU$IMAGES
+(
+	IMAGE_ID int primary key identity (1,1) not null,
+	IMAGE_CATEGORY_ID int references DUOJU$IMAGE_CATEGORIES(IMAGE_CATEGORY_ID) not null,
+	DESCRIPTION nvarchar(200) null,
+	URL varchar(300) null,
+	SORTORDER int default 0 null,
+	CREATE_BY int default 0 not null,
+	CREATE_TIME datetime default getdate() not null,
+	LAST_UPDATE_BY int default 0 not null,
+	LAST_UPDATE_TIME datetime default getdate() not null
+)
+go
+
+create table DUOJU$SUPPLIERS
+(
+	SUPPLIER_ID int primary key identity (1,1) not null,
+	NAME nvarchar(50) null,
+	ADDRESS nvarchar(200) null,
+	TELPHONE varchar(20) null,
+	FAX varchar(20) null,
+	EMAIL varchar(50) null,
+	QQ varchar(20) null,
+	WEBSITE varchar(200) null,
+	PROVINCE_ID int references DUOJU$PROVINCES(PROVINCE_ID) null,
+	CITY_ID int references DUOJU$CITIES(CITY_ID) null,
+	LONGITUDE float null,
+	LATITUDE float null,
+	CREATE_BY int default 0 not null,
+	CREATE_TIME datetime default getdate() not null,
+	LAST_UPDATE_BY int default 0 not null,
+	LAST_UPDATE_TIME datetime default getdate() not null
+)
+go
+
+create table DUOJU$SUPPLIER_INFOS
+(
+	SUPPLIER_INFO_ID int primary key identity (1,1) not null,
+	SUPPLIER_ID int references DUOJU$SUPPLIERS(SUPPLIER_ID) not null,
+	MAIN_TITLE nvarchar(100) null,
+	SUBTITLE nvarchar(100) null,
+	VIEW_COUNT int default 0 null,
+	PARTY_COUNT int default 0 null,
+	FAVOUR_COUNT int default 0 null,
+	CONTENT text null,
+	CREATE_BY int default 0 not null,
+	CREATE_TIME datetime default getdate() not null,
+	LAST_UPDATE_BY int default 0 not null,
+	LAST_UPDATE_TIME datetime default getdate() not null
+)
+go
+
+create table DUOJU$SUPPLIER_IMAGES
+(
+	SUPPLIER_IMAGE_ID int primary key identity (1,1) not null,
+	SUPPLIER_ID int references DUOJU$SUPPLIERS(SUPPLIER_ID) not null,
+	IMAGE_ID int references DUOJU$IMAGES(IMAGE_ID) not null,
+	CREATE_BY int default 0 not null,
+	CREATE_TIME datetime default getdate() not null,
+	LAST_UPDATE_BY int default 0 not null,
+	LAST_UPDATE_TIME datetime default getdate() not null
+)
+go
+
 create table DUOJU$USERS
 (
 	USER_ID int primary key identity (1,1) not null,
@@ -90,7 +165,7 @@ create table DUOJU$USERS
 	OPEN_ID varchar(70) null,
 	NICK_NAME nvarchar(70) null,
 	SEX char(1) null,
-	HEAD_IMG_URL varchar(200) null,
+	HEAD_IMG_URL varchar(300) null,
 	COUNTRY_ID int references DUOJU$COUNTRIES(COUNTRY_ID) null,
 	PROVINCE_ID int references DUOJU$PROVINCES(PROVINCE_ID) null,
 	CITY_ID int references DUOJU$CITIES(CITY_ID) null,
@@ -160,7 +235,7 @@ go
 create table DUOJU$PARTIES
 (
 	PARTY_ID int primary key identity (1,1) not null,
-	SUPPLIER_ID int /*references DUOJU$SUPPLIERS(SUPPLIER_ID)*/ not null,
+	SUPPLIER_ID int references DUOJU$SUPPLIERS(SUPPLIER_ID) not null,
 	INITIATOR_ID int references DUOJU$USERS(USER_ID) not null,
 	HOLD_DATE datetime not null,
 	HOLD_TIME int not null,
@@ -205,7 +280,7 @@ go
 create table DUOJU$PARTY_COMMENTS
 (
 	PARTY_COMMENT_ID int primary key identity (1,1) not null,
-	SUPPLIER_ID int /*references DUOJU$SUPPLIERS(SUPPLIER_ID)*/ not null,
+	SUPPLIER_ID int references DUOJU$SUPPLIERS(SUPPLIER_ID) not null,
 	PARTY_ID int references DUOJU$PARTIES(PARTY_ID) not null,
 	USER_ID int references DUOJU$USERS(USER_ID) not null,
 	CONTENT nvarchar(100) not null,

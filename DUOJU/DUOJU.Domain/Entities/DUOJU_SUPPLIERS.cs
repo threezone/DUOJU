@@ -12,17 +12,17 @@ namespace DUOJU.Domain.Entities
     using System;
     using System.Collections.Generic;
     
-    public partial class DUOJU_SUPPLIER
+    public partial class DUOJU_SUPPLIERS
     {
-        public DUOJU_SUPPLIER()
+        public DUOJU_SUPPLIERS()
         {
+            this.DUOJU_PARTIES = new HashSet<DUOJU_PARTIES>();
+            this.DUOJU_PARTY_COMMENTS = new HashSet<DUOJU_PARTY_COMMENTS>();
             this.DUOJU_SUPPLIER_IMAGES = new HashSet<DUOJU_SUPPLIER_IMAGES>();
-            this.DUOJU_SUPPLIERINFO = new HashSet<DUOJU_SUPPLIERINFO>();
+            this.DUOJU_SUPPLIER_INFOS = new HashSet<DUOJU_SUPPLIER_INFOS>();
         }
     
         public int SUPPLIER_ID { get; set; }
-        public Nullable<int> PROVINCE_ID { get; set; }
-        public Nullable<int> CITY_ID { get; set; }
         public string NAME { get; set; }
         public string ADDRESS { get; set; }
         public string TELPHONE { get; set; }
@@ -30,16 +30,20 @@ namespace DUOJU.Domain.Entities
         public string EMAIL { get; set; }
         public string QQ { get; set; }
         public string WEBSITE { get; set; }
-        public Nullable<decimal> LONGITUDE { get; set; }
-        public Nullable<decimal> LATITUDE { get; set; }
+        public Nullable<int> PROVINCE_ID { get; set; }
+        public Nullable<int> CITY_ID { get; set; }
+        public Nullable<double> LONGITUDE { get; set; }
+        public Nullable<double> LATITUDE { get; set; }
         public int CREATE_BY { get; set; }
         public System.DateTime CREATE_TIME { get; set; }
         public int LAST_UPDATE_BY { get; set; }
         public System.DateTime LAST_UPDATE_TIME { get; set; }
     
         public virtual DUOJU_CITIES DUOJU_CITIES { get; set; }
+        public virtual ICollection<DUOJU_PARTIES> DUOJU_PARTIES { get; set; }
+        public virtual ICollection<DUOJU_PARTY_COMMENTS> DUOJU_PARTY_COMMENTS { get; set; }
         public virtual DUOJU_PROVINCES DUOJU_PROVINCES { get; set; }
         public virtual ICollection<DUOJU_SUPPLIER_IMAGES> DUOJU_SUPPLIER_IMAGES { get; set; }
-        public virtual ICollection<DUOJU_SUPPLIERINFO> DUOJU_SUPPLIERINFO { get; set; }
+        public virtual ICollection<DUOJU_SUPPLIER_INFOS> DUOJU_SUPPLIER_INFOS { get; set; }
     }
 }

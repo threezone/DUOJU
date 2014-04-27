@@ -29,8 +29,9 @@ namespace DUOJU.Domain.Entities
         public System.DateTime CREATE_TIME { get; set; }
         public int LAST_UPDATE_BY { get; set; }
         public System.DateTime LAST_UPDATE_TIME { get; set; }
+        public int IMAGE_CATEGORY_ID { get; set; }
     
-        public virtual DUOJU_IMAGECATEGORY DUOJU_IMAGECATEGORY { get; set; }
         public virtual ICollection<DUOJU_SUPPLIER_IMAGES> DUOJU_SUPPLIER_IMAGES { get; set; }
+        public virtual DUOJU_IMAGE_CATEGORIES DUOJU_IMAGE_CATEGORIES { get; set; }
     }
 }

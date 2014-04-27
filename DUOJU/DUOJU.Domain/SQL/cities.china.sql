@@ -1,3 +1,4 @@
+use DUOJU
 insert into DUOJU$CITIES (PROVINCE_ID, CITY_NAME, CITY_NAME_CN) select PROVINCE_ID, 'Anqing', '°²Çì' from DUOJU$PROVINCES where PROVINCE_NAME = 'Anhui'
 insert into DUOJU$CITIES (PROVINCE_ID, CITY_NAME, CITY_NAME_CN) select PROVINCE_ID, 'Bengbu', '°ö²º' from DUOJU$PROVINCES where PROVINCE_NAME = 'Anhui'
 insert into DUOJU$CITIES (PROVINCE_ID, CITY_NAME, CITY_NAME_CN) select PROVINCE_ID, 'Bozhou', 'ÙñÖÝ' from DUOJU$PROVINCES where PROVINCE_NAME = 'Anhui'

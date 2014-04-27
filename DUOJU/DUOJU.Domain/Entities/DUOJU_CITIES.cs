@@ -17,7 +17,7 @@ namespace DUOJU.Domain.Entities
         public DUOJU_CITIES()
         {
             this.DUOJU_USERS = new HashSet<DUOJU_USERS>();
-            this.DUOJU_SUPPLIER = new HashSet<DUOJU_SUPPLIER>();
+            this.DUOJU_SUPPLIERS = new HashSet<DUOJU_SUPPLIERS>();
         }
     
         public int CITY_ID { get; set; }
@@ -31,6 +31,6 @@ namespace DUOJU.Domain.Entities
         public virtual DUOJU_COUNTRIES DUOJU_COUNTRIES { get; set; }
         public virtual DUOJU_PROVINCES DUOJU_PROVINCES { get; set; }
         public virtual ICollection<DUOJU_USERS> DUOJU_USERS { get; set; }
-        public virtual ICollection<DUOJU_SUPPLIER> DUOJU_SUPPLIER { get; set; }
+        public virtual ICollection<DUOJU_SUPPLIERS> DUOJU_SUPPLIERS { get; set; }
     }
 }

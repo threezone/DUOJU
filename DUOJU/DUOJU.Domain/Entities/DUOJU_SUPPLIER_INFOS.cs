@@ -12,21 +12,21 @@ namespace DUOJU.Domain.Entities
     using System;
     using System.Collections.Generic;
     
-    public partial class DUOJU_SUPPLIERINFO
+    public partial class DUOJU_SUPPLIER_INFOS
     {
-        public int SUPPLIERINFO_ID { get; set; }
+        public int SUPPLIER_INFO_ID { get; set; }
         public int SUPPLIER_ID { get; set; }
-        public string MAINTITLE { get; set; }
+        public string MAIN_TITLE { get; set; }
         public string SUBTITLE { get; set; }
-        public Nullable<int> VIEWCOUNT { get; set; }
-        public Nullable<int> PARTYCOUNT { get; set; }
-        public Nullable<int> FAVOURCOUNT { get; set; }
+        public Nullable<int> VIEW_COUNT { get; set; }
+        public Nullable<int> PARTY_COUNT { get; set; }
+        public Nullable<int> FAVOUR_COUNT { get; set; }
         public string CONTENT { get; set; }
         public int CREATE_BY { get; set; }
         public System.DateTime CREATE_TIME { get; set; }
         public int LAST_UPDATE_BY { get; set; }
         public System.DateTime LAST_UPDATE_TIME { get; set; }
     
-        public virtual DUOJU_SUPPLIER DUOJU_SUPPLIER { get; set; }
+        public virtual DUOJU_SUPPLIERS DUOJU_SUPPLIERS { get; set; }
     }
 }

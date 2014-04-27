@@ -12,14 +12,14 @@ namespace DUOJU.Domain.Entities
     using System;
     using System.Collections.Generic;
     
-    public partial class DUOJU_IMAGECATEGORY
+    public partial class DUOJU_IMAGE_CATEGORIES
     {
-        public DUOJU_IMAGECATEGORY()
+        public DUOJU_IMAGE_CATEGORIES()
         {
             this.DUOJU_IMAGES = new HashSet<DUOJU_IMAGES>();
         }
     
-        public int IMAGECATEGORY_ID { get; set; }
+        public int IMAGE_CATEGORY_ID { get; set; }
         public string DESCRIPTION { get; set; }
         public int CREATE_BY { get; set; }
         public System.DateTime CREATE_TIME { get; set; }

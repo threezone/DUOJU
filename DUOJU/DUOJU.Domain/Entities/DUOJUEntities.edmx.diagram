@@ -5,11 +5,11 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="9da03a441af14c4ab6cde0ba1f77d88a" Name="Diagram" ZoomLevel="64">
-        <EntityTypeShape EntityType="DUOJUModel.DUOJU_CITIES" Width="1.5" PointX="5.25" PointY="6.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="DUOJUModel.DUOJU_COUNTRIES" Width="1.5" PointX="0.75" PointY="4.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="DUOJUModel.DUOJU_PROVINCES" Width="1.5" PointX="3" PointY="8.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="DUOJUModel.DUOJU_ROLE_PRIVILEGES" Width="1.5" PointX="5.25" PointY="2.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DUOJUModel.DUOJU_USERS" Width="1.5" PointX="7.5" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DUOJUModel.DUOJU_CITIES" Width="1.5" PointX="4.25" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DUOJUModel.DUOJU_COUNTRIES" Width="1.5" PointX="0.5" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DUOJUModel.DUOJU_PROVINCES" Width="1.5" PointX="2.375" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DUOJUModel.DUOJU_ROLE_PRIVILEGES" Width="1.5" PointX="6.125" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DUOJUModel.DUOJU_USERS" Width="1.5" PointX="8.875" PointY="5.125" IsExpanded="true" />
         <AssociationConnector Association="DUOJUModel.FK__DUOJU_CIT__COUNT__0DAF0CB0" ManuallyRouted="false" />
         <AssociationConnector Association="DUOJUModel.FK__DUOJU_CIT__PROVI__0EA330E9" ManuallyRouted="false" />
         <AssociationConnector Association="DUOJUModel.FK__DUOJU_USE__CITY___21B6055D" ManuallyRouted="false" />
@@ -17,31 +17,39 @@
         <AssociationConnector Association="DUOJUModel.FK__DUOJU_USE__COUNT__1FCDBCEB" ManuallyRouted="false" />
         <AssociationConnector Association="DUOJUModel.FK__DUOJU_USE__PROVI__20C1E124" ManuallyRouted="false" />
         <AssociationConnector Association="DUOJUModel.FK__DUOJU_USER__ROLE__1CF15040" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="DUOJUModel.DUOJU_PARTIES" Width="1.5" PointX="9.75" PointY="10.125" />
-        <EntityTypeShape EntityType="DUOJUModel.DUOJU_PARTY_COMMENTS" Width="1.5" PointX="15" PointY="7.875" />
-        <EntityTypeShape EntityType="DUOJUModel.DUOJU_PARTY_PARTICIPANTS" Width="1.5" PointX="12" PointY="7.875" />
+        <EntityTypeShape EntityType="DUOJUModel.DUOJU_PARTIES" Width="1.5" PointX="5.875" PointY="12" />
+        <EntityTypeShape EntityType="DUOJUModel.DUOJU_PARTY_COMMENTS" Width="1.5" PointX="9.875" PointY="12" />
+        <EntityTypeShape EntityType="DUOJUModel.DUOJU_PARTY_PARTICIPANTS" Width="1.5" PointX="7.875" PointY="12" />
         <AssociationConnector Association="DUOJUModel.FK__DUOJU_PAR__INITI__66603565" />
         <AssociationConnector Association="DUOJUModel.FK__DUOJU_PAR__PARTY__72C60C4A" />
         <AssociationConnector Association="DUOJUModel.FK__DUOJU_PAR__PARTY__7D439ABD" />
         <AssociationConnector Association="DUOJUModel.FK__DUOJU_PAR__USER___7E37BEF6" />
         <AssociationConnector Association="DUOJUModel.FK__DUOJU_PAR__PARTI__73BA3083" />
-        <EntityTypeShape EntityType="DUOJUModel.DUOJU_IDENTIFIERS" Width="1.5" PointX="7.5" PointY="12.25" />
-        <EntityTypeShape EntityType="DUOJUModel.DUOJU_USER_FINANCES" Width="1.5" PointX="9.75" PointY="5.875" />
+        <EntityTypeShape EntityType="DUOJUModel.DUOJU_IDENTIFIERS" Width="1.5" PointX="12" PointY="1.125" />
+        <EntityTypeShape EntityType="DUOJUModel.DUOJU_USER_FINANCES" Width="1.5" PointX="10.75" PointY="5.125" />
         <AssociationConnector Association="DUOJUModel.FK__DUOJU_PAR__CONSU__5DCAEF64" />
         <AssociationConnector Association="DUOJUModel.FK__DUOJU_USE__USER___32E0915F" />
-        <EntityTypeShape EntityType="DUOJUModel.DUOJU_IDENTIFIER_SETTINGS" Width="1.5" PointX="9.75" PointY="15.5" />
+        <EntityTypeShape EntityType="DUOJUModel.DUOJU_IDENTIFIER_SETTINGS" Width="1.5" PointX="14" PointY="1.125" />
         <AssociationConnector Association="DUOJUModel.FK__DUOJU_IDE__IDENT__6754599E" />
-        <EntityTypeShape EntityType="DUOJUModel.DUOJU_IMAGECATEGORY" Width="1.5" PointX="13.25" PointY="12.5" />
-        <EntityTypeShape EntityType="DUOJUModel.DUOJU_IMAGES" Width="1.5" PointX="15.5" PointY="12" />
-        <EntityTypeShape EntityType="DUOJUModel.DUOJU_SUPPLIER" Width="1.5" PointX="12.5" PointY="2.25" />
-        <EntityTypeShape EntityType="DUOJUModel.DUOJU_SUPPLIER_IMAGES" Width="1.5" PointX="17.75" PointY="3.375" />
-        <EntityTypeShape EntityType="DUOJUModel.DUOJU_SUPPLIERINFO" Width="1.5" PointX="14.75" PointY="3.5" />
-        <AssociationConnector Association="DUOJUModel.FK_DUOJU_SUPPLIER_DUOJU_CITIES" />
-        <AssociationConnector Association="DUOJUModel.FK_DUOJU_IMAGES_DUOJU_IMAGECATEGORY" />
+        <EntityTypeShape EntityType="DUOJUModel.DUOJU_IMAGES" Width="1.5" PointX="10" PointY="1.125" />
+        <EntityTypeShape EntityType="DUOJUModel.DUOJU_SUPPLIER_IMAGES" Width="1.5" PointX="5.625" PointY="5.125" />
         <AssociationConnector Association="DUOJUModel.FK_DUOJU_SUPPLIER_IMAGES_DUOJU_IMAGES" />
-        <AssociationConnector Association="DUOJUModel.FK_DUOJU_SUPPLIER_DUOJU_PROVINCES" />
-        <AssociationConnector Association="DUOJUModel.FK_DUOJU_SUPPLIER_IMAGES_DUOJU_SUPPLIER" />
-        <AssociationConnector Association="DUOJUModel.FK_DUOJU_SUPPLIERINFO_DUOJU_SUPPLIER" />
+        <EntityTypeShape EntityType="DUOJUModel.DUOJU_IMAGE_CATEGORIES" Width="1.5" PointX="8" PointY="1.125" />
+        <EntityTypeShape EntityType="DUOJUModel.DUOJU_SUPPLIER_INFOS" Width="1.5" PointX="3.75" PointY="5.125" />
+        <EntityTypeShape EntityType="DUOJUModel.DUOJU_SUPPLIERS" Width="1.5" PointX="1.875" PointY="5.125" />
+        <AssociationConnector Association="DUOJUModel.FK__DUOJU_SUP__CITY___2E1BDC42" />
+        <AssociationConnector Association="DUOJUModel.FK__DUOJU_IMA__IMAGE__239E4DCF" ManuallyRouted="true" >
+          <ConnectorPoint PointX="8.7672179869438942" PointY="1.125" />
+          <ConnectorPoint PointX="8.7672179869438942" PointY="0.875" />
+          <ConnectorPoint PointX="9.75" PointY="0.875" />
+          <ConnectorPoint PointX="9.75" PointY="2.7629582050781307" />
+          <ConnectorPoint PointX="10" PointY="2.7629582050781307" />
+        </AssociationConnector>
+        <AssociationConnector Association="DUOJUModel.FK__DUOJU_PAR__SUPPL__75A278F5" />
+        <AssociationConnector Association="DUOJUModel.FK__DUOJU_PAR__SUPPL__0E6E26BF" />
+        <AssociationConnector Association="DUOJUModel.FK__DUOJU_SUP__PROVI__2D27B809" />
+        <AssociationConnector Association="DUOJUModel.FK__DUOJU_SUP__SUPPL__4222D4EF" />
+        <AssociationConnector Association="DUOJUModel.FK__DUOJU_SUP__SUPPL__36B12243" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

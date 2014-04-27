@@ -27,5 +27,6 @@ namespace DUOJU.Domain.Entities
     
         public virtual DUOJU_PARTIES DUOJU_PARTIES { get; set; }
         public virtual DUOJU_USERS DUOJU_USERS { get; set; }
+        public virtual DUOJU_SUPPLIERS DUOJU_SUPPLIERS { get; set; }
     }
 }

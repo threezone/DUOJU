@@ -1,3 +1,4 @@
+use DUOJU
 insert into DUOJU$COUNTRIES (COUNTRY_CODE, COUNTRY_NAME, COUNTRY_NAME_CN) values ('AF', 'Afghanistan', '阿富汗')
 insert into DUOJU$COUNTRIES (COUNTRY_CODE, COUNTRY_NAME, COUNTRY_NAME_CN) values ('AL', 'Albania', '阿尔巴尼亚')
 insert into DUOJU$COUNTRIES (COUNTRY_CODE, COUNTRY_NAME, COUNTRY_NAME_CN) values ('DZ', 'Algeria', '阿尔及利亚')
