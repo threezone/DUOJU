@@ -116,6 +116,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Party\CommentPartyViewModel.cs" />
     <Compile Include="Models\Party\ConfirmPartyViewModel.cs" />
     <Compile Include="Models\Party\ViewPartiesViewModel.cs" />
     <Compile Include="Models\Party\PublishPartyViewModel.cs" />
@@ -180,6 +181,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\User\MyFinances.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Party\CommentParty.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

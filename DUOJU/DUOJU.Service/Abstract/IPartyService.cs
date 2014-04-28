@@ -16,6 +16,8 @@ namespace DUOJU.Service.Abstract
 
         ConfirmPartyInfo ConfirmParty(int partyId, string openId);
 
+        int AddPartyComment(CommentPartyInfo commentInfo);
+
         IList<PartyInfo> GetPartyInfosByCreateUser(string openId);
 
         IList<PartyInfo> GetPartyInfosByParticipantUser(string openId);

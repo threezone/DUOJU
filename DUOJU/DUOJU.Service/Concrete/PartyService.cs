@@ -225,6 +225,34 @@ namespace DUOJU.Service.Concrete
             }
         }
 
+        public int AddPartyComment(CommentPartyInfo commentInfo)
+        {
+            var user = UserRepository.GetUserByOpenId(commentInfo.OpenId);
+            var party = PartyRepository.GetPartyById(commentInfo.PartyId.Value);
+
+            if (!party.DUOJU_PARTY_PARTICIPANTS.Where(i => i.STATUS == (int)PartyParticipantStatuses.PARTICIPATED).Select(i => i.PARTICIPANT_ID).Contains(user.USER_ID))
+                throw new NotParticipantException();
+            else
+            {
+                var comment = new DUOJU_PARTY_COMMENTS
+                {
+                    DUOJU_SUPPLIERS = party.DUOJU_SUPPLIERS,
+                    DUOJU_USERS = user,
+                    CONTENT = commentInfo.Content,
+                    STATUS = (int)PartyCommentStatuses.PUBLISHED,
+                    CREATE_BY = user.USER_ID,
+                    CREATE_TIME = DateTime.Now,
+                    LAST_UPDATE_BY = user.USER_ID,
+                    LAST_UPDATE_TIME = DateTime.Now
+                };
+                party.DUOJU_PARTY_COMMENTS.Add(comment);
+
+                PartyRepository.SaveChanges();
+
+                return party.PARTY_ID;
+            }
+        }
+
         public IList<PartyInfo> GetPartyInfosByCreateUser(string openId)
         {
             var infos = PartyRepository.GetPartyInfosByCreateUser(openId);

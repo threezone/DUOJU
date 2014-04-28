@@ -1,0 +1,21 @@
+﻿@model DUOJU.WECHAT.Models.Party.CommentPartyViewModel
+
+@{
+    ViewBag.Title = "CommentParty";
+}
+
+@using (Html.BeginForm())
+{
+    <dl>
+        <dt>CommentId 正常为空</dt>
+        <dd>@Html.TextBoxFor(m => m.CommentInfo.CommentId)</dd>
+        <dt>PartyId 不需要显示</dt>
+        <dd>@Html.TextBoxFor(m => m.CommentInfo.PartyId)</dd>
+        <dt>UserOpenId 不需要显示</dt>
+        <dd>@Html.TextBoxFor(m => m.CommentInfo.UserOpenId)</dd>
+        <dt>Content 必填，100字以内</dt>
+        <dd>@Html.TextAreaFor(m => m.CommentInfo.Content)</dd>
+    </dl>
+
+    <button type="submit">提交</button>
+}

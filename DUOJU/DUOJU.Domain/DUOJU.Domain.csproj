@@ -127,6 +127,7 @@
     <Compile Include="Exceptions\BasicSystemException.cs" />
     <Compile Include="Exceptions\CanNotFindPartyException.cs" />
     <Compile Include="Exceptions\CanNotFindIdentifierException.cs" />
+    <Compile Include="Exceptions\NotParticipantException.cs" />
     <Compile Include="Exceptions\PartyHasBeenConfirmedException.cs" />
     <Compile Include="Exceptions\IdentifierHasBeenExpiredException.cs" />
     <Compile Include="Exceptions\IdentifierHasBeenUsedException.cs" />
@@ -139,6 +140,7 @@
     <Compile Include="Helpers\SecurityHelper.cs" />
     <Compile Include="Models\Common\KeyValue.cs" />
     <Compile Include="Models\Party\ConfirmPartyInfo.cs" />
+    <Compile Include="Models\Party\CommentPartyInfo.cs" />
     <Compile Include="Models\Party\PartyCommentInfo.cs" />
     <Compile Include="Models\Party\PartyInfo.cs" />
     <Compile Include="Models\Party\PartyParticipateCountInfo.cs" />

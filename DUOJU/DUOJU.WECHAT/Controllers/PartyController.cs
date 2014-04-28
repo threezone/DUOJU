@@ -45,8 +45,8 @@ namespace DUOJU.WECHAT.Controllers
                     SupplierInfo = SupplierService.GetSupplierInfoById(supplierId),
                     PartyInfo = new PublishPartyInfo
                     {
-                        OpenId = accessTokenInfo.openid,
-                        SupplierId = supplierId
+                        SupplierId = supplierId,
+                        OpenId = accessTokenInfo.openid
                     }
                 };
 
@@ -155,16 +155,49 @@ namespace DUOJU.WECHAT.Controllers
         /// </summary>
         public ActionResult CommentParty(int partyId, string code, string state)
         {
-            return null;
+            if (string.IsNullOrEmpty(code))
+                return Content("无法获取当前用户信息。");
+            else
+            {
+                var accessTokenInfo = WeChatHelper.WeChat.GetWeChatAccessTokenInfo_OAuth(code);
+
+                var model = new CommentPartyViewModel
+                {
+                    CommentInfo = new CommentPartyInfo
+                    {
+                        PartyId = partyId,
+                        OpenId = accessTokenInfo.openid
+                    }
+                };
+
+                return View(model);
+            }
         }
 
         /// <summary>
         /// 评论聚会
         /// </summary>
         [HttpPost]
-        public ActionResult CommentParty(PartyCommentInfo partyCommentInfo)
+        public ActionResult CommentParty(CommentPartyInfo commentInfo)
         {
-            return null;
+            string json;
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    PartyService.AddPartyComment(commentInfo);
+
+                    return RedirectToAction("ViewParty", new { partyId = commentInfo.PartyId, isCreate = true });
+                }
+                catch (BasicSystemException ex)
+                {
+                    json = JsonHelper.GetJsonForFail(ex.ToLocalize());
+                }
+            }
+            else
+                json = JsonHelper.GetJsonForFail(ModelValidationHelper.GetServSideValidErrorMsg(ModelState));
+
+            return Content(json);
         }
 
 

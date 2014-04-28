@@ -45,9 +45,6 @@ namespace DUOJU.Dao.Concrete
                     select new PartyCommentInfo
                     {
                         CommentId = pc.PARTY_COMMENT_ID,
-                        SupplierId = pc.SUPPLIER_ID,
-                        PartyId = pc.PARTY_ID,
-                        UserId = pc.USER_ID,
                         UserNickName = pc.DUOJU_USERS.NICK_NAME,
                         Content = pc.CONTENT,
                         Status = pc.STATUS,
